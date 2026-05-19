@@ -20,7 +20,7 @@ export default function IntroOverlay({
   staggerMs = 140,
   letterDurationMs = 500,
   holdMs = 350,
-  exitDurationMs = 800,
+  exitDurationMs = 1600,
   onComplete,
 }: IntroOverlayProps) {
   const [stage, setStage] = useState<Stage>("assembling");
@@ -43,17 +43,23 @@ export default function IntroOverlay({
     setStage("exiting");
     stageRef.current = "exiting";
 
-    // Backdrop slides up; wordmark fades 200ms before end
-    backdropCtrl.start({
-      y: "-100%",
-      transition: { duration: exitDurationMs / 1000, ease: [0.22, 1, 0.36, 1] },
-    });
+    // Wordmark fades out during the black→white phase (~900ms)
     wordmarkCtrl.start({
       opacity: 0,
-      transition: { delay: (exitDurationMs - 200) / 1000, duration: 0.2, ease: "linear" },
+      transition: { duration: 0.9, ease: [0.45, 0, 0.55, 1] },
     });
 
-    await new Promise<void>((r) => setTimeout(r, exitDurationMs));
+    // Backdrop: black → white (45%) → hold white (60%) → fade to transparent (100%)
+    await backdropCtrl.start({
+      backgroundColor: ["#000000", "#ffffff", "#ffffff", "#ffffff"],
+      opacity: [1, 1, 1, 0],
+      transition: {
+        duration: exitDurationMs / 1000,
+        times: [0, 0.45, 0.60, 1.0],
+        ease: [0.45, 0, 0.55, 1],
+      },
+    });
+
     onComplete();
   }, [backdropCtrl, wordmarkCtrl, exitDurationMs, onComplete]);
 
@@ -97,16 +103,14 @@ export default function IntroOverlay({
         {brand}, portfolio loading
       </div>
 
-      {/* Black backdrop — slides up during exit */}
+      {/* Backdrop — cross-fades black → white → transparent on exit */}
       <motion.div
-        initial={{ y: 0 }}
+        initial={{ backgroundColor: "#000000", opacity: 1 }}
         animate={backdropCtrl}
         style={{
           position: "fixed",
           inset: 0,
-          background: "#000000",
           zIndex: 100,
-          willChange: "transform",
         }}
       />
 

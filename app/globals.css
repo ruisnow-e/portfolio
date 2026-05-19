@@ -37,3 +37,16 @@ button:focus-visible {
 .no-scrollbar {
   scrollbar-width: none;
 }
+
+/* Film page light theme override */
+.film-page {
+  background: #ffffff;
+  color: #000000;
+}
+
+/* Respect reduced motion for film transitions */
+@media (prefers-reduced-motion: reduce) {
+  .film-cover {
+    transition: none !important;
+  }
+}

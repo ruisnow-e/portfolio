@@ -12,6 +12,7 @@ interface Particle {
   wobbleAngle: number;
   wobbleSpeed: number;
   exploding: boolean;
+  explodeAge: number;
   evx: number;
   evy: number;
   currentOp: number;
@@ -73,6 +74,7 @@ export default function SmokeBackground({
         wobbleAngle: Math.random() * Math.PI * 2,
         wobbleSpeed: 0.006 + Math.random() * 0.010,
         exploding: false,
+        explodeAge: 0,
         evx: 0,
         evy: 0,
         currentOp: 0,
@@ -86,12 +88,13 @@ export default function SmokeBackground({
     }
 
     function triggerExplosion() {
-      const cx = getWordmarkCX();
-      const cy = H * 0.5;
       for (const p of particles) {
+        // Angle-based scatter — spreads across the full screen
+        const angle = Math.atan2(p.y - H * 0.5, p.x - getWordmarkCX()) + (Math.random() - 0.5) * 1.2;
+        const speed = 4 + Math.random() * 7;
+        p.evx = Math.cos(angle) * speed;
+        p.evy = Math.sin(angle) * speed;
         p.exploding = true;
-        p.evx = (p.x - cx) * 0.04 + (Math.random() - 0.5) * 6;
-        p.evy = (p.y - cy) * 0.04 + (Math.random() - 0.5) * 6;
       }
     }
 
@@ -116,11 +119,13 @@ export default function SmokeBackground({
         p.age++;
 
         if (p.exploding) {
+          p.explodeAge++;
           p.x += p.evx;
           p.y += p.evy;
-          p.evx *= 0.97;
-          p.evy *= 0.97;
-          p.currentOp -= 0.008;
+          p.evx *= 0.96;
+          p.evy *= 0.96;
+          // Hold for 2s (120 frames), then fade slowly over ~2s
+          if (p.explodeAge > 120) p.currentOp -= 0.003;
           if (
             p.currentOp <= 0 ||
             p.x < -400 || p.x > W + 400 ||
@@ -134,8 +139,11 @@ export default function SmokeBackground({
           p.x += Math.sin(p.wobbleAngle) * 0.55;
           p.y += p.vy;
 
-          const fadeIn = Math.min(p.age / 25, 1);
-          p.currentOp = 0.11 * fadeIn;
+          const fadeIn  = Math.min(p.age / 25, 1);
+          const fadeOut = p.y > H * 0.75
+            ? Math.max(0.18, 1 - (p.y - H * 0.75) / (H * 0.25) * 0.82)
+            : 1;
+          p.currentOp = 0.22 * fadeIn * fadeOut;
 
           if (p.y > H + 380) {
             particles.splice(i, 1);
@@ -143,8 +151,7 @@ export default function SmokeBackground({
           }
         }
 
-        const t = Math.min(p.age / p.maxAge, 1);
-        const r = 25 + (160 - 25) * t;
+        const r = 85 + Math.sin(p.wobbleAngle * 0.3) * 8;
         const op = p.currentOp;
 
         const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r);
