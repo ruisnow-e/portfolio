@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+@media (hover: hover) and (pointer: fine) {
+  *, *::before, *::after { cursor: none !important; }
+}
+
 html,
 body {
   background: #0A0908;
@@ -17,6 +21,13 @@ body {
 button:focus-visible {
   outline: 1px solid rgba(245, 242, 236, 0.5);
   outline-offset: 4px;
+}
+
+/* Role title links — focus-visible outline */
+.role-link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+  border-radius: 2px;
 }
 
 /* Hide scrollbar but keep functionality on filter pills if they overflow */

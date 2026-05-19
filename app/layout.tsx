@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Instrument_Serif, JetBrains_Mono, Inter } from "next/font/google";
 import "./globals.css";
+import CursorTrail from "./components/CursorTrail";
 
 const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -22,6 +23,13 @@ const jetbrains = JetBrains_Mono({
   display: "swap",
 });
 
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  weight: ["400"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Rui Snow",
   description:
@@ -32,9 +40,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${bricolage.variable} ${instrument.variable} ${jetbrains.variable}`}
+      className={`${bricolage.variable} ${instrument.variable} ${jetbrains.variable} ${inter.variable}`}
     >
-      <body className="bg-ink text-bone antialiased font-display">{children}</body>
+      <body className="bg-ink text-bone antialiased font-display">
+        {children}
+        <CursorTrail />
+      </body>
     </html>
   );
 }
