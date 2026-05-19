@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  background: #0A0908;
+  color: #F5F2EC;
+}
+
+::selection {
+  background: #F5F2EC;
+  color: #0A0908;
+}
+
+/* Remove default focus outlines on buttons we style ourselves */
+button:focus-visible {
+  outline: 1px solid rgba(245, 242, 236, 0.5);
+  outline-offset: 4px;
+}
+
+/* Hide scrollbar but keep functionality on filter pills if they overflow */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
