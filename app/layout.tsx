@@ -1,32 +1,12 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Instrument_Serif, JetBrains_Mono, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import CursorTrail from "./components/CursorTrail";
-
-const bricolage = Bricolage_Grotesque({
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const instrument = Instrument_Serif({
-  weight: "400",
-  style: ["normal", "italic"],
-  subsets: ["latin"],
-  variable: "--font-serif",
-  display: "swap",
-});
-
-const jetbrains = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
-});
+import { PageTransitionProvider } from "./components/PageTransition";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-  weight: ["400"],
+  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -38,13 +18,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${bricolage.variable} ${instrument.variable} ${jetbrains.variable} ${inter.variable}`}
-    >
-      <body className="bg-ink text-bone antialiased font-display">
-        {children}
-        <CursorTrail />
+    <html lang="en" className={inter.variable}>
+      <body className="bg-ink text-bone antialiased" style={{ fontFamily: "var(--font-inter, Inter, system-ui, sans-serif)" }}>
+        <PageTransitionProvider>
+          {children}
+        </PageTransitionProvider>
       </body>
     </html>
   );

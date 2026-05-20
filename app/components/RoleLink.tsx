@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { usePageNavigate } from "./PageTransition";
 
 type RoleLinkProps = {
   href: string;
@@ -13,20 +13,26 @@ export default function RoleLink({ href, label }: RoleLinkProps) {
   const [hovered, setHovered] = useState(false);
   const [origin, setOrigin] = useState<"right" | "left">("right");
   const prefersReducedMotion = useReducedMotion();
+  const navigate = usePageNavigate();
 
   const enter = () => {
     if (typeof window !== "undefined" && !window.matchMedia("(hover: hover)").matches) return;
-    setOrigin("left");   // sweep in from the left
+    setOrigin("left");
     setHovered(true);
   };
 
   const leave = () => {
-    setOrigin("right");  // sweep out to the right
+    setOrigin("right");
     setHovered(false);
   };
 
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    navigate(href);
+  };
+
   return (
-    <Link
+    <a
       href={href}
       className="role-link"
       style={{ position: "relative", display: "inline-block", color: "inherit", textDecoration: "none", cursor: "pointer" }}
@@ -34,6 +40,7 @@ export default function RoleLink({ href, label }: RoleLinkProps) {
       onMouseLeave={leave}
       onFocus={enter}
       onBlur={leave}
+      onClick={handleClick}
     >
       {label}
       <motion.span
@@ -56,6 +63,6 @@ export default function RoleLink({ href, label }: RoleLinkProps) {
           display: "block",
         }}
       />
-    </Link>
+    </a>
   );
 }

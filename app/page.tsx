@@ -1,14 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Hero from "./components/Hero";
 import IntroOverlay from "./components/IntroOverlay";
+import CursorTrail from "./components/CursorTrail";
 import { useShouldPlayIntro } from "./hooks/useShouldPlayIntro";
 
 export default function Home() {
   const shouldPlay = useShouldPlayIntro();
   const [introDone, setIntroDone] = useState(false);
   const showOverlay = shouldPlay && !introDone;
+
+  useEffect(() => {
+    document.body.classList.add("hide-cursor");
+    return () => document.body.classList.remove("hide-cursor");
+  }, []);
 
   return (
     <>
@@ -24,6 +30,7 @@ export default function Home() {
           }}
         />
       )}
+      <CursorTrail />
     </>
   );
 }

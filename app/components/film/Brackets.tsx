@@ -14,9 +14,9 @@ export default function Brackets() {
         pointerEvents: 'none',
       }}
     >
-      {/* Left bracket */}
+      {/* Left bracket [ */}
       <svg
-        viewBox="0 0 50 360"
+        viewBox="0 0 50 220"
         aria-hidden="true"
         style={{
           position: 'absolute',
@@ -30,14 +30,14 @@ export default function Brackets() {
         }}
       >
         <path
-          d="M 0 0 L 50 0 L 50 36 C 4 75, 4 285, 50 324 L 50 360 L 0 360 Z"
+          d="M 0 0 L 50 0 L 50 22 C 4 46, 4 174, 50 198 L 50 220 L 0 220 Z"
           fill="currentColor"
         />
       </svg>
 
-      {/* Right bracket */}
+      {/* Right bracket ] */}
       <svg
-        viewBox="0 0 50 360"
+        viewBox="0 0 50 220"
         aria-hidden="true"
         style={{
           position: 'absolute',
@@ -51,7 +51,7 @@ export default function Brackets() {
         }}
       >
         <path
-          d="M 50 0 L 0 0 L 0 36 C 46 75, 46 285, 0 324 L 0 360 L 50 360 Z"
+          d="M 50 0 L 0 0 L 0 22 C 46 46, 46 174, 0 198 L 0 220 L 50 220 Z"
           fill="currentColor"
         />
       </svg>

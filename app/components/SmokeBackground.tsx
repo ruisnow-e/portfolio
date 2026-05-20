@@ -64,9 +64,12 @@ export default function SmokeBackground({
 
     function makeParticle(age = 0): Particle {
       const cx = getWordmarkCX();
+      const fontSize = W < 768
+        ? Math.min(130, Math.max(56, W * 0.22))
+        : Math.min(360, Math.max(110, W * 0.24));
       const vy = 0.7 + Math.random() * 0.6;
       return {
-        x: cx + (Math.random() - 0.5) * 100,
+        x: cx + (Math.random() - 0.5) * fontSize * 1.1,
         y: -30 + vy * age,
         vy,
         age,

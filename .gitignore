@@ -33,3 +33,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# large media / source assets
+sources/
+public/films/*.mov
+public/films/*.mp4
+public/dance/*.mov
+public/dance/*.mp4

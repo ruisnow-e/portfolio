@@ -1,10 +1,9 @@
 'use client';
 
-import Link from 'next/link';
-import { useLiveClock } from '@/app/hooks/useLiveClock';
+import { usePageNavigate } from '@/app/components/PageTransition';
 
 export default function TopBar() {
-  const clock = useLiveClock();
+  const navigate = usePageNavigate();
 
   return (
     <header
@@ -14,142 +13,58 @@ export default function TopBar() {
         left: 0,
         right: 0,
         zIndex: 20,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: 'clamp(16px, 2vh, 28px) clamp(20px, 2.5vw, 40px)',
         pointerEvents: 'none',
       }}
     >
-      {/* Logo — top-left */}
-      <div
+      <a
+        href="/"
+        onClick={(e) => { e.preventDefault(); navigate('/'); }}
         style={{
-          position: 'fixed',
-          top: 'clamp(16px, 2vh, 28px)',
-          left: 'clamp(20px, 2.5vw, 40px)',
+          fontSize: '18px',
+          fontWeight: 500,
+          letterSpacing: '-0.02em',
+          color: '#0a0a0a',
+          textDecoration: 'none',
+          fontFamily: 'var(--font-inter, Inter, system-ui, sans-serif)',
+          lineHeight: 1,
+          display: 'inline-block',
           pointerEvents: 'auto',
+          cursor: 'pointer',
         }}
+        onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.textDecoration = 'underline'; (e.currentTarget as HTMLAnchorElement).style.textUnderlineOffset = '3px'; }}
+        onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.textDecoration = 'none'; }}
       >
-        <Link
-          href="/"
-          style={{
-            fontSize: 'clamp(40px, 5vw, 72px)',
-            fontWeight: 500,
-            letterSpacing: '-0.04em',
-            color: '#000000',
-            textDecoration: 'none',
-            fontFamily: 'var(--font-inter, Inter, system-ui, sans-serif)',
-            lineHeight: 1,
-            display: 'inline-block',
-          }}
-        >
-          snow
-          <sup
-            style={{
-              fontSize: '0.32em',
-              verticalAlign: '1em',
-              letterSpacing: 0,
-            }}
-          >
-            ®
-          </sup>
-        </Link>
-      </div>
+        SNOW
+        <sup style={{ fontSize: '0.32em', verticalAlign: '1em', letterSpacing: 0 }}>®</sup>
+        {' FILM'}
+      </a>
 
-      {/* Right block — top-right */}
-      <div
+      <a
+        href="/contact"
+        onClick={(e) => { e.preventDefault(); navigate('/contact'); }}
         style={{
-          position: 'fixed',
-          top: 'clamp(16px, 2vh, 28px)',
-          right: 'clamp(20px, 2.5vw, 40px)',
+          fontSize: 'clamp(10px, 1vw, 12px)',
+          letterSpacing: '0.1em',
+          color: '#0a0a0a',
+          textDecoration: 'none',
           pointerEvents: 'auto',
           fontFamily: 'var(--font-inter, Inter, system-ui, sans-serif)',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '6px',
-          alignItems: 'flex-end',
+          cursor: 'pointer',
+        }}
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLAnchorElement).style.textDecoration = 'underline';
+          (e.currentTarget as HTMLAnchorElement).style.textUnderlineOffset = '3px';
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLAnchorElement).style.textDecoration = 'none';
         }}
       >
-        {/* Row 1: nav */}
-        <nav
-          style={{
-            display: 'flex',
-            gap: '20px',
-            alignItems: 'center',
-            fontSize: '14px',
-          }}
-        >
-          <Link
-            href="/work"
-            style={{
-              color: '#000000',
-              textDecoration: 'underline',
-              textUnderlineOffset: '3px',
-              fontFamily: 'inherit',
-            }}
-          >
-            Work,
-          </Link>
-          <Link
-            href="/about"
-            style={{
-              color: '#888888',
-              textDecoration: 'none',
-              fontFamily: 'inherit',
-            }}
-          >
-            About
-          </Link>
-          {clock && (
-            <span
-              style={{
-                fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)',
-                fontSize: '13px',
-                color: '#888888',
-                letterSpacing: '-0.02em',
-              }}
-            >
-              {clock}
-            </span>
-          )}
-          <Link
-            href="/contact"
-            style={{
-              color: '#888888',
-              textDecoration: 'none',
-              fontFamily: 'inherit',
-            }}
-          >
-            Contact
-          </Link>
-        </nav>
-
-        {/* Row 2: tagline */}
-        <p
-          style={{
-            maxWidth: '320px',
-            fontSize: '13px',
-            color: '#1a1a1a',
-            lineHeight: 1.55,
-            textAlign: 'right',
-            margin: 0,
-          }}
-        >
-          Films exploring memory, body, and rupture. Each piece is a personal
-          study in how cinema can hold what language can&#39;t.
-        </p>
-
-        {/* Row 3: contact */}
-        <p style={{ margin: 0, fontSize: '13px', color: '#555555' }}>
-          <span style={{ color: '#555555' }}>Contact: </span>
-          <a
-            href="mailto:song.r1@northeastern.edu"
-            style={{
-              color: '#000000',
-              textDecoration: 'underline',
-              textUnderlineOffset: '3px',
-            }}
-          >
-            song.r1@northeastern.edu
-          </a>
-        </p>
-      </div>
+        CONTACT ↗
+      </a>
     </header>
   );
 }

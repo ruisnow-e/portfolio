@@ -20,14 +20,21 @@ export interface FilmsStripHandle {
 
 interface FilmsStripProps {
   onLockChange: (idx: number) => void;
+  onProgress?: (frac: number) => void;
+  onLockedClick?: () => void;
 }
 
 const FilmsStrip = forwardRef<FilmsStripHandle, FilmsStripProps>(
-  function FilmsStrip({ onLockChange }, ref) {
+  function FilmsStrip({ onLockChange, onProgress, onLockedClick }, ref) {
+    const onProgressRef = useRef(onProgress);
+    useEffect(() => { onProgressRef.current = onProgress; }, [onProgress]);
     const stripRef = useRef<HTMLDivElement>(null);
     const [lockedIdx, setLockedIdx] = useState(0);
     const rafRef = useRef<number | null>(null);
     const baseScrollRef = useRef<number>(0);
+    const snapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const isSnappingRef = useRef(false);
+    const snapAnimRef = useRef<number | null>(null);
     const repeated = useMemo(
       () => Array.from({ length: REPEAT }).flatMap(() => films),
       []
@@ -53,6 +60,48 @@ const FilmsStrip = forwardRef<FilmsStripHandle, FilmsStripProps>(
       onLockChange(actual);
     }, [onLockChange]);
 
+    const smoothScrollTo = useCallback((targetY: number) => {
+      if (snapAnimRef.current) cancelAnimationFrame(snapAnimRef.current);
+      const startY = window.scrollY;
+      const dist = targetY - startY;
+      if (Math.abs(dist) < 2) return;
+      const duration = 1100;
+      const t0 = performance.now();
+      isSnappingRef.current = true;
+      const step = (now: number) => {
+        const t = Math.min((now - t0) / duration, 1);
+        const ease = t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+        window.scrollTo(0, startY + dist * ease);
+        if (t < 1) {
+          snapAnimRef.current = requestAnimationFrame(step);
+        } else {
+          isSnappingRef.current = false;
+          snapAnimRef.current = null;
+        }
+      };
+      snapAnimRef.current = requestAnimationFrame(step);
+    }, []);
+
+    const snapToNearest = useCallback(() => {
+      if (!stripRef.current || isSnappingRef.current) return;
+      const works = stripRef.current.querySelectorAll<HTMLElement>('.film-work');
+      const center = window.innerHeight / 2;
+      let best: HTMLElement | null = null;
+      let minDist = Infinity;
+      works.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        const dist = Math.abs(rect.top + rect.height / 2 - center);
+        if (dist < minDist) { minDist = dist; best = el; }
+      });
+      if (!best || minDist < 4) return;
+      const targetY = (best as HTMLElement).offsetTop + (best as HTMLElement).offsetHeight / 2 - window.innerHeight / 2;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        window.scrollTo({ top: targetY, behavior: 'auto' });
+      } else {
+        smoothScrollTo(targetY);
+      }
+    }, [smoothScrollTo]);
+
     useEffect(() => {
       if (typeof window === 'undefined') return;
       history.scrollRestoration = 'manual';
@@ -62,7 +111,7 @@ const FilmsStrip = forwardRef<FilmsStripHandle, FilmsStripProps>(
           if (!stripRef.current) return;
           const works =
             stripRef.current.querySelectorAll<HTMLElement>('.film-work');
-          const firstCopyB = works[films.length]; // index 6 = start of copy B
+          const firstCopyB = works[films.length];
           if (!firstCopyB) return;
           const targetY =
             firstCopyB.offsetTop +
@@ -77,6 +126,11 @@ const FilmsStrip = forwardRef<FilmsStripHandle, FilmsStripProps>(
       init();
 
       const onScroll = () => {
+        if (!isSnappingRef.current) {
+          if (snapTimerRef.current) clearTimeout(snapTimerRef.current);
+          snapTimerRef.current = setTimeout(snapToNearest, 600);
+        }
+
         if (rafRef.current) return;
         rafRef.current = requestAnimationFrame(() => {
           rafRef.current = null;
@@ -92,6 +146,8 @@ const FilmsStrip = forwardRef<FilmsStripHandle, FilmsStripProps>(
             window.scrollTo({ top: sy + oneSetHeight, behavior: 'auto' });
             return;
           }
+          const oneFilmH = oneSetHeight / films.length;
+          onProgressRef.current?.((sy - base) / oneFilmH);
           updateLocked();
         });
       };
@@ -103,8 +159,10 @@ const FilmsStrip = forwardRef<FilmsStripHandle, FilmsStripProps>(
           cancelAnimationFrame(rafRef.current);
           rafRef.current = null;
         }
+        if (snapTimerRef.current) clearTimeout(snapTimerRef.current);
+        if (snapAnimRef.current) cancelAnimationFrame(snapAnimRef.current);
       };
-    }, [updateLocked]);
+    }, [updateLocked, snapToNearest]);
 
     const handleListClick = useCallback(
       (targetFilmIdx: number) => {
@@ -128,16 +186,16 @@ const FilmsStrip = forwardRef<FilmsStripHandle, FilmsStripProps>(
         const targetY =
           closest.offsetTop + closest.offsetHeight / 2 - window.innerHeight / 2;
 
-        // Respect prefers-reduced-motion
         const reduced =
           typeof window !== 'undefined' &&
           window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        window.scrollTo({
-          top: targetY,
-          behavior: reduced ? 'auto' : 'smooth',
-        });
+        if (reduced) {
+          window.scrollTo({ top: targetY, behavior: 'auto' });
+        } else {
+          smoothScrollTo(targetY);
+        }
       },
-      []
+      [smoothScrollTo]
     );
 
     useImperativeHandle(ref, () => ({ handleListClick }), [handleListClick]);
@@ -162,6 +220,7 @@ const FilmsStrip = forwardRef<FilmsStripHandle, FilmsStripProps>(
               filmIdx={filmIdx}
               copyIdx={copyIdx}
               isLocked={isLocked}
+              onLockedClick={isLocked ? onLockedClick : undefined}
             />
           );
         })}

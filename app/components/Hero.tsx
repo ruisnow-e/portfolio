@@ -6,18 +6,20 @@ import SmokeBackground from "./SmokeBackground";
 
 const INSET_X = "clamp(56px, 10vw, 180px)";
 const INSET_Y = "clamp(28px, 4.5vh, 56px)";
+const EDGE_X = "clamp(20px, 2.5vw, 36px)";
+const EDGE_Y = "clamp(14px, 1.8vh, 22px)";
 
 const DEFAULTS = {
   brand: "snow",
   trademark: "®",
   roles: [
-    { label: "Creative AI MLE", href: "/work/creative-ai" },
+    { label: "Engineer", href: "/work/cs" },
     { label: "Film Director", href: "/work/film" },
-    { label: "Choreographer", href: "/work/choreography" },
+    { label: "Choreographer", href: "/work/dance" },
   ],
   tagline: "Film helps me tell stories, CS helps me build new ways to tell them.",
-  credentials: "Rui Song · Northeastern University · MS · 2027 ｜ California College of the Arts · MFA · 2025",
-  copyright: "© 2026 Snow® Studio",
+  credentials: "Northeastern University · MS · 2027 ｜ California College of the Arts · MFA · 2025\nRui Song",
+  copyright: "",
 };
 
 type HeroProps = {
@@ -36,7 +38,7 @@ const supStyle: React.CSSProperties = {
   letterSpacing: 0,
 };
 
-const monoFont = "var(--font-mono, 'JetBrains Mono', monospace)";
+const monoFont = "var(--font-inter, Inter, system-ui, sans-serif)";
 
 export default function Hero({
   brand = DEFAULTS.brand,
@@ -48,6 +50,7 @@ export default function Hero({
 }: HeroProps) {
   const [explodeCount, setExplodeCount] = useState(0);
   const triggerExplode = () => setExplodeCount((c) => c + 1);
+  const [degreeLine, nameLine] = credentials.split('\n');
 
   return (
     <section
@@ -69,6 +72,13 @@ export default function Hero({
         className="md:hidden flex flex-col"
         style={{ minHeight: "100vh", padding: "28px 24px", gap: 20 }}
       >
+        {/* Mobile top nav */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontFamily: monoFont, fontSize: 15, letterSpacing: "0.08em" }}>
+          <RoleLink href="/bio" label="Bio" />
+          <RoleLink href="/award" label="Award" />
+          <RoleLink href="/contact" label="Contact" />
+        </div>
+
         <h1
           onClick={triggerExplode}
           style={{
@@ -112,17 +122,35 @@ export default function Hero({
           <p style={{ fontSize: 15, color: "#DCDCDC", letterSpacing: "-0.005em", lineHeight: 1.5, margin: 0 }}>
             {tagline}
           </p>
-          <p style={{ fontFamily: monoFont, fontSize: "clamp(11px, 0.82vw, 13px)", color: "#777777", letterSpacing: "0.04em", lineHeight: 1.5, margin: 0 }}>
+          <p style={{ fontFamily: monoFont, fontSize: "clamp(11px, 0.82vw, 13px)", color: "#777777", letterSpacing: "0.04em", lineHeight: 1.5, margin: 0, whiteSpace: "pre-line" }}>
             {credentials}
           </p>
         </div>
 
-        <small style={{ fontFamily: monoFont, fontSize: 14, color: "#AAAAAA", letterSpacing: 0 }}>
-          {copyright}
-        </small>
+        {copyright && (
+          <small style={{ fontFamily: monoFont, fontSize: 14, color: "#AAAAAA", letterSpacing: 0 }}>
+            {copyright}
+          </small>
+        )}
       </div>
 
       {/* ── DESKTOP layout (≥ 768px) — four corners ── */}
+
+      {/* Top nav — bio (left), award (center), contact (right) */}
+      <nav
+        className="hidden md:block"
+        style={{ position: "absolute", top: EDGE_Y, left: 0, right: 0, pointerEvents: "none" }}
+      >
+        <span style={{ position: "absolute", left: EDGE_X, pointerEvents: "auto", fontFamily: monoFont, fontSize: "clamp(13px, 1vw, 15px)", letterSpacing: "0.08em" }}>
+          <RoleLink href="/bio" label="Bio" />
+        </span>
+        <span style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", pointerEvents: "auto", fontFamily: monoFont, fontSize: "clamp(13px, 1vw, 15px)", letterSpacing: "0.08em" }}>
+          <RoleLink href="/award" label="Award" />
+        </span>
+        <span style={{ position: "absolute", right: EDGE_X, pointerEvents: "auto", fontFamily: monoFont, fontSize: "clamp(13px, 1vw, 15px)", letterSpacing: "0.08em" }}>
+          <RoleLink href="/contact" label="Contact" />
+        </span>
+      </nav>
 
       {/* Wordmark — right side, vertically centered */}
       <h1
@@ -132,7 +160,7 @@ export default function Hero({
           position: "absolute",
           top: "50%",
           right: INSET_X,
-          transform: "translateY(-52%)",
+          transform: "translateY(calc(-52% - 30px))",
           fontSize: "clamp(110px, 24vw, 360px)",
           fontWeight: 500,
           lineHeight: 0.85,
@@ -174,42 +202,74 @@ export default function Hero({
         ))}
       </ul>
 
-      {/* Bottom-left — tagline + credentials */}
+      {/* Bottom-left corner — university vertical (CCW) + Rui Song horizontal forming └ */}
+      <p
+        className="hidden md:block"
+        style={{
+          position: "absolute",
+          left: "clamp(8px, 1.2vw, 20px)",
+          bottom: "calc(clamp(8px, 1.5vh, 20px) + 10px)",
+          writingMode: "vertical-rl",
+          transform: "rotate(180deg)",
+          whiteSpace: "nowrap",
+          fontFamily: monoFont,
+          fontSize: "clamp(10px, 0.75vw, 12px)",
+          color: "#777777",
+          letterSpacing: "0.06em",
+          margin: 0,
+        }}
+      >
+        {degreeLine}
+      </p>
+      <p
+        className="hidden md:block"
+        style={{
+          position: "absolute",
+          left: "clamp(36px, 4vw, 52px)",
+          bottom: "clamp(8px, 1.5vh, 20px)",
+          fontFamily: monoFont,
+          fontSize: "clamp(10px, 0.75vw, 12px)",
+          color: "#777777",
+          letterSpacing: "0.04em",
+          margin: 0,
+        }}
+      >
+        {nameLine}
+      </p>
+
+
+      {/* Bottom-right — tagline */}
       <div
         className="hidden md:block"
         style={{
           position: "absolute",
           bottom: INSET_Y,
-          left: INSET_X,
-          maxWidth: "min(900px, 72vw)",
-          display: "flex",
-          flexDirection: "column",
-          gap: 14,
+          right: EDGE_X,
+          textAlign: "right",
         }}
       >
-        <p style={{ fontSize: "clamp(14px, 1.1vw, 17px)", color: "#DCDCDC", letterSpacing: "-0.005em", lineHeight: 1.5, margin: 0 }}>
+        <p style={{ fontSize: "clamp(14px, 1.1vw, 17px)", color: "#DCDCDC", letterSpacing: "-0.005em", lineHeight: 1.5, margin: 0, whiteSpace: "nowrap", transform: "translate(-100px, -190px)" }}>
           {tagline}
-        </p>
-        <p style={{ fontFamily: monoFont, fontSize: "clamp(11px, 0.82vw, 13px)", color: "#777777", letterSpacing: "0.04em", lineHeight: 1.5, margin: 0, whiteSpace: "nowrap" }}>
-          {credentials}
         </p>
       </div>
 
       {/* Bottom-right — copyright */}
-      <small
-        className="hidden md:block"
-        style={{
-          position: "absolute",
-          bottom: INSET_Y,
-          right: INSET_X,
-          fontFamily: monoFont,
-          fontSize: 14,
-          color: "#AAAAAA",
-          letterSpacing: 0,
-        }}
-      >
-        {copyright}
-      </small>
+      {copyright && (
+        <small
+          className="hidden md:block"
+          style={{
+            position: "absolute",
+            bottom: INSET_Y,
+            right: INSET_X,
+            fontFamily: monoFont,
+            fontSize: 14,
+            color: "#AAAAAA",
+            letterSpacing: 0,
+          }}
+        >
+          {copyright}
+        </small>
+      )}
     </section>
   );
 }
