@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { usePageNavigate } from '@/app/components/PageTransition';
 
-const EMAIL = 'song.r1@northeastern.edu';
+const EMAIL = 'ruisong.studio@gmail.com';
 
 export default function ContactPage() {
   const navigate = usePageNavigate();

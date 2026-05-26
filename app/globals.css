@@ -365,6 +365,62 @@ button:focus-visible {
 .fp-block-section .fp-syn { border-top: none; padding-top: 0; margin-top: 8px; text-align: center; }
 .fp-block-image { margin-top: 28px; }
 
+.fp-award-item--link { cursor: pointer; }
+.fp-award-item--link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.fp-award-link-hint { opacity: 0.5; }
+
+.fp-press-quote { margin-top: 40px; margin-bottom: 8px; text-align: center; padding: 28px 24px; border-top: 0.5px solid rgba(0,0,0,0.1); border-bottom: 0.5px solid rgba(0,0,0,0.1); }
+.fp-press-quote--link { cursor: pointer; }
+.fp-press-quote--link:hover .fp-pq-attr { text-decoration: underline; text-underline-offset: 3px; }
+.fp-pq-text { font-family: 'Times New Roman', Georgia, serif; font-size: 15px; font-style: italic; line-height: 1.7; color: #0a0a0a; }
+.fp-pq-attr { margin-top: 14px; font-family: ui-monospace, monospace; font-size: 9px; letter-spacing: 0.18em; color: rgba(0,0,0,0.5); }
+.fp-pq-hint { margin-top: 10px; font-family: ui-monospace, monospace; font-size: 8px; letter-spacing: 0.22em; color: rgba(0,0,0,0.3); opacity: 0; transition: opacity 0.2s; }
+.fp-press-quote--link:hover .fp-pq-hint { opacity: 1; }
+
+/* ─── Download link block ──────────────────────────────────────────────────── */
+.fp-dl-link { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; padding: 7px 12px 7px 11px; border: 0.5px solid rgba(0,0,0,0.18); text-decoration: none; cursor: pointer; transition: border-color 0.18s, background 0.18s; }
+.fp-pk-wrap { display: flex; justify-content: center; margin: 16px 0 4px; }
+.fp-dl-link:hover { border-color: rgba(0,0,0,0.5); background: rgba(0,0,0,0.03); }
+.fp-dl-label { font-family: ui-monospace, monospace; font-size: 9px; letter-spacing: 0.22em; color: #0a0a0a; }
+.fp-dl-arrow { font-size: 11px; color: rgba(0,0,0,0.5); line-height: 1; }
+
+/* ─── Award tiers ──────────────────────────────────────────────────────────── */
+.fp-tier-section { margin-top: 18px; text-align: center; }
+
+.fp-tier-head {
+  display: flex; justify-content: center; align-items: baseline; gap: 10px;
+  font-family: ui-monospace, monospace; font-size: 7px; letter-spacing: 0.24em; color: rgba(0,0,0,0.28);
+  padding-bottom: 7px; border-bottom: 0.5px solid rgba(0,0,0,0.1); margin-bottom: 1px;
+}
+
+.fp-tier-row {
+  display: flex; justify-content: center; align-items: baseline; gap: 6px; flex-wrap: wrap;
+  padding: 7px 0; border-bottom: 0.5px solid rgba(0,0,0,0.05); cursor: default;
+}
+.fp-tier-row:last-child { border-bottom: none; }
+.fp-tier-row--link { cursor: pointer; }
+.fp-tier-row--link:hover .fp-tier-text,
+.fp-tier-row--link:hover .fp-tier-award { text-decoration: underline; text-underline-offset: 2px; }
+
+.fp-tier-text  { font-family: ui-monospace, monospace; font-size: 9.5px; letter-spacing: 0.04em; color: #0a0a0a; line-height: 1.5; }
+.fp-tier-arrow { font-family: ui-monospace, monospace; font-size: 8px; color: rgba(0,0,0,0.25); flex-shrink: 0; }
+
+/* T2 — inline award · festival */
+.fp-tier-award { font-family: ui-monospace, monospace; font-size: 9px; letter-spacing: 0.04em; color: #0a0a0a; line-height: 1.5; }
+.fp-tier-sep   { font-family: ui-monospace, monospace; font-size: 9px; color: rgba(0,0,0,0.25); }
+.fp-tier-fest  { font-family: ui-monospace, monospace; font-size: 9px; letter-spacing: 0.04em; color: rgba(0,0,0,0.45); line-height: 1.5; }
+
+/* T3 — muted rows */
+.fp-tier-row--sm .fp-tier-text  { font-size: 8.5px; color: rgba(0,0,0,0.33); }
+.fp-tier-row--sm .fp-tier-arrow { color: rgba(0,0,0,0.18); }
+
+/* ─── BTS grid ─────────────────────────────────────────────────────────────── */
+.fp-bts-grid { display: flex; flex-direction: column; gap: 4px; margin-top: 14px; }
+.fp-bts-hero { width: 100%; aspect-ratio: 16/9; background-size: cover; background-repeat: no-repeat; }
+.fp-bts-wide { width: 100%; aspect-ratio: 21/9; background-size: cover; background-repeat: no-repeat; }
+.fp-bts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.fp-bts-cell { aspect-ratio: 4/3; background-size: cover; background-repeat: no-repeat; }
+
 /* ─── Awards page ──────────────────────────────────────────────────────────── */
 @keyframes awScroll {
   from { transform: translateX(0); }

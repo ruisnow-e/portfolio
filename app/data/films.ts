@@ -5,6 +5,9 @@ export type ContentBlock =
   | { type: 'still-pair';   srcs: [string, string]; gap?: 'large'; spacing?: 'compact'; aspectRatio?: string; positions?: [string, string] }
   | { type: 'still-triple'; srcs: [string, string, string] }
   | { type: 'image';        src: string; size?: 'small' }
+  | { type: 'press-quote'; quote: string; attribution: string; url?: string; hint?: string }
+  | { type: 'download-link'; label: string; href: string }
+  | { type: 'bts-grid';   srcs: string[]; positions?: string[] }
   | { type: 'video' }
   | { type: 'awards' }
   | { type: 'screenings' };
@@ -29,7 +32,8 @@ export type Film = {
   videoUrl:         string;
   stills:           string[];
   location:         string;
-  awards?:          string[];
+  pressKitUrl?:     string;
+  awards?:          { text: string; url?: string }[];
   screenings?:      string[];
   directorStatement?: string;
   contentBlocks?:   ContentBlock[];
@@ -46,12 +50,12 @@ export const films: Film[] = [
     aspectRatio: '3/4',
     axis: 'height',
     cover: '/films/Heirloom_Poster.png',
-    timecode: '00:00 / 18:24',
+    timecode: '00:00 / 13:17',
     roles: 'DIRECTOR · SCREENWRITER · CO-PRODUCER · EDITOR',
-    tagline:  '"A secret buried inside the heirloom."',
-    genre:    'Drama · Short',
-    runtime:  '18:24',
-    format:   '16mm · 24fps',
+    tagline:  '"You don\'t know him."',
+    genre:    'Comedy · Drama · LGBTQ+',
+    runtime:  '13:17',
+    format:   'RED Komodo 6K · 23.976fps',
     synopsis: 'Following his coming out, a young man is astonished to discover his parents not only knew but accepted his homosexuality, contingent upon the condition that he must father a child to inherit the cherished family heirloom. Overwhelmed, he engages in a heated dispute with his parents, yet the accidental shattering of the heirloom unveils a long-buried secret.',
     videoUrl: '/films/heirloom.mov',
     stills: [
@@ -63,43 +67,61 @@ export const films: Film[] = [
       '/stills/heirloom/6.jpg',
       '/stills/heirloom/7.jpg',
     ],
-    location: 'SHOT 2024',
+    location: '',
+    pressKitUrl: '/films/heirloom-press-kit.pdf',
     awards: [
-      'Award Winner · Berlin Shorts Award (July 2024)',
-      'Award Winner · San Francisco Arthouse Short Film Festival (July 2024)',
-      'Award Winner · Phoenix Shorts (August 2024)',
-      'Award Winner · Chicago Filmmaker Awards (September 2024)',
-      'Award Winner · Madrid Arthouse Film Festival (November 2024)',
-      'Official Selection · San Antonio QFest Film Festival (August 2024)',
-      'Official Selection · San Francisco Another Hole in the Head Film Festival (October 2024)',
-      'Honorable Mention · New York Film & Male Actor Award (October 2024)',
-      'Honorable Mention · Los Angeles Short Film Award (October 2024)',
-      'Semi-Finalist · Atlanta Movie Awards (July 2024)',
-      'Semi-Finalist · Brooklyn International Short Awards (July 2024)',
-      'Semi-Finalist · Hong Kong Indie Film Festival (August 2024)',
-      'Semi-Finalist · Paris International Short Festival (August 2024)',
-      'Semi-Finalist · Tokyo ShortFest (November 2024)',
+      { text: 'Official Selection · 27th Kyoto International Student Film & Video Festival (2025)', url: 'https://www.consortium.or.jp/en/project/kisfvf/details/2024-2' },
+      { text: 'Official Selection · San Francisco Another Hole in the Head Film Festival — Strictly Local II, December 8, 2024', url: 'https://holehead2024.eventive.org/films/heirloom-671997f6f12b3b004193fb7e' },
+      { text: 'Official Selection · San Antonio QFest-LGBT International Film Festival — August 12, 2024', url: '/films/san-antonio-qfest-2024.pdf' },
+      { text: 'Award Winner · Best Editing — Chicago Filmmaker Awards (September 30, 2024)',         url: 'https://cifawards.net/2024/10/23/winners-october-2024/' },
+      { text: 'Award Winner · Best LGBTQ Short — San Francisco Arthouse Short Festival (July 12, 2024)', url: 'https://sanfranciscoindieshort.com/winners-july-2024/' },
+      { text: 'Award Winner · Best LGBTQ Short — Berlin Shorts Award (July 25, 2024)',               url: 'https://berlinshortsaward.com/winners-july-2024/' },
+      { text: 'Award Winner · Best LGBTQ Short — Madrid Arthouse Film Festival (October 4, 2024)',   url: 'https://maffestival.com/winners-october-2024/' },
+      { text: 'Award Winner · Best LGBTQ Short — Phoenix Shorts (August 16, 2024)',                  url: 'https://phoenixshortfestival.com/winners-august-2024/' },
+      { text: 'Honorable Mention · New York Film & Male Actor Award (October 2024)' },
+      { text: 'Honorable Mention · Los Angeles Short Film Award (October 2024)' },
+      { text: 'Semi-Finalist · Atlanta Movie Awards (July 2024)' },
+      { text: 'Semi-Finalist · Brooklyn International Short Awards (July 2024)' },
+      { text: 'Semi-Finalist · Hong Kong Indie Film Festival (August 2024)' },
+      { text: 'Semi-Finalist · Paris International Short Festival (August 2024)' },
+      { text: 'Semi-Finalist · Tokyo ShortFest (November 2024)' },
     ],
     screenings: [
-      'World Premiere · Roxie Theater, San Francisco — May 7, 2024',
-      'San Antonio QFest · City Base Cinemas, San Antonio — October 13, 2024',
+      '27th Kyoto International Student Film & Video Festival · Museum of Kyoto Film Theater — February 6–9, 2025',
       'Another Hole in the Head Film Festival · Balboa Theater, San Francisco — December 8, 2024',
-      '27th Kyoto International Student Film Festival · Museum of Kyoto Film Theater — February 2025',
+      'San Antonio QFest · City Base Cinemas, San Antonio — October 12, 2024',
+      'Theatrical Screening · The Roxie Theater, San Francisco — May 7, 2024',
     ],
-    directorStatement: 'The LGBTQ+ community has made remarkable strides toward achieving recognition, acceptance, and equal rights in many parts of the world. Legalization of same-sex marriage, anti-discrimination laws, and increased visibility of LGBTQ+ individuals in media and public life have contributed to greater societal understanding and acceptance. However, challenges such as discrimination, stigmatization, and lack of legal protections still persist in various contexts, underscoring the ongoing need for advocacy and education.\n\nSimultaneously, advancements in reproductive technology and changing attitudes toward family formation have reshaped traditional notions of parenthood and biological ties. Surrogacy, in particular, has emerged as a viable option for LGBTQ+ individuals and couples to realize their dreams of parenthood. While surrogacy offers newfound possibilities for family building, it also raises complex ethical, legal, and social questions regarding parental rights, commercialization of reproduction, and the well-being of surrogate mothers.\n\nHeirloom explores LGBTQ+ family dynamics through a comedic lens, blurring the lines of morality with surrogacy and family heirlooms. It aims to promote normalization and acceptance within the community.',
+    directorStatement: 'This film began with a wish I have held quietly for years. As a member of the LGBTQ+ community, I have never openly come out to my parents. They love me, and I have considered telling them. But I hesitate — to demand that they understand me through the lens of a society they did not grow up in feels selfish.\n\nThe story that finally pushed me to write Heirloom was not mine, but a friend\'s. He is gay, financially independent, living alone in the United States. To negotiate his freedom, he made an agreement with his parents back in China: he would father a child through surrogacy, and his parents would take the child to China to raise as grandparents. He could continue to live in the U.S. without marriage. The arrangement worked for him. But I could not stop thinking about the child — and the strange ways love bargains with itself across borders.\n\nI chose to make Heirloom a comedy because I do not believe LGBTQ+ family stories must arrive solemn to arrive serious. The film unfolds entirely at a dinner table. A son comes out. The parents already knew. A cat breaks an heirloom. A father confesses the heirloom was a fake all along. Nobody resolves the question of whether there will be a child. Everyone keeps eating dessert. This is, in my experience, how family negotiations actually feel — absurd, anticlimactic, and somehow tender anyway.\n\nI trained as a choreographer before I trained as a filmmaker, and Heirloom carries that training. I use music and rhythm to shape how the story moves; the protagonist drifts into his interior world through dance; jump cuts carry emotional weight that words cannot. I hope this lends the film a peculiar texture — something between a sitcom dinner scene and a quiet Sunday afternoon.\n\nIf Heirloom brings warmth, or recognition, or a bit of relief to LGBTQ+ families watching, that is the most I could ask.',
     contentBlocks: [
       { type: 'text', text: 'Following his coming out, a young man is astonished to discover his parents not only knew but accepted his homosexuality, contingent upon the condition that he must father a child to inherit the cherished family heirloom. Overwhelmed, he engages in a heated dispute with his parents, yet the accidental shattering of the heirloom unveils a long-buried secret.' },
       { type: 'video' },
-      { type: 'text', text: 'The LGBTQ+ community has made remarkable strides toward achieving recognition, acceptance, and equal rights in many parts of the world. Legalization of same-sex marriage, anti-discrimination laws, and increased visibility of LGBTQ+ individuals in media and public life have contributed to greater societal understanding and acceptance. However, challenges such as discrimination, stigmatization, and lack of legal protections still persist in various contexts, underscoring the ongoing need for advocacy and education.' },
+      { type: 'text', text: 'This film began with a wish I have held quietly for years. As a member of the LGBTQ+ community, I have never openly come out to my parents. They love me, and I have considered telling them. But I hesitate — to demand that they understand me through the lens of a society they did not grow up in feels selfish.' },
       { type: 'still-pair', srcs: ['/stills/heirloom/2.jpg', '/stills/heirloom/3.jpg'], positions: ['right center', 'right center'] },
-      { type: 'text', text: 'Simultaneously, advancements in reproductive technology and changing attitudes toward family formation have reshaped traditional notions of parenthood and biological ties. Surrogacy, in particular, has emerged as a viable option for LGBTQ+ individuals and couples to realize their dreams of parenthood. While surrogacy offers newfound possibilities for family building, it also raises complex ethical, legal, and social questions regarding parental rights, commercialization of reproduction, and the well-being of surrogate mothers.' },
+      { type: 'text', text: 'The story that finally pushed me to write Heirloom was not mine, but a friend\'s. He is gay, financially independent, living alone in the United States. To negotiate his freedom, he made an agreement with his parents back in China: he would father a child through surrogacy, and his parents would take the child to China to raise as grandparents. He could continue to live in the U.S. without marriage. The arrangement worked for him. But I could not stop thinking about the child — and the strange ways love bargains with itself across borders.' },
       { type: 'still', src: '/stills/heirloom/4.jpg' },
+      { type: 'text', text: 'I chose to make Heirloom a comedy because I do not believe LGBTQ+ family stories must arrive solemn to arrive serious. The film unfolds entirely at a dinner table. A son comes out. The parents already knew. A cat breaks an heirloom. A father confesses the heirloom was a fake all along. Nobody resolves the question of whether there will be a child. Everyone keeps eating dessert. This is, in my experience, how family negotiations actually feel — absurd, anticlimactic, and somehow tender anyway.' },
       { type: 'still-pair', srcs: ['/stills/heirloom/6.jpg', '/stills/heirloom/7.jpg'] },
-      { type: 'text', text: 'Heirloom explores LGBTQ+ family dynamics through a comedic lens, blurring the lines of morality with surrogacy and family heirlooms. It aims to promote normalization and acceptance within the community.' },
+      { type: 'text', text: 'I trained as a choreographer before I trained as a filmmaker, and Heirloom carries that training. I use music and rhythm to shape how the story moves; the protagonist drifts into his interior world through dance; jump cuts carry emotional weight that words cannot. I hope this lends the film a peculiar texture — something between a sitcom dinner scene and a quiet Sunday afternoon.' },
       { type: 'still-pair', srcs: ['/stills/heirloom/1.jpg', '/stills/heirloom/5.jpg'], positions: ['right center', 'center'] },
+      { type: 'text', text: 'If Heirloom brings warmth, or recognition, or a bit of relief to LGBTQ+ families watching, that is the most I could ask.' },
+      { type: 'press-quote', quote: 'In Heirloom, the filmmaker delves into the complexities of family, identity, and the evolving dynamics of LGBTQ+ relationships.', attribution: '— Patrick Roy, UniversalCinema Magazine', url: 'https://universalcinema.net/heirloom-navigating-family-identity-and-surrogacy-in-lgbtq-narratives/' },
+      { type: 'press-quote', quote: 'Heirloom is listed on Filmarks, Japan\'s largest film review platform, following its premiere at the 27th Kyoto International Student Film & Video Festival, February 2025.', attribution: 'Filmarks · Japan\'s Largest Film Review Platform', url: 'https://filmarks.com/movies/121171', hint: 'VIEW ON FILMARKS ↗' },
       { type: 'awards' },
       { type: 'screenings' },
       { type: 'image', src: '/stills/heirloom/vip.png', size: 'small' },
+      {
+        type: 'bts-grid',
+        srcs: [
+          '/stills/heirloom/bts/bts-7.jpg',
+          '/stills/heirloom/bts/bts-9.jpg',
+          '/stills/heirloom/bts/bts-11.jpg',
+          '/stills/heirloom/bts/bts-2.jpg',
+          '/stills/heirloom/bts/bts-10.jpg',
+          '/stills/heirloom/bts/bts-4.jpg',
+        ],
+        positions: ['center', 'center 35%', 'center', 'center', 'center top', 'center 25%'],
+      },
     ],
   },
   // 02 — SANATORIUM
