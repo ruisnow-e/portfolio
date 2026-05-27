@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import TopBarCS from '@/app/components/cs/TopBarCS';
 import BottomBarCS from '@/app/components/cs/BottomBarCS';
 
@@ -8,109 +8,125 @@ const PROJECTS = [
   {
     name: 'SlateOne+',
     slug: 'slateone+',
-    filename: 'main.swift',
-    cap: 'ENGINEER · DESIGNER\nv2.1.0 · COMMITTED',
-    meta: '~6.4K LINES · LAST EDIT 23:42',
-    tag: 'A macOS launcher that turns every keystroke into a query.',
-    modalMeta: { STACK: 'swift · xcode · v2.1.0', STATUS: 'shipped · proprietary', YEAR: '2025', LOC: '~6.4k' },
-    desc: 'Built to replace Spotlight for power users. Triggers any action with a fuzzy keyboard shortcut, including custom user scripts. Indexes 40k files under 200ms. Native menubar app, single binary, no Electron.',
+    filename: 'SlateApp.swift',
+    cap: 'FILM TOOLS · PLATFORM\nSWIFT · SWIFTUI',
+    meta: 'IN DEVELOPMENT · 2026',
+    tag: 'Film helps me see what\'s broken. CS lets me fix it.',
+    modalMeta: { STATUS: 'building · 2026', STAGE: 'spec · repo · interface design', STACK: 'swift · swiftui (planned)', TARGET: 'indie filmmakers · film students · small crews', YEAR: '2026' },
+    desc: 'An all-in-one film production platform — from script to delivery — built around the way information actually flows on a real set. Five modules: industry-formatted screenwriting, auto-generated storyboard scaffolding, cost-optimized shooting schedules (group actor scenes, minimize hold days), digital slate sheets that auto-distribute to editorial, and a role-aware permission system — the core differentiator.<br><br>Existing tools (StudioBinder, Celtx) treat crew access as an afterthought. On-set tools (MovieSlate, SyncOnSet) sit outside pre-production entirely. Indie crews stitch four apps together. slateone+ collapses them into one space where each role — director, DP, actor, script supervisor, editor — sees only what their job requires.<br><br>I\'ve worked both sides of the slate. The tools never matched the workflow.',
     links: [
-      { label: 'github.com/snow/slate', url: '#' },
-      { label: 'snowstudio.dev/slate',  url: '#' },
+      { label: 'github.com/ruisnow-e/slateone', url: 'https://github.com/ruisnow-e/slateone' },
     ],
     code: [
       ['<span class="kw">import</span> SwiftUI', 80],
-      ['', 100],
-      ['<span class="kw">@main</span> <span class="kw">struct</span> <span class="fn">App</span> {', 70],
-      ['  <span class="kw">var</span> body: <span class="fn">Scene</span> {', 70],
-      ['    Window(<span class="str">"slate"</span>) { ContentView() }', 60],
-      ['  }', 100],
-      ['}', 300],
-      ['<span class="cmt">// awaiting input...</span>', 80],
+      ['', 40],
+      ['<span class="kw">enum</span> <span class="fn">Role</span> {', 70],
+      ['    <span class="kw">case</span> director, dp, actor, editor', 60],
+      ['}', 60],
+      ['', 40],
+      ['<span class="kw">struct</span> <span class="fn">ProjectView</span>: <span class="fn">View</span> {', 70],
+      ['    <span class="kw">let</span> user: <span class="fn">Role</span>', 55],
+      ['    <span class="kw">var</span> body: <span class="kw">some</span> <span class="fn">View</span> {', 55],
+      ['        <span class="kw">switch</span> user {', 55],
+      ['        <span class="kw">case</span> .director: <span class="fn">FullView</span>()', 50],
+      ['        <span class="kw">case</span> .dp:       <span class="fn">ShotList</span>()', 50],
+      ['        <span class="kw">case</span> .actor:    <span class="fn">Script</span>()', 50],
+      ['        <span class="kw">case</span> .editor:   <span class="fn">Slate</span>()', 50],
+      ['        }', 80],
+      ['<span class="cmt">// every role sees what their job requires</span>', 80],
     ],
   },
   {
     name: 'OmniRAG',
     slug: 'omnirag',
-    filename: 'rag.py',
-    cap: 'NLP · INDEXING\nv0.4.2 · INFERENCE',
-    meta: '~3.1K LINES · LAST EDIT 19:15',
-    tag: 'Ask anything. From any document.',
-    modalMeta: { STACK: 'python · chroma · llama · open', STATUS: 'beta · public', YEAR: '2025', LOC: '~3.1k' },
-    desc: 'A retrieval-augmented generation pipeline. Drop a folder of PDFs, contracts, notes, anything, and ask in plain language. Cites sources inline and refuses confidently when it does not know. Runs fully local.',
+    filename: 'RagOrchestrator.java',
+    cap: 'RAG · DOMAIN-AWARE\nJAVA · SPRING-BOOT · OPENAI',
+    meta: '~2.1K LINES · LAST EDIT 19:15',
+    tag: 'A domain-aware RAG engine that knows the difference between a screenplay and a statute.',
+    modalMeta: { STACK: 'java · spring boot · openai · sqlite · sse', STATUS: 'coursework · team (3) · OSS', YEAR: '2026', LOC: '~7.9k total · ~2.1k mine', ROLE: 'architecture · film adapters · frontend' },
+    desc: 'A domain-aware RAG pipeline in Java 21 + Spring Boot. Documents ingest through pluggable adapters — screenplays, subtitles, storyboards, legal, general — and queries run through two-stage retrieval: cosine search narrows to top-10, GPT re-ranks to top-5, and the answer persona is chosen by majority vote over the retrieved chunks. I owned the orchestrator, the film adapter suite, and the SSE-streaming frontend.',
+    team: [
+      { name: 'Rui Song',     role: 'architecture · film adapters · frontend' },
+      { name: 'Nguyen Ha',    role: 'ingestion · format adapters · evaluation' },
+      { name: 'Siyuan Liang', role: 'storage · legal adapter · retrieval' },
+    ],
     links: [
-      { label: 'github.com/snow/omnirag', url: '#' },
-      { label: 'demo.omnirag.app',        url: '#' },
+      { label: 'github.com/ruisnow-e/OmniRAG', url: 'https://github.com/ruisnow-e/OmniRAG' },
     ],
     code: [
-      ['<span class="kw">from</span> rag <span class="kw">import</span> embed, ask', 70],
+      ['<span class="cmt">// RagOrchestrator.java</span>', 60],
+      ['<span class="fn">embed</span>(question);       <span class="cmt">// → vector</span>', 70],
+      ['<span class="fn">search</span>(vec, k=10);    <span class="cmt">// → top-10</span>', 70],
+      ['<span class="fn">rerank</span>(top10);        <span class="cmt">// → top-5</span>', 70],
+      ['<span class="fn">inferDomain</span>(top5);    <span class="cmt">// → majority vote</span>', 70],
+      ['<span class="fn">ask</span>(question, top5);  <span class="cmt">// → streamed answer</span>', 70],
       ['', 100],
-      ['docs = <span class="fn">embed</span>(<span class="str">"./corpus"</span>)', 65],
-      ['ans  = <span class="fn">ask</span>(docs, query)', 65],
-      ['', 100],
-      ['<span class="kw">print</span>(ans.<span class="fn">cite</span>())', 70],
-      ['<span class="cmt"># 247 ms · 4 sources</span>', 80],
-    ],
-  },
-  {
-    name: 'CyberFishTank',
-    slug: 'cyberfishtank',
-    filename: 'ecosystem.cpp',
-    cap: 'SIMULATION · ECOLOGY\nv1.0 · OPEN SOURCE',
-    meta: '~8.2K LINES · LAST EDIT YESTERDAY',
-    tag: 'An ecosystem simulator where every fish has an opinion.',
-    modalMeta: { STACK: 'c++ · opengl · gamedev', STATUS: 'shipped · open source', YEAR: '2024', LOC: '~8.2k' },
-    desc: 'A real-time predator-prey simulation. Each fish runs an independent state machine with hunger, fear, curiosity, and memory of recent predators. Holds 1,200+ fish at 60fps on integrated graphics.',
-    links: [
-      { label: 'github.com/snow/fishtank', url: '#' },
-      { label: 'paper · pdf',              url: '#' },
-    ],
-    code: [
-      ['<span class="kw">class</span> <span class="fn">Fish</span> {', 70],
-      ['  <span class="kw">void</span> <span class="fn">swim</span>() { pos += vel; }', 65],
-      ['  <span class="kw">bool</span> <span class="fn">hungry</span>() {', 70],
-      ['    <span class="kw">return</span> energy &lt; 0.3;', 65],
-      ['  }', 100],
-      ['};', 200],
-      ['<span class="cmt">// 4 fish swimming</span>', 80],
+      ['<span class="cmt">// 5 domains · SSE streaming</span>', 80],
     ],
   },
   {
     name: 'Jive Compiler',
     slug: 'jive-compiler',
-    filename: 'compile.rs',
-    cap: 'COMPILER · TOY\nv0.1 · UNSTABLE',
-    meta: '~2.7K LINES · LAST EDIT 03:11',
-    tag: 'A toy compiler that emits WASM. Mostly jokes.',
-    modalMeta: { STACK: 'rust · wasm · custom IR', STATUS: 'experimental · open', YEAR: '2026', LOC: '~2.7k' },
-    desc: 'A self-imposed compilers class. Implements a small ML-flavored language with type inference, pattern matching, and WASM codegen. The error messages are written to be passive-aggressive on purpose.',
+    filename: 'codegen.c',
+    cap: 'COMPILER · TOY\nC · NASM · LINUX-X64',
+    meta: '~2.5K LINES · LAST EDIT 03:11',
+    tag: 'Lexer → Parser → IR → x86-64. The whole pipeline, by hand, in C.',
+    modalMeta: { STACK: 'C · x86-64 NASM · stack-machine IR', STATUS: 'coursework · OSS · archived', YEAR: '2026', LOC: '~2.5k' },
+    desc: 'Jive is a small typed language I made up — int, bool, str, arrays, functions, if/while. The compiler is written in C as a unity build, lowers the AST through a stack-machine IR, and emits x86-64 NASM. The demo program runs Conway\'s Game of Life on an 8×8 grid.',
     links: [
-      { label: 'github.com/snow/jive', url: '#' },
+      { label: 'github.com/ruisnow-e/jive_compiler', url: 'https://github.com/ruisnow-e/jive_compiler' },
     ],
     code: [
-      ['<span class="fn">lex</span>(src)    <span class="cmt">// -&gt; Tokens</span>', 70],
-      ['<span class="fn">parse</span>(toks) <span class="cmt">// -&gt; AST</span>', 70],
-      ['<span class="fn">check</span>(ast)  <span class="cmt">// -&gt; Typed</span>', 70],
-      ['<span class="fn">emit</span>(typed) <span class="cmt">// -&gt; WASM</span>', 70],
+      ['<span class="fn">lex</span>(src);        <span class="cmt">// -&gt; Tokens</span>', 70],
+      ['<span class="fn">parse</span>(tokens);   <span class="cmt">// -&gt; AST</span>', 70],
+      ['<span class="fn">lower</span>(ast);      <span class="cmt">// -&gt; IR (stack machine)</span>', 70],
+      ['<span class="fn">emit</span>(ir);        <span class="cmt">// -&gt; x86-64 NASM</span>', 70],
       ['', 100],
-      ['<span class="kw">println!</span>(<span class="str">"compiled in 4ms"</span>);', 80],
+      ['<span class="fn">printf</span>(<span class="str">"game of life, gen 12\\n"</span>);', 80],
+    ],
+  },
+  {
+    name: 'CyberFishTank',
+    slug: 'cyberfishtank',
+    filename: 'fishtank.py',
+    cap: 'AQUARIUM · ML\nPYTHON · PYGAME · TENSORFLOW',
+    meta: '~310 LINES · LAST EDIT YESTERDAY',
+    tag: 'Three engineers, three domains, one aquarium.',
+    modalMeta: { STACK: 'python · pygame · tensorflow · tkinter', STATUS: 'coursework · team (3) · OSS', YEAR: '2025', LOC: '~700 total · ~310 mine', ROLE: 'pygame engine · fish behavior · animation' },
+    desc: 'A three-stage pipeline built with two collaborators for CS5001 at Northeastern. Tkinter canvas → TensorFlow classifier → Pygame aquarium. I owned the engine: fish swimming, food-chasing, bubble animation, background switching.',
+    team: [
+      { name: 'Rui Song',      role: 'pygame aquarium engine' },
+      { name: 'Zhuoying Xue',  role: 'tkinter drawing interface' },
+      { name: 'Lai Jiang',     role: 'tensorflow classifier' },
+    ],
+    links: [
+      { label: 'github.com/ruisnow-e/Cyber_Fish_Tank', url: 'https://github.com/ruisnow-e/Cyber_Fish_Tank' },
+    ],
+    code: [
+      ['<span class="kw">class</span> <span class="fn">Fish</span>:', 70],
+      ['    <span class="kw">def</span> <span class="fn">swim</span>(self):', 65],
+      ['        self.pos += self.vel', 65],
+      ['', 120],
+      ['    <span class="kw">def</span> <span class="fn">chase</span>(self, food):', 70],
+      ['        self.target = nearest(food, self.pos)', 65],
+      ['<span class="cmt"># 4 fish swimming</span>', 80],
     ],
   },
 ];
 
-const SECTION_LEN  = 160;
-const SCROLL_SPEED = 0.7;
-const TYPE_MIN     = 28;
-const TYPE_MAX     = 52;
+const TYPE_MIN = 28;
+const TYPE_MAX = 52;
 
 type Project = typeof PROJECTS[0];
 
 export default function CSPage() {
+  const hasRun = useRef(false);
   useEffect(() => {
-    let current   = -1;
-    let typingId  = 0;
-    let phase     = 0;
-    let rafQueued = false;
+    if (hasRun.current) return;
+    hasRun.current = true;
+    let current  = -1;
+    let typingId = 0;
+    let wheelAcc = 0;
 
     const codeEl     = document.getElementById('cs-code')!;
     const screenEl   = document.getElementById('cs-screen')!;
@@ -162,6 +178,7 @@ export default function CSPage() {
         const div = document.createElement('div');
         div.className = 'ln';
         codeEl.appendChild(div);
+        codeEl.scrollTop = codeEl.scrollHeight;
         const html  = p.code[lineIdx][0] as string;
         const delay = p.code[lineIdx][1] as number;
         let displayLen = 0;
@@ -188,7 +205,7 @@ export default function CSPage() {
       nextLine();
     }
 
-    function switchTo(idx: number, viaClick: boolean) {
+    function switchTo(idx: number, viaClick: boolean, dir: number = 0) {
       if (idx === current) return;
       current = idx; typingId++;
       const p = PROJECTS[idx];
@@ -197,10 +214,12 @@ export default function CSPage() {
       metaEl.textContent     = p.meta;
       filenameEl.textContent = p.filename;
       capEl.innerHTML        = p.cap.replace('\n', '<br/>');
+      screenEl.classList.remove('flash', 'cs-slide-next', 'cs-slide-prev');
+      void screenEl.offsetWidth;
       if (viaClick) {
-        screenEl.classList.remove('flash');
-        void screenEl.offsetWidth;
         screenEl.classList.add('flash');
+      } else if (dir !== 0) {
+        screenEl.classList.add(dir > 0 ? 'cs-slide-next' : 'cs-slide-prev');
       }
       typeProject(p, typingId);
     }
@@ -221,6 +240,14 @@ export default function CSPage() {
       const linkRows = p.links.map(l =>
         `<a class="cs-modal-link" href="${l.url}">→ ${l.label}</a>`
       ).join('');
+      const teamBlock = (p as {team?: {name:string;role:string}[]}).team?.length
+        ? `<div class="cs-modal-team">
+            <div class="cs-modal-team-h">TEAM</div>
+            ${(p as {team:{name:string;role:string}[]}).team.map(m =>
+              `<div class="cs-modal-team-row"><span class="cs-modal-team-name">${m.name}</span><span class="cs-modal-team-arrow">→</span><span class="cs-modal-team-role">${m.role}</span></div>`
+            ).join('')}
+          </div>`
+        : '';
       backdrop.innerHTML = `
         <div class="cs-modal">
           <div class="cs-modal-bar">
@@ -235,6 +262,7 @@ export default function CSPage() {
             <div class="cs-modal-tag">${p.tag}</div>
             <div class="cs-modal-meta">${metaRows}</div>
             <div class="cs-modal-desc">${p.desc}</div>
+            ${teamBlock}
             <div class="cs-modal-links">${linkRows}</div>
             <div class="cs-modal-kbd"><kbd>esc</kbd> to close</div>
           </div>
@@ -247,42 +275,41 @@ export default function CSPage() {
     items.forEach((el, i) => el.addEventListener('click', () => switchTo(i, true)));
     laptopWrap.addEventListener('click', () => { if (current >= 0) openModal(current); });
 
-    const onScroll = () => {
+    const onWheel = (e: WheelEvent) => {
       if (document.getElementById('cs-backdrop')) return;
-      phase = window.scrollY * SCROLL_SPEED;
-      if (!rafQueued) {
-        rafQueued = true;
-        requestAnimationFrame(() => {
-          rafQueued = false;
-          const N   = PROJECTS.length;
-          const idx = Math.floor(((phase / SECTION_LEN) % N + N) % N);
-          switchTo(idx, false);
-        });
+      e.preventDefault();
+      wheelAcc += e.deltaY;
+      if (Math.abs(wheelAcc) >= 180) {
+        const dir = wheelAcc > 0 ? 1 : -1;
+        wheelAcc = 0;
+        const N = PROJECTS.length;
+        switchTo(((current + dir) % N + N) % N, false, dir);
       }
     };
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') closeModal(); };
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('wheel', onWheel, { passive: false });
     document.addEventListener('keydown', onKey);
 
     switchTo(0, false);
 
     return () => {
-      window.removeEventListener('scroll', onScroll);
+      typingId++;
+      hasRun.current = false;
+      window.removeEventListener('wheel', onWheel);
       document.removeEventListener('keydown', onKey);
       document.getElementById('cs-backdrop')?.remove();
     };
   }, []);
 
   return (
-    <div style={{ minHeight: '400vh', background: '#0d0e10' }}>
+    <div style={{ height: '100vh', background: '#0d0e10', overflow: 'hidden' }}>
       <TopBarCS />
       <BottomBarCS />
 
-      <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden' }}>
-        <div className="cs-stage">
-          <div className="cs-content">
+      <div className="cs-stage">
+        <div className="cs-content">
 
-            <div className="cs-row">
+          <div className="cs-row">
               {/* File list */}
               <div className="cs-files">
                 <div className="cs-prompt">$ ls projects/</div>
@@ -304,7 +331,7 @@ export default function CSPage() {
                   </span>
                   <span className="cs-cursor" />
                 </div>
-                <div className="cs-meta" id="cs-meta">~6.4K LINES · LAST EDIT 23:42</div>
+                <div className="cs-meta" id="cs-meta">IN DEVELOPMENT · 2026</div>
               </div>
 
               {/* Laptop */}
@@ -322,13 +349,12 @@ export default function CSPage() {
                   <div className="cs-base" />
                 </div>
                 <div className="cs-laptop-cap" id="cs-laptop-cap">
-                  ENGINEER · DESIGNER<br />v2.1.0 · COMMITTED
+                  FILM TOOLS · PLATFORM<br />SWIFT · SWIFTUI
                 </div>
                 <div className="cs-laptop-cta">↳ CLICK TO READ</div>
               </div>
-            </div>
-
           </div>
+
         </div>
       </div>
     </div>

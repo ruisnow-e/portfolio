@@ -2,11 +2,10 @@
 
 import { Film, ContentBlock } from '@/app/data/films';
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 
 interface FilmModalProps {
   film: Film | null;
-  filmIdx: number;
-  total: number;
   onClose: () => void;
 }
 
@@ -82,7 +81,7 @@ function renderBlock(block: ContentBlock, i: number, f: Film) {
     case 'image':
       return (
         <div key={i} className="fp-block-image" style={block.size === 'small' ? { display: 'flex', justifyContent: 'center' } : undefined}>
-          <img src={block.src} alt="" style={{ width: block.size === 'small' ? '55%' : '100%', display: 'block', borderRadius: 2 }} />
+          <Image src={block.src} alt="" width={1600} height={1000} style={{ width: block.size === 'small' ? '55%' : '100%', height: 'auto', display: 'block', borderRadius: 2 }} />
         </div>
       );
     case 'press-quote':
@@ -265,82 +264,9 @@ export default function FilmModal({ film, onClose }: FilmModalProps) {
               <div className="fp-stills-h" style={{ marginTop: 24 }}>LOGLINE</div>
               <p className="fp-syn fp-block-text">{f.synopsis}</p>
 
-              {f.contentBlocks ? (
+              {f.contentBlocks && (
                 <>
                   {f.contentBlocks.map((block, i) => renderBlock(block, i, f))}
-                  <div className="fp-foot-modal">
-                    <span>{f.location}</span>
-                    <span><kbd>esc</kbd> to close</span>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <p className="fp-syn" style={{ display: 'none' }}>{f.synopsis}</p>
-
-                  {f.awards && f.awards.length > 0 && (
-                    <>
-                      <div className="fp-stills-h" style={{ marginTop: 20 }}>AWARDS & RECOGNITION · {pad2(f.awards.length)}</div>
-                      <div className="fp-award-list">
-                        {f.awards.map((a, i) => (
-                          <div key={i}
-                            className={`fp-award-item${a.url ? ' fp-award-item--link' : ''}`}
-                            onClick={() => a.url && window.open(a.url, '_blank', 'noopener')}
-                          >{a.text}{a.url && <span className="fp-award-link-hint"> ↗</span>}</div>
-                        ))}
-                      </div>
-                    </>
-                  )}
-
-                  {f.screenings && f.screenings.length > 0 && (
-                    <>
-                      <div className="fp-stills-h" style={{ marginTop: 16 }}>SCREENINGS</div>
-                      <div className="fp-award-list">
-                        {f.screenings.map((s, i) => <div key={i} className="fp-award-item">{s}</div>)}
-                      </div>
-                    </>
-                  )}
-
-                  {f.directorStatement && (
-                    <>
-                      <div className="fp-stills-h" style={{ marginTop: 20 }}>DIRECTOR&apos;S STATEMENT</div>
-                      {f.directorStatement.split('\n\n').map((para, i) => (
-                        <p key={i} className="fp-syn" style={{ marginTop: i === 0 ? 8 : 12, paddingTop: 0, borderTop: 'none' }}>{para}</p>
-                      ))}
-                    </>
-                  )}
-
-                  <div className="fp-video">
-                    {f.videoUrl ? (
-                      f.videoUrl.startsWith('/') ? (
-                        <video src={f.videoUrl} controls style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#000' }} />
-                      ) : (
-                        <iframe src={f.videoUrl} allow="autoplay; fullscreen" allowFullScreen />
-                      )
-                    ) : (
-                      <div style={{
-                        width: '100%', height: '100%',
-                        backgroundImage: `url('${f.cover}')`,
-                        backgroundSize: 'contain',
-                        backgroundPosition: 'center',
-                        backgroundRepeat: 'no-repeat',
-                        opacity: 0.35,
-                      }} />
-                    )}
-                    <div className="fp-video-tc">00:00 / {f.runtime}</div>
-                    <div className="fp-video-fmt">{f.format.toUpperCase()}</div>
-                  </div>
-
-                  {f.stills.length > 0 && (
-                    <>
-                      <div className="fp-stills-h">STILLS · {pad2(f.stills.length)}</div>
-                      <div className="fp-stills">
-                        {f.stills.map((src, i) => (
-                          <div key={i} className="fp-still" style={{ backgroundImage: `url('${src}')` }} />
-                        ))}
-                      </div>
-                    </>
-                  )}
-
                   <div className="fp-foot-modal">
                     <span>{f.location}</span>
                     <span><kbd>esc</kbd> to close</span>

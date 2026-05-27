@@ -242,6 +242,10 @@ export const films: Film[] = [
     videoUrl: '/films/commercial.mov',
     stills:   [],
     location: 'SHOT IN BEIJING',
+    contentBlocks: [
+      { type: 'video' },
+      { type: 'text', text: 'A commercial reel spanning 2022–2025. Brand films, product campaigns, and event coverage edited by Rui Song for PowerCircles.' },
+    ],
   },
   // 05 — Let Me Out
   {

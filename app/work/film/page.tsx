@@ -84,8 +84,6 @@ export default function FilmPage() {
 
       <FilmModal
         film={modalFilm}
-        filmIdx={lockedIdx}
-        total={films.length}
         onClose={() => setModalFilm(null)}
       />
     </>

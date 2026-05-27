@@ -129,6 +129,8 @@ button:focus-visible {
 @keyframes csModalIn    { from{opacity:0;transform:translateY(16px) scale(0.98)} to{opacity:1;transform:translateY(0) scale(1)} }
 @keyframes csBackdropIn { from{opacity:0} to{opacity:1} }
 @keyframes csFlash      { 0%{background:rgba(94,255,138,0.08)} 100%{background:#0a0a0c} }
+@keyframes csSlideNext  { from{opacity:0;transform:translateX(14px)} to{opacity:1;transform:translateX(0)} }
+@keyframes csSlidePrev  { from{opacity:0;transform:translateX(-14px)} to{opacity:1;transform:translateX(0)} }
 
 .cs-cursor { display:inline-block;width:6px;height:11px;background:#5eff8a;vertical-align:-1px;margin-left:1px;animation:csBlink 1s steps(2) infinite }
 
@@ -171,6 +173,8 @@ button:focus-visible {
 .cs-screen { background:#0a0a0c;border:1px solid rgba(255,255,255,0.55);border-radius:5px 5px 2px 2px;aspect-ratio:4/2.8;display:flex;flex-direction:column;overflow:hidden;transition:border-color 0.2s }
 .cs-laptop-wrap:hover .cs-screen { border-color:rgba(94,255,138,0.6) }
 .cs-screen.flash { animation:csFlash 0.4s ease-out }
+.cs-screen.cs-slide-next { animation:csSlideNext 0.22s cubic-bezier(0.2,0.8,0.3,1) }
+.cs-screen.cs-slide-prev { animation:csSlidePrev 0.22s cubic-bezier(0.2,0.8,0.3,1) }
 .cs-screen-bar { background:rgba(255,255,255,0.04);padding:5px 8px;display:flex;align-items:center;gap:5px;border-bottom:0.5px solid rgba(255,255,255,0.12) }
 .cs-mini-dot { width:6px;height:6px;border-radius:50% }
 .cs-filename { font-size:clamp(8.5px,0.8vw,10px);color:rgba(255,255,255,0.5);margin-left:auto;letter-spacing:0.05em }
@@ -188,7 +192,7 @@ button:focus-visible {
 .cs-footer { font-size:9px;color:rgba(255,255,255,0.5);letter-spacing:0.18em;margin-top:auto;padding-top:18px;flex-shrink:0 }
 
 .cs-backdrop { position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);z-index:200;display:flex;align-items:center;justify-content:center;animation:csBackdropIn 0.18s ease-out }
-.cs-modal { background:#15161a;border:0.5px solid rgba(255,255,255,0.18);border-radius:6px;width:min(460px,calc(100% - 60px));max-height:calc(100% - 80px);box-shadow:0 24px 60px rgba(0,0,0,0.6),0 0 0 0.5px rgba(94,255,138,0.08);overflow:hidden;animation:csModalIn 0.22s cubic-bezier(0.2,0.7,0.3,1);display:flex;flex-direction:column }
+.cs-modal { background:#15161a;border:0.5px solid rgba(255,255,255,0.18);border-radius:6px;width:min(600px,calc(100% - 60px));max-height:calc(100% - 80px);box-shadow:0 24px 60px rgba(0,0,0,0.6),0 0 0 0.5px rgba(94,255,138,0.08);overflow:hidden;animation:csModalIn 0.22s cubic-bezier(0.2,0.7,0.3,1);display:flex;flex-direction:column }
 .cs-modal-bar { background:rgba(255,255,255,0.04);padding:9px 12px;display:flex;align-items:center;gap:6px;border-bottom:0.5px solid rgba(255,255,255,0.12);flex-shrink:0 }
 .cs-modal-close { width:11px;height:11px;border-radius:50%;background:#ff5f57;cursor:pointer;position:relative }
 .cs-modal-close::before,.cs-modal-close::after { content:"";position:absolute;top:50%;left:50%;width:5px;height:1px;background:rgba(0,0,0,0.5);opacity:0;transition:opacity 0.15s }
@@ -208,6 +212,12 @@ button:focus-visible {
 .cs-modal-links { margin-top:18px;padding-top:16px;border-top:0.5px solid rgba(255,255,255,0.1);display:flex;flex-direction:column;gap:8px }
 .cs-modal-link { font-size:11px;color:#5eff8a;cursor:pointer;transition:color 0.15s,transform 0.15s;text-decoration:none;display:inline-flex;align-items:center;gap:6px;width:fit-content }
 .cs-modal-link:hover { color:#fff;transform:translateX(3px) }
+.cs-modal-team { margin-top:18px;padding-top:16px;border-top:0.5px solid rgba(255,255,255,0.1) }
+.cs-modal-team-h { font-size:9px;color:rgba(255,255,255,0.4);letter-spacing:0.18em;margin-bottom:10px }
+.cs-modal-team-row { display:flex;align-items:baseline;gap:8px;margin-bottom:6px }
+.cs-modal-team-name { font-size:11px;color:#fff;min-width:110px }
+.cs-modal-team-arrow { font-size:11px;color:rgba(94,255,138,0.6) }
+.cs-modal-team-role { font-size:11px;color:rgba(255,255,255,0.55) }
 .cs-modal-kbd { display:flex;justify-content:flex-end;margin-top:18px;gap:6px;font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:0.1em }
 .cs-modal-kbd kbd { background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.18);padding:2px 5px;border-radius:2px;color:rgba(255,255,255,0.6) }
 
