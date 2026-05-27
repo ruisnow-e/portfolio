@@ -7,7 +7,7 @@ export type ContentBlock =
   | { type: 'image';        src: string; size?: 'small' }
   | { type: 'press-quote'; quote: string; attribution: string; url?: string; hint?: string }
   | { type: 'download-link'; label: string; href: string }
-  | { type: 'bts-grid';   srcs: string[]; positions?: string[] }
+  | { type: 'bts-grid';   srcs: string[]; positions?: string[]; aspects?: string[] }
   | { type: 'video' }
   | { type: 'awards' }
   | { type: 'screenings' };
@@ -113,14 +113,21 @@ export const films: Film[] = [
       {
         type: 'bts-grid',
         srcs: [
-          '/stills/heirloom/bts/bts-7.jpg',   // r1 left  — monitor hero
-          '/stills/heirloom/bts/bts-4.jpg',   // r1 right — portrait
-          '/stills/heirloom/bts/bts-11.jpg',  // r2 left  — mirror
-          '/stills/heirloom/bts/bts-2.jpg',   // r2 right — crew
-          '/stills/heirloom/bts/bts-9.jpg',   // r3 left  — clapperboard
-          '/stills/heirloom/bts/bts-10.jpg',  // r3 right — kitchen
+          '/stills/heirloom/bts/bts-8.jpg',   // full set wide
+          '/stills/heirloom/bts/bts-7.jpg',   // monitor hero
+          '/stills/heirloom/bts/bts-4.jpg',   // cast gallery portrait
+          '/stills/heirloom/bts/bts-9.jpg',   // clapperboard
+          '/stills/heirloom/bts/bts-3.jpg',   // crew on set portrait
+          '/stills/heirloom/bts/bts-12.jpg',  // production gimbal
+          '/stills/heirloom/bts/bts-5.jpg',   // actor with food portrait
+          '/stills/heirloom/bts/bts-2.jpg',   // crew around camera
+          '/stills/heirloom/bts/bts-11.jpg',  // mirror portrait
+          '/stills/heirloom/bts/bts-10.jpg',  // kitchen set portrait
+          '/stills/heirloom/bts/bts-1.jpg',   // editing screen portrait
+          '/stills/heirloom/bts/bts-6.jpg',   // theater portrait
         ],
-        positions: ['center', 'center 25%', 'center', 'center', 'center 35%', 'center top'],
+        positions: ['center', 'center', 'center 25%', 'center 35%', 'center', 'center', 'center', 'center', 'center', 'center top', 'center', 'center'],
+        aspects:   ['4/3',   '16/9',  '3/4',         '4/3',        '3/4',    '4/3',    '3/4',    '4/3',   '3/4',   '3/4',         '3/4',   '3/4'  ],
       },
     ],
   },

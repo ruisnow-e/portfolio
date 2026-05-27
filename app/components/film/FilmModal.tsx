@@ -95,25 +95,18 @@ function renderBlock(block: ContentBlock, i: number, f: Film) {
         </div>
       );
     case 'bts-grid': {
-      const srcs = block.srcs;
-      const pos = block.positions ?? [];
-      const img = (idx: number) => ({ backgroundImage: `url('${srcs[idx]}')`, backgroundPosition: pos[idx] ?? 'center' });
+      const { srcs, positions = [], aspects = [] } = block;
       return (
         <div key={i} className="fp-bts-section">
           <div className="fp-stills-h" style={{ marginTop: 48 }}>BEHIND THE LENS</div>
-          <div className="fp-bts-grid">
-            <div className="fp-bts-r1">
-              <div className="fp-bts-img" style={img(0)} />
-              <div className="fp-bts-img" style={img(1)} />
-            </div>
-            <div className="fp-bts-r2">
-              <div className="fp-bts-img" style={img(2)} />
-              <div className="fp-bts-img" style={img(3)} />
-            </div>
-            <div className="fp-bts-r3">
-              <div className="fp-bts-img" style={img(4)} />
-              <div className="fp-bts-img" style={img(5)} />
-            </div>
+          <div className="fp-bts-scroll">
+            {srcs.map((src, idx) => (
+              <div key={idx} className="fp-bts-scroll-img" style={{
+                backgroundImage: `url('${src}')`,
+                backgroundPosition: positions[idx] ?? 'center',
+                aspectRatio: aspects[idx] ?? '4/3',
+              }} />
+            ))}
           </div>
         </div>
       );

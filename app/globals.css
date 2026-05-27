@@ -324,7 +324,7 @@ button:focus-visible {
 }
 .fp-close:hover { color: #0a0a0a; transform: scale(1.1); }
 
-.fp-modal-body { padding: 26px 32px 28px; overflow-y: auto; }
+.fp-modal-body { padding: 26px 32px 28px; overflow-y: auto; flex: 1; min-height: 0; }
 
 .fp-label { font-family: ui-monospace, monospace; font-size: 9px; letter-spacing: 0.22em; color: #b88820; text-align: center; }
 .fp-title { font-family: 'Times New Roman', Georgia, serif; font-size: 56px; line-height: 1; color: #0a0a0a; margin: 10px 0 6px; letter-spacing: -0.01em; text-align: center; }
@@ -414,12 +414,19 @@ button:focus-visible {
 .fp-tier-row--sm .fp-tier-text  { font-size: 8.5px; color: rgba(0,0,0,0.33); }
 .fp-tier-row--sm .fp-tier-arrow { color: rgba(0,0,0,0.18); }
 
-/* ─── BTS grid ─────────────────────────────────────────────────────────────── */
-.fp-bts-grid { display: flex; flex-direction: column; gap: 4px; margin-top: 14px; }
-.fp-bts-img  { background-size: cover; background-repeat: no-repeat; }
-.fp-bts-r1   { display: grid; grid-template-columns: 3fr 2fr; gap: 4px; height: 200px; }
-.fp-bts-r2   { display: grid; grid-template-columns: 1fr 2fr; gap: 4px; height: 150px; }
-.fp-bts-r3   { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; height: 120px; }
+/* ─── BTS scroll strip ──────────────────────────────────────────────────────── */
+.fp-bts-scroll {
+  display: flex; gap: 5px; margin-top: 14px;
+  height: 220px; overflow-x: auto; overflow-y: hidden;
+  scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.15) transparent;
+}
+.fp-bts-scroll::-webkit-scrollbar { height: 3px; }
+.fp-bts-scroll::-webkit-scrollbar-track { background: transparent; }
+.fp-bts-scroll::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 2px; }
+.fp-bts-scroll-img {
+  flex-shrink: 0; height: 100%;
+  background-size: cover; background-repeat: no-repeat;
+}
 
 /* ─── Awards page ──────────────────────────────────────────────────────────── */
 @keyframes awScroll {
