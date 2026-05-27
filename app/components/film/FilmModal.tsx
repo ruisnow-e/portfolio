@@ -159,7 +159,7 @@ function renderBlock(block: ContentBlock, i: number, f: Film) {
 
           {t3.length > 0 && (
             <div className="fp-tier-section">
-              <div className="fp-tier-head"><span>SEMI-FINALIST · HONORABLE MENTION</span><span>{pad2(t3.length)}</span></div>
+              <div className="fp-tier-head"><span>{t3.some(a => a.text.startsWith('Semi-Finalist')) ? 'SEMI-FINALIST · HONORABLE MENTION' : 'HONORABLE MENTION'}</span><span>{pad2(t3.length)}</span></div>
               {t3.map((a, j) => {
                 const text = a.text.replace(/^(Semi-Finalist|Honorable Mention) · /, '');
                 return (

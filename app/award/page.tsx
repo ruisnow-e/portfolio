@@ -15,25 +15,19 @@ interface Award {
   sub: string;
   year: string;
   poster?: string;
+  url?: string;
 }
 
 const awards: Award[] = [
-  { size: 'L', deco: 'laurel',  label: 'AWARD WINNER · BEST LGBTQ SHORT',  name: 'Berlin Shorts Award',               sub: 'Drama · Heirloom',               year: '2024', poster: '/award/1.png'  },
-  { size: 'S', deco: 'laurel',  label: 'SEMI-FINALIST',                    name: 'Tokyo ShortFest',                   sub: 'Drama · Heirloom',               year: '2024', poster: '/award/2.jpg'  },
-  { size: 'M', deco: 'star',    label: 'AWARD WINNER · BEST EDITING',      name: 'Chicago Filmmaker Awards',          sub: 'Drama · Heirloom',               year: '2024', poster: '/award/3.jpg'  },
-  { size: 'L', deco: 'laurel',  label: 'AWARD WINNER · BEST LGBTQ SHORT',  name: 'SF Arthouse Short Film Festival',   sub: 'Drama · Heirloom',               year: '2024', poster: '/award/4.jpg'  },
-  { size: 'S', deco: 'laurel',  label: 'SEMI-FINALIST',                    name: 'Austin Intl Art Festival',          sub: 'Drama · Heirloom',               year: '2024', poster: '/award/5.jpg'  },
-  { size: 'M', deco: 'laurel',  label: 'OFFICIAL SELECTION',               name: 'Kyoto Intl Student Film Festival',  sub: '27th edition · Heirloom',        year: '2025', poster: '/award/6.jpg'  },
-  { size: 'L', deco: 'laurel',  label: 'AWARD WINNER · BEST LGBTQ SHORT',  name: 'Madrid Arthouse Film Festival',     sub: 'Drama · Heirloom',               year: '2024', poster: '/award/7.jpg'  },
-  { size: 'S', deco: 'laurel',  label: 'SEMI-FINALIST',                    name: 'Atlanta Movie Awards',              sub: 'Drama · Heirloom',               year: '2024', poster: '/award/8.png'  },
-  { size: 'M', deco: 'quote',   label: 'HONORABLE MENTION',                name: 'Los Angeles Short Film Awards',     sub: 'Best LGBTQ Film · Heirloom',     year: '2024', poster: '/award/9.png'  },
-  { size: 'L', deco: 'laurel',  label: 'AWARD WINNER · BEST LGBTQ SHORT',  name: 'Phoenix Shorts',                    sub: 'Drama · Heirloom',               year: '2024', poster: '/award/10.jpg' },
-  { size: 'S', deco: 'laurel',  label: 'SEMI-FINALIST',                    name: 'Brooklyn Intl Short Awards',        sub: 'Drama · Heirloom',               year: '2024', poster: '/award/11.png' },
-  { size: 'M', deco: 'stage',   label: 'OFFICIAL SELECTION',               name: 'San Antonio QFest',                 sub: 'LGBT Film Festival · Heirloom',  year: '2024', poster: '/award/12.png' },
-  { size: 'S', deco: 'laurel',  label: 'SEMI-FINALIST',                    name: 'Hong Kong Indie Film Festival',     sub: 'Drama · Heirloom',               year: '2024', poster: '/award/13.png' },
-  { size: 'M', deco: 'quote',   label: 'HONORABLE MENTION',                name: 'New York Film & Actor Awards',      sub: 'Best LGBTQ Film · Heirloom',     year: '2024', poster: '/award/14.jpg' },
-  { size: 'S', deco: 'laurel',  label: 'SEMI-FINALIST',                    name: 'Paris Intl Short Festival',         sub: 'Drama · Heirloom',               year: '2024' },
-  { size: 'M', deco: 'stage',   label: 'OFFICIAL SELECTION',               name: 'SF Another Hole in the Head',       sub: 'Genre Film Festival · Heirloom', year: '2024' },
+  { size: 'L', deco: 'star',  label: 'AWARD WINNER · BEST LGBTQ SHORT',  name: 'Berlin Short Film Festival',            sub: 'Drama',               year: '2024', poster: '/award/cert-berlin.jpg',     url: 'https://berlinshortsaward.com/winners-july-2024/'                  },
+  { size: 'M', deco: 'star',  label: 'AWARD WINNER · BEST EDITING',       name: 'Chicago Filmmaker Awards',              sub: 'Drama',               year: '2024', poster: '/award/cert-chicago.jpg',    url: 'https://cifawards.net/2024/10/23/winners-october-2024/'            },
+  { size: 'L', deco: 'star',  label: 'AWARD WINNER · BEST LGBTQ SHORT',  name: 'San Francisco Arthouse Short Festival', sub: 'Drama',               year: '2024', poster: '/award/cert-sfarthouse.jpg', url: 'https://sanfranciscoindieshort.com/winners-july-2024/'             },
+  { size: 'L', deco: 'star',  label: 'OFFICIAL SELECTION',                name: 'Kyoto Intl Student Film Festival',      sub: '27th edition',        year: '2025', poster: '/award/cert-kyoto.jpg',      url: 'https://www.consortium.or.jp/en/project/kisfvf/details/2024-2'    },
+  { size: 'L', deco: 'star',  label: 'AWARD WINNER · BEST LGBTQ SHORT',  name: 'Madrid Arthouse Film Festival',         sub: 'Drama',               year: '2024', poster: '/award/cert-madrid.jpg',     url: 'https://maffestival.com/winners-october-2024/'                     },
+  { size: 'M', deco: 'quote', label: 'HONORABLE MENTION',                 name: 'Los Angeles Short Film Awards',         sub: 'Best LGBTQ Film',     year: '2024', poster: '/award/cert-la.jpg'                                                                           },
+  { size: 'L', deco: 'star',  label: 'AWARD WINNER · BEST LGBTQ SHORT',  name: 'Phoenix Shorts',                        sub: 'Drama',               year: '2024', poster: '/award/cert-phoenix.jpg',    url: 'https://phoenixshortfestival.com/winners-august-2024/'             },
+  { size: 'L', deco: 'stage', label: 'OFFICIAL SELECTION',                name: 'San Antonio QFest',                     sub: 'LGBT Film Festival',  year: '2024', poster: '/award/cert-sanantonio.png'                                                                   },
+  { size: 'M', deco: 'stage', label: 'OFFICIAL SELECTION',                name: 'SF Another Hole in the Head',           sub: 'Genre Film Festival', year: '2024', poster: '/award/cert-sfhole.png',     url: 'https://holehead2024.eventive.org/films/671997f6f12b3b004193fb7e' },
 ];
 
 const LAUREL_SVG = (
@@ -78,14 +72,15 @@ function Deco({ award }: { award: Award }) {
 const BASE_SPEED = 1.1;
 
 export default function AwardPage() {
-  const navigate    = usePageNavigate();
-  const stripRef    = useRef<HTMLDivElement>(null);
-  const trackRef    = useRef<HTMLDivElement>(null);
-  const offsetRef   = useRef(0);
-  const wheelVelRef = useRef(0);
-  const hoveredRef  = useRef(false);
+  const navigate           = usePageNavigate();
+  const stripRef           = useRef<HTMLDivElement>(null);
+  const trackRef           = useRef<HTMLDivElement>(null);
+  const offsetRef          = useRef(0);
+  const wheelVelRef        = useRef(0);
+  const hoveredRef         = useRef(false);
   const mouseDownOffsetRef = useRef(0);
-  const rafRef      = useRef<number>(0);
+  const rafRef             = useRef<number>(0);
+  const progressDotRef     = useRef<HTMLDivElement>(null);
   const [paused, setPaused]   = useState(false);
   const [flipped, setFlipped] = useState<boolean[]>(() => new Array(awards.length).fill(false));
 
@@ -107,6 +102,9 @@ export default function AwardPage() {
           if (offsetRef.current >= half) offsetRef.current -= half;
           if (offsetRef.current < 0)     offsetRef.current += half;
           track.style.transform = `translateX(-${offsetRef.current}px)`;
+          if (progressDotRef.current) {
+            progressDotRef.current.style.left = `${(offsetRef.current / half) * 100}%`;
+          }
         }
       }
       rafRef.current = requestAnimationFrame(tick);
@@ -130,7 +128,6 @@ export default function AwardPage() {
   }, [onWheel]);
 
   const handleCardClick = useCallback((idx: number) => {
-    // Ignore if the ticker moved significantly (wheel scroll drag)
     if (Math.abs(offsetRef.current - mouseDownOffsetRef.current) > 5) return;
     setFlipped(prev => {
       const next = [...prev];
@@ -147,6 +144,8 @@ export default function AwardPage() {
       className={`aw-card aw-size-${a.size}${flipped[idx] ? ' is-flipped' : ''}`}
       onMouseDown={() => { mouseDownOffsetRef.current = offsetRef.current; }}
       onClick={() => handleCardClick(idx)}
+      onMouseEnter={() => { hoveredRef.current = true;  setPaused(true); }}
+      onMouseLeave={() => { hoveredRef.current = false; setPaused(false); }}
     >
       <div className="aw-card-inner">
         {/* Front */}
@@ -163,6 +162,17 @@ export default function AwardPage() {
             /* eslint-disable-next-line @next/next/no-img-element */
             ? <img src={a.poster} alt="" />
             : null}
+          {a.url && (
+            <a
+              className="aw-card-link"
+              href={a.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+            >
+              OPEN ↗
+            </a>
+          )}
         </div>
       </div>
     </div>
@@ -181,25 +191,26 @@ export default function AwardPage() {
         </a>
       </header>
 
-      <div
-        ref={stripRef}
-        className="aw-strip"
-        onMouseEnter={() => { hoveredRef.current = true;  setPaused(true); }}
-        onMouseLeave={() => { hoveredRef.current = false; setPaused(false); }}
-      >
+      <div ref={stripRef} className="aw-strip">
         <div ref={trackRef} className="aw-track">
           {awards.map((a, i) => renderCard(a, i, `a-${i}`))}
           {awards.map((a, i) => renderCard(a, i, `b-${i}`))}
         </div>
       </div>
 
+      <div className="aw-progress-wrap">
+        <div className="aw-progress">
+          <div className="aw-progress-dot" ref={progressDotRef} />
+        </div>
+      </div>
+
       <div className="aw-foot">
         <div className="indicator">
           <span className="aw-pulse" />
-          <span className="aw-playing">AUTO-SCROLLING · SCROLL OR CLICK TO FLIP</span>
-          <span className="aw-paused">PAUSED · CLICK TO FLIP</span>
+          <span className="aw-playing">AUTO-SCROLLING · SCROLL OR CLICK TO FLIP CARD</span>
+          <span className="aw-paused">PAUSED · CLICK TO FLIP CARD</span>
         </div>
-        <div>{pad(awards.length)} RECORDS</div>
+        <div>{pad(awards.length)} LAURELS</div>
       </div>
     </div>
   );

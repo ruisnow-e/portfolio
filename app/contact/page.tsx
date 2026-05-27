@@ -32,7 +32,7 @@ export default function ContactPage() {
           snow<sup style={{ fontSize: '0.45em', verticalAlign: 'super', marginLeft: '1px', fontWeight: 400 }}>®</sup>
         </a>
         <div style={{ display: 'flex', gap: '48px', alignItems: 'center' }}>
-          <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }} className="ct-navlink">Bio</a>
+          <a href="/bio" onClick={(e) => { e.preventDefault(); navigate('/bio'); }} className="ct-navlink">Bio</a>
           <span className="ct-active">Contact</span>
         </div>
       </nav>
@@ -82,7 +82,7 @@ export default function ContactPage() {
             </a>
 
             {/* LinkedIn */}
-            <a href="https://www.linkedin.com/in/ruisnowsong" target="_blank" rel="noopener" className="ct-social" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/ruisong09/" target="_blank" rel="noopener" className="ct-social" aria-label="LinkedIn">
               <svg className="ct-social-icon" viewBox="0 0 32 32" fill="currentColor">
                 <path d="M27 3H5a2 2 0 0 0-2 2v22a2 2 0 0 0 2 2h22a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM10.5 25H6.75V12.5h3.75V25zM8.625 10.875A2.187 2.187 0 1 1 8.626 6.5a2.187 2.187 0 0 1 0 4.375zM25.5 25h-3.75v-6.625c0-1.75-.625-2.625-1.875-2.625-1.375 0-2.125 1-2.125 2.625V25h-3.75V12.5h3.625v1.625C18.25 13 19.5 12.125 21.5 12.125c2.25 0 4 1.375 4 4.625V25z" />
               </svg>
@@ -98,7 +98,7 @@ export default function ContactPage() {
             </a>
 
             {/* Instagram */}
-            <a href="https://instagram.com/ruisnow" target="_blank" rel="noopener" className="ct-social" aria-label="Instagram">
+            <a href="https://www.instagram.com/eudemoniaruis/" target="_blank" rel="noopener" className="ct-social" aria-label="Instagram">
               <svg className="ct-social-icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.4">
                 <rect x="3.5" y="3.5" width="25" height="25" rx="6.5" />
                 <circle cx="16" cy="16" r="5.5" />
