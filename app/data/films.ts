@@ -87,7 +87,7 @@ export const films: Film[] = [
       { text: 'Semi-Finalist · Tokyo ShortFest (November 2024)' },
     ],
     screenings: [
-      '27th Kyoto International Student Film & Video Festival · Museum of Kyoto Film Theater — February 6–9, 2025',
+      '27th Kyoto International Student Film & Video Festival · Museum of Kyoto Film Theater, Kyoto — February 6–9, 2025',
       'Another Hole in the Head Film Festival · Balboa Theater, San Francisco — December 8, 2024',
       'San Antonio QFest · City Base Cinemas, San Antonio — October 12, 2024',
       'Theatrical Screening · The Roxie Theater, San Francisco — May 7, 2024',
@@ -106,21 +106,21 @@ export const films: Film[] = [
       { type: 'still-pair', srcs: ['/stills/heirloom/1.jpg', '/stills/heirloom/5.jpg'], positions: ['right center', 'center'] },
       { type: 'text', text: 'If Heirloom brings warmth, or recognition, or a bit of relief to LGBTQ+ families watching, that is the most I could ask.' },
       { type: 'press-quote', quote: 'In Heirloom, the filmmaker delves into the complexities of family, identity, and the evolving dynamics of LGBTQ+ relationships.', attribution: '— Patrick Roy, UniversalCinema Magazine', url: 'https://universalcinema.net/heirloom-navigating-family-identity-and-surrogacy-in-lgbtq-narratives/' },
-      { type: 'press-quote', quote: 'Heirloom is listed on Filmarks, Japan\'s largest film review platform, following its premiere at the 27th Kyoto International Student Film & Video Festival, February 2025.', attribution: 'Filmarks · Japan\'s Largest Film Review Platform', url: 'https://filmarks.com/movies/121171', hint: 'VIEW ON FILMARKS ↗' },
+      { type: 'press-quote', quote: 'Heirloom is listed on Filmarks, Japan\'s largest film review platform, following its Japan premiere at the 27th Kyoto International Student Film & Video Festival — one of 16 films selected from 511 international submissions worldwide.', attribution: 'Filmarks · Japan\'s Largest Film Review Platform', url: 'https://filmarks.com/movies/121171', hint: 'VIEW ON FILMARKS ↗' },
       { type: 'awards' },
       { type: 'screenings' },
       { type: 'image', src: '/stills/heirloom/vip.png', size: 'small' },
       {
         type: 'bts-grid',
         srcs: [
-          '/stills/heirloom/bts/bts-7.jpg',
-          '/stills/heirloom/bts/bts-9.jpg',
-          '/stills/heirloom/bts/bts-11.jpg',
-          '/stills/heirloom/bts/bts-2.jpg',
-          '/stills/heirloom/bts/bts-10.jpg',
-          '/stills/heirloom/bts/bts-4.jpg',
+          '/stills/heirloom/bts/bts-7.jpg',   // r1 left  — monitor hero
+          '/stills/heirloom/bts/bts-4.jpg',   // r1 right — portrait
+          '/stills/heirloom/bts/bts-11.jpg',  // r2 left  — mirror
+          '/stills/heirloom/bts/bts-2.jpg',   // r2 right — crew
+          '/stills/heirloom/bts/bts-9.jpg',   // r3 left  — clapperboard
+          '/stills/heirloom/bts/bts-10.jpg',  // r3 right — kitchen
         ],
-        positions: ['center', 'center 35%', 'center', 'center', 'center top', 'center 25%'],
+        positions: ['center', 'center 25%', 'center', 'center', 'center 35%', 'center top'],
       },
     ],
   },

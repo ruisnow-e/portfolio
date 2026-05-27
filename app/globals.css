@@ -416,10 +416,10 @@ button:focus-visible {
 
 /* ─── BTS grid ─────────────────────────────────────────────────────────────── */
 .fp-bts-grid { display: flex; flex-direction: column; gap: 4px; margin-top: 14px; }
-.fp-bts-hero { width: 100%; aspect-ratio: 16/9; background-size: cover; background-repeat: no-repeat; }
-.fp-bts-wide { width: 100%; aspect-ratio: 21/9; background-size: cover; background-repeat: no-repeat; }
-.fp-bts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
-.fp-bts-cell { aspect-ratio: 4/3; background-size: cover; background-repeat: no-repeat; }
+.fp-bts-img  { background-size: cover; background-repeat: no-repeat; }
+.fp-bts-r1   { display: grid; grid-template-columns: 3fr 2fr; gap: 4px; height: 200px; }
+.fp-bts-r2   { display: grid; grid-template-columns: 1fr 2fr; gap: 4px; height: 150px; }
+.fp-bts-r3   { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; height: 120px; }
 
 /* ─── Awards page ──────────────────────────────────────────────────────────── */
 @keyframes awScroll {

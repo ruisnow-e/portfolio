@@ -97,19 +97,22 @@ function renderBlock(block: ContentBlock, i: number, f: Film) {
     case 'bts-grid': {
       const srcs = block.srcs;
       const pos = block.positions ?? [];
+      const img = (idx: number) => ({ backgroundImage: `url('${srcs[idx]}')`, backgroundPosition: pos[idx] ?? 'center' });
       return (
         <div key={i} className="fp-bts-section">
           <div className="fp-stills-h" style={{ marginTop: 48 }}>BEHIND THE LENS</div>
           <div className="fp-bts-grid">
-            <div className="fp-bts-hero" style={{ backgroundImage: `url('${srcs[0]}')`, backgroundPosition: pos[0] ?? 'center' }} />
-            <div className="fp-bts-row">
-              <div className="fp-bts-cell" style={{ backgroundImage: `url('${srcs[1]}')`, backgroundPosition: pos[1] ?? 'center' }} />
-              <div className="fp-bts-cell" style={{ backgroundImage: `url('${srcs[2]}')`, backgroundPosition: pos[2] ?? 'center' }} />
+            <div className="fp-bts-r1">
+              <div className="fp-bts-img" style={img(0)} />
+              <div className="fp-bts-img" style={img(1)} />
             </div>
-            <div className="fp-bts-wide" style={{ backgroundImage: `url('${srcs[3]}')`, backgroundPosition: pos[3] ?? 'center' }} />
-            <div className="fp-bts-row">
-              <div className="fp-bts-cell" style={{ backgroundImage: `url('${srcs[4]}')`, backgroundPosition: pos[4] ?? 'center' }} />
-              <div className="fp-bts-cell" style={{ backgroundImage: `url('${srcs[5]}')`, backgroundPosition: pos[5] ?? 'center' }} />
+            <div className="fp-bts-r2">
+              <div className="fp-bts-img" style={img(2)} />
+              <div className="fp-bts-img" style={img(3)} />
+            </div>
+            <div className="fp-bts-r3">
+              <div className="fp-bts-img" style={img(4)} />
+              <div className="fp-bts-img" style={img(5)} />
             </div>
           </div>
         </div>
@@ -180,7 +183,7 @@ function renderBlock(block: ContentBlock, i: number, f: Film) {
         <div key={i}>
           <div className="fp-stills-h" style={{ marginTop: 24 }}>SCREENINGS</div>
           <div className="fp-award-list">
-            {f.screenings.map((s, j) => <div key={j} className="fp-award-item">{s}</div>)}
+            {f.screenings.map((s, j) => <div key={j} className="fp-award-item" style={{ whiteSpace: 'pre-line' }}>{s}</div>)}
           </div>
         </div>
       ) : null;
