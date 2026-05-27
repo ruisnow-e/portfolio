@@ -61,7 +61,7 @@ export const films: Film[] = [
     runtime:  '13:17',
     format:   'RED Komodo 6K · 23.976fps',
     synopsis: 'Following his coming out, a young man is astonished to discover his parents not only knew but accepted his homosexuality, contingent upon the condition that he must father a child to inherit the cherished family heirloom. Overwhelmed, he engages in a heated dispute with his parents, yet the accidental shattering of the heirloom unveils a long-buried secret.',
-    videoUrl: '/films/heirloom.mov',
+    videoUrl: 'https://pub-214726c9759841f7aba115899adf9a7e.r2.dev/films/heirloom.mov',
     stills: [
       '/stills/heirloom/1.jpg',
       '/stills/heirloom/2.jpg',
@@ -238,7 +238,7 @@ export const films: Film[] = [
     format:   'Premiere Pro · DaVinci Resolve',
     formatLabel: 'TOOLS',
     synopsis: 'A commercial reel spanning 2022–2025. Brand films, product campaigns, and event coverage edited by Rui Song for PowerCircles.',
-    videoUrl: '/films/commercial.mov',
+    videoUrl: 'https://pub-214726c9759841f7aba115899adf9a7e.r2.dev/films/commercial.mov',
     stills:   [],
     location: 'SHOT IN BEIJING',
     contentBlocks: [

@@ -7,15 +7,15 @@ import BottomBarDance from '@/app/components/dance/BottomBarDance';
 // ── Data ──────────────────────────────────────────────────────────────────────
 
 const works = [
-  { title: 'ESCAPISM',          music: 'RAYE FEAT. 070 SHAKE',        color: '#4e4578', posterUrl: '/dance/escapism.png',       videoUrl: '/dance/escapism.mp4',      px: 0, py: 0, chorusStart: 40 },
-  { title: 'FUXK UP THE WORLD', music: 'LISA FEAT. FUTURE',           color: '#9e2e42', posterUrl: '/dance/fuxkuptheworld.jpg', videoUrl: '/dance/fuxkuptheworld.mp4', px: 0, py: 0, chorusStart: 54 },
-  { title: 'THE WAY I ARE',     music: 'TIMBALAND FEAT. KERI HILSON', color: '#8a5e28', posterUrl: '/dance/wayiare.png',        videoUrl: '/dance/wayiare.mov',        px: 0, py: 0, chorusStart:  0 },
-  { title: 'WITH THE IE',       music: 'JENNIE',                      color: '#9e3e6e', posterUrl: '/dance/withtheie.png',      videoUrl: '/dance/withtheie.mov',      px: 0, py: 0, chorusStart: 11 },
-  { title: 'SPORTS CAR',        music: 'TATE McRAE',                  color: '#9e3838', posterUrl: '/dance/sportscar.png',      videoUrl: '/dance/sportscar.mov',      px: 0, py: 0, chorusStart:  0 },
-  { title: 'APT',               music: 'ROSÉ & BRUNO MARS',           color: '#b83858', posterUrl: '/dance/apt.png',            videoUrl: '/dance/apt.mov',            px: 0, py: 0, chorusStart: 16 },
-  { title: 'PARTY 4 U',         music: 'CHARLI XCX',                  color: '#344eb0', posterUrl: '/dance/party4u.png',        videoUrl: '/dance/party4u.mov',        px: 0, py: 0, chorusStart:  0 },
-  { title: 'TIT FOR TAT',       music: 'TATE McRAE',                  color: '#9e5228', posterUrl: '/dance/titfortat.png',      videoUrl: '/dance/titfortat.mov',      px: 0, py: 0, chorusStart: 13 },
-  { title: 'LV BAG',            music: 'DON TOLIVER FEAT. J-HOPE',    color: '#245e48', posterUrl: '/dance/lvbag.png',          videoUrl: '/dance/lvbag.mov',          px: 0, py: 0, chorusStart:  3 },
+  { title: 'ESCAPISM',          music: 'RAYE FEAT. 070 SHAKE',        color: '#4e4578', posterUrl: '/dance/escapism.png',       videoUrl: 'https://pub-214726c9759841f7aba115899adf9a7e.r2.dev/dance/escapism.mp4',      px: 0, py: 0, chorusStart: 40 },
+  { title: 'FUXK UP THE WORLD', music: 'LISA FEAT. FUTURE',           color: '#9e2e42', posterUrl: '/dance/fuxkuptheworld.jpg', videoUrl: 'https://pub-214726c9759841f7aba115899adf9a7e.r2.dev/dance/fuxkuptheworld.mp4', px: 0, py: 0, chorusStart: 54 },
+  { title: 'THE WAY I ARE',     music: 'TIMBALAND FEAT. KERI HILSON', color: '#8a5e28', posterUrl: '/dance/wayiare.png',        videoUrl: 'https://pub-214726c9759841f7aba115899adf9a7e.r2.dev/dance/wayiare.mov',        px: 0, py: 0, chorusStart:  0 },
+  { title: 'WITH THE IE',       music: 'JENNIE',                      color: '#9e3e6e', posterUrl: '/dance/withtheie.png',      videoUrl: 'https://pub-214726c9759841f7aba115899adf9a7e.r2.dev/dance/withtheie.mov',      px: 0, py: 0, chorusStart: 11 },
+  { title: 'SPORTS CAR',        music: 'TATE McRAE',                  color: '#9e3838', posterUrl: '/dance/sportscar.png',      videoUrl: 'https://pub-214726c9759841f7aba115899adf9a7e.r2.dev/dance/sportscar.mov',      px: 0, py: 0, chorusStart:  0 },
+  { title: 'APT',               music: 'ROSÉ & BRUNO MARS',           color: '#b83858', posterUrl: '/dance/apt.png',            videoUrl: 'https://pub-214726c9759841f7aba115899adf9a7e.r2.dev/dance/apt.mov',            px: 0, py: 0, chorusStart: 16 },
+  { title: 'PARTY 4 U',         music: 'CHARLI XCX',                  color: '#344eb0', posterUrl: '/dance/party4u.png',        videoUrl: 'https://pub-214726c9759841f7aba115899adf9a7e.r2.dev/dance/party4u.mov',        px: 0, py: 0, chorusStart:  0 },
+  { title: 'TIT FOR TAT',       music: 'TATE McRAE',                  color: '#9e5228', posterUrl: '/dance/titfortat.png',      videoUrl: 'https://pub-214726c9759841f7aba115899adf9a7e.r2.dev/dance/titfortat.mov',      px: 0, py: 0, chorusStart: 13 },
+  { title: 'LV BAG',            music: 'DON TOLIVER FEAT. J-HOPE',    color: '#245e48', posterUrl: '/dance/lvbag.png',          videoUrl: 'https://pub-214726c9759841f7aba115899adf9a7e.r2.dev/dance/lvbag.mov',          px: 0, py: 0, chorusStart:  3 },
 ];
 
 const N          = 9;
