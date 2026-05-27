@@ -36,8 +36,7 @@ export type Film = {
   stills:           string[];
   location:         string;
   pressKitUrl?:     string;
-  filmNumber?:      number;
-  filmTotal?:       number;
+
   awards?:          { text: string; url?: string }[];
   screenings?:      string[];
   directorStatement?: string;
@@ -72,8 +71,7 @@ export const films: Film[] = [
       '/stills/heirloom/6.jpg',
       '/stills/heirloom/7.jpg',
     ],
-    filmNumber: 2,
-    filmTotal:  17,
+
     location: 'SHOT IN SAN FRANCISCO',
     pressKitUrl: '/films/heirloom-press-kit.pdf',
     awards: [
@@ -168,8 +166,7 @@ export const films: Film[] = [
       '/stills/sanatorium/6-1.jpg',
       '/stills/sanatorium/6-2.jpg',
     ],
-    filmNumber: 11,
-    filmTotal:  12,
+
     location: 'SHOT IN BEIJING',
     contentBlocks: [
       { type: 'still-pair', srcs: ['/stills/sanatorium/1-1.jpg', '/stills/sanatorium/1-2.jpg'] },
@@ -234,7 +231,7 @@ export const films: Film[] = [
     aspectRatio: '3/2',
     axis: 'width',
     cover: '/films/commercial.png',
-    timecode: '00:00 / 04:22',
+    timecode: '00:00 / 00:40',
     roles: 'EDITOR',
     tagline:  '"Make them feel it in three seconds."',
     genre:    'Commercial Advertisement',
@@ -321,7 +318,7 @@ export const films: Film[] = [
       { type: 'still-pair', srcs: ['/stills/bulimia/3.jpg', '/stills/bulimia/4.jpg'], spacing: 'compact' },
       { type: 'still-pair', srcs: ['/stills/bulimia/5.jpg', '/stills/bulimia/6.jpg'], spacing: 'compact' },
       { type: 'still-pair', srcs: ['/stills/bulimia/7.jpg', '/stills/bulimia/8.jpg'], spacing: 'compact' },
-      { type: 'text', text: 'Made in 2022, the series sits at the intersection of self-portrait and social critique. It records what happens when the algorithm-thinned face and the impossible silhouette migrate from the screen into the mirror — and refuses the wellness-language of "self-love" and "diverse beauty" that has emerged to dress the wound without naming it.' },
+      { type: 'text', text: 'Made in 2020, the series sits at the intersection of self-portrait and social critique. It records what happens when the algorithm-thinned face and the impossible silhouette migrate from the screen into the mirror — and refuses the wellness-language of "self-love" and "diverse beauty" that has emerged to dress the wound without naming it.' },
       { type: 'still-pair', srcs: ['/stills/bulimia/9.jpg', '/stills/bulimia/10.jpg'], aspectRatio: '2/3' },
       { type: 'text', text: 'Content note: depictions of disordered eating.' },
     ],
