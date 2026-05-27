@@ -24,10 +24,10 @@ function renderBlock(block: ContentBlock, i: number, f: Film) {
       return (
         <div key={i} className="fp-video" style={{ marginTop: 24 }}>
           {f.videoUrl ? (
-            f.videoUrl.startsWith('/') ? (
-              <video src={f.videoUrl} controls style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#000' }} />
-            ) : (
+            /youtube|vimeo/i.test(f.videoUrl) ? (
               <iframe src={f.videoUrl} allow="autoplay; fullscreen" allowFullScreen />
+            ) : (
+              <video src={f.videoUrl} controls style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#000' }} />
             )
           ) : (
             <div style={{
