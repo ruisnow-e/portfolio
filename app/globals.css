@@ -369,6 +369,7 @@ button:focus-visible {
 .fp-award-item--link:hover { text-decoration: underline; text-underline-offset: 3px; }
 .fp-award-link-hint { opacity: 0.5; }
 
+.fp-divider { margin: 0; border: none; border-top: 0.5px solid rgba(0,0,0,0.12); }
 .fp-press-quote { margin-top: 40px; margin-bottom: 8px; text-align: center; padding: 28px 24px; border-top: 0.5px solid rgba(0,0,0,0.1); border-bottom: 0.5px solid rgba(0,0,0,0.1); }
 .fp-press-quote--link { cursor: pointer; }
 .fp-press-quote--link:hover .fp-pq-attr { text-decoration: underline; text-underline-offset: 3px; }
@@ -415,6 +416,22 @@ button:focus-visible {
 .fp-tier-row--sm .fp-tier-arrow { color: rgba(0,0,0,0.18); }
 
 /* ─── BTS scroll strip ──────────────────────────────────────────────────────── */
+.fp-bts-header {
+  display: flex; flex-direction: column; align-items: center;
+}
+.fp-bts-hint {
+  font-family: var(--font-inter, Inter, system-ui, sans-serif);
+  font-size: 10px; letter-spacing: 0.12em; color: rgba(0,0,0,0.3);
+  margin-top: 6px;
+  animation: bts-hint-fade 2.2s ease-out 0.8s forwards;
+  opacity: 0;
+}
+@keyframes bts-hint-fade {
+  0%   { opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0.28; }
+}
 .fp-bts-scroll {
   display: flex; gap: 5px; margin-top: 14px;
   height: 220px; overflow-x: auto; overflow-y: hidden;

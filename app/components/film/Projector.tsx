@@ -211,7 +211,7 @@ export default function Projector({ film }: { film: Film }) {
         {/* Mono caption */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px', fontFamily: 'var(--font-inter, Inter, system-ui, sans-serif)', fontSize: 'clamp(9px, 0.85vw, 11px)', letterSpacing: '0.1em', color: '#0a0a0a', lineHeight: 1.65, overflow: 'visible' }}>
           <span style={{ whiteSpace: 'nowrap' }}>{film.format.toUpperCase()}</span>
-          <span>{film.timecode}</span>
+          {film.timecode && <span>{film.timecode}</span>}
           <span style={{ whiteSpace: 'nowrap' }}>{film.roles}</span>
         </div>
       </div>

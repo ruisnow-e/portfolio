@@ -94,11 +94,16 @@ function renderBlock(block: ContentBlock, i: number, f: Film) {
           {block.url && <div className="fp-pq-hint">{block.hint ?? 'READ ARTICLE ↗'}</div>}
         </div>
       );
+    case 'divider':
+      return <div key={i} className="fp-divider" />;
     case 'bts-grid': {
       const { srcs, positions = [], aspects = [] } = block;
       return (
         <div key={i} className="fp-bts-section">
-          <div className="fp-stills-h" style={{ marginTop: 48 }}>BEHIND THE LENS</div>
+          <div className="fp-bts-header">
+            <div className="fp-stills-h" style={{ marginTop: 48 }}>BEHIND THE SCENE</div>
+            <div className="fp-bts-hint">scroll ›</div>
+          </div>
           <div className="fp-bts-scroll">
             {srcs.map((src, idx) => (
               <div key={idx} className="fp-bts-scroll-img" style={{
@@ -185,7 +190,7 @@ function renderBlock(block: ContentBlock, i: number, f: Film) {
   }
 }
 
-export default function FilmModal({ film, filmIdx, total, onClose }: FilmModalProps) {
+export default function FilmModal({ film, onClose }: FilmModalProps) {
   const [irisState, setIrisState]   = useState<'idle' | 'opening' | 'closing'>('idle');
   const [modalVisible, setModalVisible] = useState(false);
   // keep last film in DOM during closing so content doesn't vanish mid-animation
@@ -238,7 +243,7 @@ export default function FilmModal({ film, filmIdx, total, onClose }: FilmModalPr
             </div>
 
             <div className="fp-modal-body">
-              <div className="fp-label">FILM {pad2(filmIdx + 1)} / {pad2(total)} · {f.year}</div>
+              <div className="fp-label">FILM · {f.year}</div>
               <div className="fp-title">{f.title}</div>
               <div className="fp-tagline">{f.tagline}</div>
               {f.pressKitUrl && (
@@ -253,9 +258,12 @@ export default function FilmModal({ film, filmIdx, total, onClose }: FilmModalPr
               <div className="fp-meta">
                 <div className="fp-meta-role"><span className="fp-k">ROLE</span><span className="fp-v">{f.services}</span></div>
                 <div><span className="fp-k">GENRE</span><span className="fp-v">{f.genre}</span></div>
-                <div><span className="fp-k">RUNTIME</span><span className="fp-v">{f.runtime}</span></div>
-                <div><span className="fp-k">FORMAT</span><span className="fp-v">{f.format}</span></div>
+                <div><span className="fp-k">{f.runtimeLabel ?? 'RUNTIME'}</span><span className="fp-v">{f.runtime}</span></div>
+                <div><span className="fp-k">{f.formatLabel ?? 'FORMAT'}</span><span className="fp-v">{f.format}</span></div>
               </div>
+
+              <div className="fp-stills-h" style={{ marginTop: 24 }}>LOGLINE</div>
+              <p className="fp-syn fp-block-text">{f.synopsis}</p>
 
               {f.contentBlocks ? (
                 <>
@@ -267,7 +275,7 @@ export default function FilmModal({ film, filmIdx, total, onClose }: FilmModalPr
                 </>
               ) : (
                 <>
-                  <p className="fp-syn">{f.synopsis}</p>
+                  <p className="fp-syn" style={{ display: 'none' }}>{f.synopsis}</p>
 
                   {f.awards && f.awards.length > 0 && (
                     <>
