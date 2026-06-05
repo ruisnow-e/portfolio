@@ -11,7 +11,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Rui Snow",
+  title: "Snow",
   description:
     "Creative AI MLE, Film Director, Choreographer. A practice at the intersection of film, choreography, and code.",
 };
