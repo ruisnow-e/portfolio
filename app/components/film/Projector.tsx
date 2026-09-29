@@ -12,7 +12,6 @@ function getBeamHeight(film: Film): string {
   return `clamp(200px, ${vw}vw, 94vh)`;
 }
 
-const LENS_RIGHT = 'clamp(200px, 32vw, 430px)';
 // Fixed-pixel lens aperture: right side of beam cone stays ~64px regardless of container height
 const R_TOP = 'calc(50% - 32px)';
 const R_BOT = 'calc(50% + 32px)';
@@ -67,7 +66,7 @@ export default function Projector({ film }: { film: Film }) {
       </svg>
 
       {/* BEAM — outer positions, inner sways from lens */}
-      <div style={{ position: 'fixed', right: LENS_RIGHT, top: '50%', transform: 'translateY(-50%)', width: '64vw', height: bh, pointerEvents: 'none', zIndex: 6, overflow: 'visible', transition: 'height 700ms cubic-bezier(0.22, 1, 0.36, 1)' }}>
+      <div className="fm-beam" style={{ height: bh }}>
         {/* sway + breathe wrapper — rotates from the right (lens) edge */}
         <div style={{ position: 'absolute', inset: 0, transformOrigin: 'right center', animation: 'beam-sway 11s ease-in-out infinite, beam-breathe 3.8s ease-in-out infinite' }}>
           <BeamLayer blur={28} color="rgba(130,130,140,0.15)"  solidFrom={0}   clipTop={0}  clipBottom={100} dur="4.8s" delay="0.3s" />
@@ -127,17 +126,11 @@ export default function Projector({ film }: { film: Film }) {
             }
           }, 30);
         }}
+        className="fm-projector"
         style={{
-          position: 'fixed', right: 'clamp(60px, 17vw, 220px)', top: '50%',
-          transform: 'translateY(calc(-50% + 60px))',
-          zIndex: 20, display: 'flex', flexDirection: 'column', alignItems: 'center',
-          gap: '18px', width: 'clamp(140px, 15vw, 210px)',
-          pointerEvents: 'auto', overflow: 'visible',
           filter: hovered
             ? 'drop-shadow(0 0 10px rgba(255,190,60,0.9)) drop-shadow(0 0 32px rgba(255,140,20,0.45))'
             : 'none',
-          transition: 'filter 350ms ease',
-          cursor: 'default',
         }}
       >
         {/*
@@ -145,7 +138,7 @@ export default function Projector({ film }: { film: Film }) {
           Fixes: body details redistributed evenly (3 balanced elements);
           bullseye moved to center-body; no crowded right corner; slimmer tripod.
         */}
-        <svg viewBox="90 0 170 250" style={{ width: '100%', height: 'auto', overflow: 'visible' }}>
+        <svg className="fm-projector-svg" viewBox="90 0 170 250" style={{ height: 'auto', overflow: 'visible' }}>
 
           <g transform="translate(170, 40)">
             <circle r={18} fill="#0a0a0a"/>

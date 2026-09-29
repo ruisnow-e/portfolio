@@ -5,8 +5,8 @@ export default function CreativeAIPage() {
     <main
       style={{
         minHeight: "100vh",
-        background: "#0a0a0a",
-        color: "#ffffff",
+        background: "#ffffff",
+        color: "#0a0a0a",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

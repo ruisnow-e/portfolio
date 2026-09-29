@@ -18,7 +18,6 @@ const DEFAULTS = {
     { label: "Choreographer", href: "/work/dance" },
   ],
   tagline: "Film helps me tell stories, CS helps me build new ways to tell them.",
-  credentials: "Northeastern University · MS · 2027 ｜ California College of the Arts · MFA · 2025\nRui Song",
   copyright: "",
 };
 
@@ -27,7 +26,6 @@ type HeroProps = {
   trademark?: string | null;
   roles?: Array<{ label: string; href: string }>;
   tagline?: string;
-  credentials?: string;
   copyright?: string;
 };
 
@@ -45,15 +43,14 @@ export default function Hero({
   trademark = DEFAULTS.trademark,
   roles = DEFAULTS.roles,
   tagline = DEFAULTS.tagline,
-  credentials = DEFAULTS.credentials,
   copyright = DEFAULTS.copyright,
 }: HeroProps) {
   const [explodeCount, setExplodeCount] = useState(0);
   const triggerExplode = () => setExplodeCount((c) => c + 1);
-  const [degreeLine, nameLine] = credentials.split('\n');
 
   return (
     <section
+      className="hero-section"
       style={{
         position: "relative",
         width: "100%",
@@ -67,65 +64,40 @@ export default function Hero({
     >
       <SmokeBackground revealed={true} explodeCount={explodeCount} />
 
-      {/* ── MOBILE layout (< 768px) ── */}
-      <div
-        className="md:hidden flex flex-col"
-        style={{ minHeight: "100vh", padding: "28px 24px", gap: 20 }}
-      >
-        {/* Mobile top nav */}
+      {/* ── MOBILE layout (< 768px) — one fixed screen: snow® upper-left, roles lower-right, both drawn toward the middle ── */}
+      <div className="md:hidden hero-m">
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontFamily: monoFont, fontSize: 15, letterSpacing: "0.08em" }}>
           <RoleLink href="/bio" label="Bio" />
           <RoleLink href="/award" label="Award" />
           <RoleLink href="/contact" label="Contact" />
         </div>
 
-        <h1
-          onClick={triggerExplode}
-          style={{
-            fontSize: "clamp(56px, 22vw, 130px)",
-            fontWeight: 500,
-            lineHeight: 0.85,
-            letterSpacing: "-0.04em",
-            color: "#FFFFFF",
-            margin: 0,
-            cursor: "pointer",
-            userSelect: "none",
-          }}
-        >
-          {brand}
-          {trademark && <sup style={supStyle}>{trademark}</sup>}
-        </h1>
+        <div className="hero-m-brand">
+          <h1
+            onClick={triggerExplode}
+            style={{
+              fontSize: "clamp(56px, 22vw, 130px)",
+              fontWeight: 500,
+              lineHeight: 0.85,
+              letterSpacing: "-0.04em",
+              color: "#FFFFFF",
+              margin: 0,
+              cursor: "pointer",
+              userSelect: "none",
+            }}
+          >
+            {brand}
+            {trademark && <sup style={supStyle}>{trademark}</sup>}
+          </h1>
+        </div>
 
-        <ul
-          role="list"
-          style={{
-            listStyle: "none",
-            padding: 0,
-            margin: 0,
-            fontSize: 17,
-            fontWeight: 400,
-            lineHeight: 1.6,
-            letterSpacing: "-0.008em",
-            color: "#F5F5F5",
-          }}
-        >
+        <ul role="list" className="hero-m-roles">
           {roles.map((r) => (
             <li key={r.href}>
               <RoleLink href={r.href} label={r.label} />
             </li>
           ))}
         </ul>
-
-        <div style={{ flexGrow: 1 }} />
-
-        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-          <p style={{ fontSize: 15, color: "#DCDCDC", letterSpacing: "-0.005em", lineHeight: 1.5, margin: 0 }}>
-            {tagline}
-          </p>
-          <p style={{ fontFamily: monoFont, fontSize: "clamp(11px, 0.82vw, 13px)", color: "#777777", letterSpacing: "0.04em", lineHeight: 1.5, margin: 0, whiteSpace: "pre-line" }}>
-            {credentials}
-          </p>
-        </div>
 
         {copyright && (
           <small style={{ fontFamily: monoFont, fontSize: 14, color: "#AAAAAA", letterSpacing: 0 }}>
@@ -160,7 +132,7 @@ export default function Hero({
           position: "absolute",
           top: "50%",
           right: INSET_X,
-          transform: "translateY(calc(-52% - 30px))",
+          transform: "translateY(-52%)",
           fontSize: "clamp(110px, 24vw, 360px)",
           fontWeight: 500,
           lineHeight: 0.85,
@@ -202,42 +174,6 @@ export default function Hero({
         ))}
       </ul>
 
-      {/* Bottom-left corner — university vertical (CCW) + Rui Song horizontal forming └ */}
-      <p
-        className="hidden md:block"
-        style={{
-          position: "absolute",
-          left: "clamp(8px, 1.2vw, 20px)",
-          bottom: "calc(clamp(8px, 1.5vh, 20px) + 10px)",
-          writingMode: "vertical-rl",
-          transform: "rotate(180deg)",
-          whiteSpace: "nowrap",
-          fontFamily: monoFont,
-          fontSize: "clamp(10px, 0.75vw, 12px)",
-          color: "#777777",
-          letterSpacing: "0.06em",
-          margin: 0,
-        }}
-      >
-        {degreeLine}
-      </p>
-      <p
-        className="hidden md:block"
-        style={{
-          position: "absolute",
-          left: "clamp(36px, 4vw, 52px)",
-          bottom: "clamp(8px, 1.5vh, 20px)",
-          fontFamily: monoFont,
-          fontSize: "clamp(10px, 0.75vw, 12px)",
-          color: "#777777",
-          letterSpacing: "0.04em",
-          margin: 0,
-        }}
-      >
-        {nameLine}
-      </p>
-
-
       {/* Bottom-right — tagline */}
       <div
         className="hidden md:block"
@@ -248,7 +184,7 @@ export default function Hero({
           textAlign: "right",
         }}
       >
-        <p style={{ fontSize: "clamp(14px, 1.1vw, 17px)", color: "#DCDCDC", letterSpacing: "-0.005em", lineHeight: 1.5, margin: 0, whiteSpace: "nowrap", transform: "translate(-100px, -190px)" }}>
+        <p style={{ fontSize: "clamp(14px, 1.1vw, 17px)", color: "#DCDCDC", letterSpacing: "-0.005em", lineHeight: 1.5, margin: 0, whiteSpace: "nowrap", transform: "translate(-100px, -160px)" }}>
           {tagline}
         </p>
       </div>

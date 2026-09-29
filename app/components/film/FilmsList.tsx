@@ -37,21 +37,13 @@ export default function FilmsList({ films, activeIdx, onSelect, onFracUpdate }: 
   return (
     <nav
       aria-label="Film list"
-      style={{
-        position: 'fixed',
-        left: 'clamp(10px, calc(28vw - 50px), 330px)',
-        top: 0,
-        height: '100vh',
-        overflow: 'hidden',
-        width: 'clamp(120px, 14vw, 200px)',
-        zIndex: 20,
-        pointerEvents: 'none',
-      }}
+      className="fm-list"
     >
       {films.map((film, filmIdx) => (
         <button
           key={film.slug}
           type="button"
+          className="fm-item"
           ref={el => { itemRefs.current[filmIdx] = el; }}
           onClick={() => onSelect(filmIdx)}
           aria-current={filmIdx === activeIdx ? 'true' : undefined}
@@ -82,7 +74,7 @@ export default function FilmsList({ films, activeIdx, onSelect, onFracUpdate }: 
           <span style={{ fontSize: '10px', opacity: 0.5, fontFamily: 'inherit', minWidth: '16px' }}>
             {String(filmIdx + 1).padStart(2, '0')}
           </span>
-          {film.title}
+          <span className="fm-item-name">{film.title}</span>
         </button>
       ))}
     </nav>

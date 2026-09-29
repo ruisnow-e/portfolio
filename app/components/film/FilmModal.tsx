@@ -1,5 +1,6 @@
 'use client';
 
+import { ARROW_NE } from '@/app/components/glyphs';
 import { Film, ContentBlock } from '@/app/data/films';
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
@@ -10,6 +11,15 @@ interface FilmModalProps {
 }
 
 function pad2(n: number) { return n < 10 ? '0' + n : '' + n; }
+
+// "Director · Screenwriter · Co-producer" → each item kept whole, so narrow screens
+// only wrap between items (never mid-word like "Co-" / "producer" or a lone "·").
+function dotList(text: string) {
+  const items = text.split(' · ');
+  return items.map((item, i) => (
+    <span key={i} style={{ whiteSpace: 'nowrap' }}>{item}{i < items.length - 1 ? ' ·' : ''}{i < items.length - 1 ? ' ' : ''}</span>
+  ));
+}
 
 function renderBlock(block: ContentBlock, i: number, f: Film) {
   switch (block.type) {
@@ -90,7 +100,7 @@ function renderBlock(block: ContentBlock, i: number, f: Film) {
           onClick={() => block.url && window.open(block.url, '_blank', 'noopener')}>
           <div className="fp-pq-text">&ldquo;{block.quote}&rdquo;</div>
           <div className="fp-pq-attr">{block.attribution}</div>
-          {block.url && <div className="fp-pq-hint">{block.hint ?? 'READ ARTICLE ↗'}</div>}
+          {block.url && <div className="fp-pq-hint">{block.hint ?? `READ ARTICLE ${ARROW_NE}`}</div>}
         </div>
       );
     case 'divider':
@@ -131,7 +141,7 @@ function renderBlock(block: ContentBlock, i: number, f: Film) {
                 <div key={j} className={`fp-tier-row${a.url ? ' fp-tier-row--link' : ''}`}
                   onClick={() => a.url && window.open(a.url, '_blank', 'noopener')}>
                   <span className="fp-tier-text">{a.text.replace(/^Official Selection · /, '')}</span>
-                  {a.url && <span className="fp-tier-arrow">↗</span>}
+                  {a.url && <span className="fp-tier-arrow">{ARROW_NE}</span>}
                 </div>
               ))}
             </div>
@@ -150,7 +160,7 @@ function renderBlock(block: ContentBlock, i: number, f: Film) {
                     onClick={() => a.url && window.open(a.url, '_blank', 'noopener')}>
                     <span className="fp-tier-award">{award}</span>
                     {fest && <><span className="fp-tier-sep">·</span><span className="fp-tier-fest">{fest}</span></>}
-                    {a.url && <span className="fp-tier-arrow">↗</span>}
+                    {a.url && <span className="fp-tier-arrow">{ARROW_NE}</span>}
                   </div>
                 );
               })}
@@ -166,7 +176,7 @@ function renderBlock(block: ContentBlock, i: number, f: Film) {
                   <div key={j} className={`fp-tier-row fp-tier-row--sm${a.url ? ' fp-tier-row--link' : ''}`}
                     onClick={() => a.url && window.open(a.url, '_blank', 'noopener')}>
                     <span className="fp-tier-text">{text}</span>
-                    {a.url && <span className="fp-tier-arrow">↗</span>}
+                    {a.url && <span className="fp-tier-arrow">{ARROW_NE}</span>}
                   </div>
                 );
               })}
@@ -255,10 +265,10 @@ export default function FilmModal({ film, onClose }: FilmModalProps) {
               )}
 
               <div className="fp-meta">
-                <div className="fp-meta-role"><span className="fp-k">ROLE</span><span className="fp-v">{f.services}</span></div>
-                <div><span className="fp-k">GENRE</span><span className="fp-v">{f.genre}</span></div>
+                <div className="fp-meta-role"><span className="fp-k">ROLE</span><span className="fp-v">{dotList(f.services)}</span></div>
+                <div><span className="fp-k">GENRE</span><span className="fp-v">{dotList(f.genre)}</span></div>
                 <div><span className="fp-k">{f.runtimeLabel ?? 'RUNTIME'}</span><span className="fp-v">{f.runtime}</span></div>
-                <div><span className="fp-k">{f.formatLabel ?? 'FORMAT'}</span><span className="fp-v">{f.format}</span></div>
+                <div><span className="fp-k">{f.formatLabel ?? 'FORMAT'}</span><span className="fp-v">{dotList(f.format)}</span></div>
               </div>
 
               <div className="fp-stills-h" style={{ marginTop: 24 }}>LOGLINE</div>
@@ -269,7 +279,7 @@ export default function FilmModal({ film, onClose }: FilmModalProps) {
                   {f.contentBlocks.map((block, i) => renderBlock(block, i, f))}
                   <div className="fp-foot-modal">
                     <span>{f.location}</span>
-                    <span><kbd>esc</kbd> to close</span>
+                    <span className="fp-esc-hint"><kbd>esc</kbd> to close</span>
                   </div>
                 </>
               )}

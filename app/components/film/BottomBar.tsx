@@ -3,6 +3,7 @@
 export default function BottomBar() {
   return (
     <footer
+      className="fm-hint"
       style={{
         position: 'fixed',
         bottom: 'clamp(16px, 2vh, 28px)',

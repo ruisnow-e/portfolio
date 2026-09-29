@@ -19,13 +19,6 @@ export default function FilmCover({ film, filmIdx, copyIdx, isLocked, onLockedCl
       data-copy-idx={copyIdx}
       role="img"
       aria-label={`${film.title}, ${film.category}`}
-      style={{
-        width: 'clamp(220px, 24vw, 340px)',
-        height: 'clamp(220px, 24vw, 340px)',
-        margin: '0 auto 0',
-        display: 'grid',
-        placeItems: 'center',
-      }}
     >
       <div style={{ position: 'relative', width: '100%', height: '100%' }}>
         <div
@@ -46,7 +39,10 @@ export default function FilmCover({ film, filmIdx, copyIdx, isLocked, onLockedCl
           }}
         />
         {isLocked && onLockedClick && (
-          <div className="fp-cta">↳ CLICK TO OPEN</div>
+          <div className="fp-cta">
+            <span className="fp-cta-mouse">↳ CLICK TO OPEN</span>
+            <span className="fp-cta-touch">↳ TAP TO OPEN</span>
+          </div>
         )}
       </div>
     </article>

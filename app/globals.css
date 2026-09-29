@@ -117,9 +117,9 @@ button:focus-visible {
 @keyframes csSlidePrev  { from{opacity:0;transform:translateX(-14px)} to{opacity:1;transform:translateX(0)} }
 
 .cs-cursor { display:inline-block;width:6px;height:11px;background:#5eff8a;vertical-align:-1px;margin-left:1px;animation:csBlink 1s steps(2) infinite }
+.cs-openline .cs-cursor { background:#0a0a0a }
 
-.cs-stage { background:#0d0e10;overflow:hidden;height:100%;font-family:var(--font-inter,Inter,system-ui,sans-serif);position:relative }
-.cs-stage::before { content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,transparent 0,transparent 3px,rgba(255,255,255,0.012) 3px,rgba(255,255,255,0.012) 4px);z-index:100 }
+.cs-stage { background:#ffffff;overflow:hidden;height:100%;font-family:var(--font-inter,Inter,system-ui,sans-serif);position:relative }
 
 .cs-titlebar { background:#1c1d1f;padding:9px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0 }
 .cs-lights { display:flex;gap:6px }
@@ -128,34 +128,34 @@ button:focus-visible {
 .cs-time { font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:0.08em }
 
 .cs-content { padding:clamp(80px,10vh,120px) clamp(28px,4vw,60px) clamp(24px,3vh,40px);position:relative;z-index:1;display:flex;flex-direction:column;height:100% }
-.cs-hint { font-size:clamp(10px,1vw,12px);color:rgba(255,255,255,0.4);letter-spacing:0.04em;font-style:italic }
-.cs-hint .k { color:rgba(94,255,138,0.7);font-style:normal }
+.cs-hint { font-size:clamp(10px,1vw,12px);color:rgba(0,0,0,0.4);letter-spacing:0.04em;font-style:italic }
+.cs-hint .k { color:#0a0a0a;font-style:normal }
 
 .cs-row { display:flex;gap:clamp(70px,9vw,140px);align-items:center;justify-content:center;flex:1;min-height:0 }
 
 .cs-files { font-size:clamp(12px,1.2vw,16px);width:clamp(240px,24vw,340px);flex-shrink:0 }
-.cs-prompt { color:rgba(94,255,138,0.85);margin-bottom:14px;font-size:clamp(10px,0.9vw,12px);letter-spacing:0.12em }
-.cs-item { padding:8px 0;display:flex;align-items:center;gap:9px;color:rgba(255,255,255,0.42);transition:color 0.18s;cursor:pointer;user-select:none }
-.cs-item:hover { color:#fff }
-.cs-item.active { color:#fff }
-.cs-num { font-size:clamp(9px,0.8vw,11px);color:rgba(255,255,255,0.3);min-width:14px }
-.cs-item.active .cs-num,.cs-item:hover .cs-num { color:rgba(94,255,138,0.7) }
-.cs-arrow { width:8px;opacity:0;color:#5eff8a;transition:opacity 0.18s }
+.cs-prompt { color:#0a0a0a;margin-bottom:14px;font-size:clamp(10px,0.9vw,12px);letter-spacing:0.12em }
+.cs-item { padding:8px 0;display:flex;align-items:center;gap:9px;color:rgba(0,0,0,0.38);transition:color 0.18s;cursor:pointer;user-select:none }
+.cs-item:hover { color:#0a0a0a }
+.cs-item.active { color:#0a0a0a }
+.cs-num { font-size:clamp(9px,0.8vw,11px);color:rgba(0,0,0,0.3);min-width:14px }
+.cs-item.active .cs-num,.cs-item:hover .cs-num { color:#0a0a0a }
+.cs-arrow { width:8px;opacity:0;color:#0a0a0a;transition:opacity 0.18s }
 .cs-item.active .cs-arrow { opacity:1 }
 .cs-item-name { transition:transform 0.18s }
 .cs-item:hover .cs-item-name { transform:translateX(2px) }
 .cs-openline { margin-top:14px;font-size:clamp(10px,0.9vw,12px) }
-.cs-openline-prompt { color:rgba(94,255,138,0.85);margin-right:6px }
-.cs-openline-text { color:rgba(255,255,255,0.7) }
-.cs-openline-text .slug { color:#fff }
-.cs-meta { color:rgba(255,255,255,0.3);font-size:clamp(9px,0.8vw,11px);letter-spacing:0.14em;margin-top:6px;padding-left:18px }
+.cs-openline-prompt { color:#0a0a0a;margin-right:6px }
+.cs-openline-text { color:rgba(0,0,0,0.6) }
+.cs-openline-text .slug { color:#0a0a0a }
+.cs-meta { color:rgba(0,0,0,0.35);font-size:clamp(9px,0.8vw,11px);letter-spacing:0.14em;margin-top:6px;padding-left:18px }
 
 .cs-laptop-wrap { display:flex;flex-direction:column;align-items:center;cursor:pointer;transition:transform 0.2s;user-select:none;width:clamp(360px,34vw,520px);flex-shrink:0 }
 .cs-laptop-wrap:hover { transform:translateY(-2px) }
 .cs-laptop { width:100%;transition:filter 0.2s }
-.cs-laptop-wrap:hover .cs-laptop { filter:drop-shadow(0 0 24px rgba(94,255,138,0.18)) }
-.cs-screen { background:#0a0a0c;border:1px solid rgba(255,255,255,0.55);border-radius:5px 5px 2px 2px;aspect-ratio:4/2.8;display:flex;flex-direction:column;overflow:hidden;transition:border-color 0.2s }
-.cs-laptop-wrap:hover .cs-screen { border-color:rgba(94,255,138,0.6) }
+.cs-laptop-wrap:hover .cs-laptop { filter:drop-shadow(0 14px 28px rgba(0,0,0,0.18)) }
+.cs-screen { background:#0a0a0c;border:1px solid #0a0a0a;border-radius:5px 5px 2px 2px;aspect-ratio:4/2.8;display:flex;flex-direction:column;overflow:hidden;transition:border-color 0.2s }
+.cs-laptop-wrap:hover .cs-screen { border-color:#0a0a0a }
 .cs-screen.flash { animation:csFlash 0.4s ease-out }
 .cs-screen.cs-slide-next { animation:csSlideNext 0.22s cubic-bezier(0.2,0.8,0.3,1) }
 .cs-screen.cs-slide-prev { animation:csSlidePrev 0.22s cubic-bezier(0.2,0.8,0.3,1) }
@@ -168,12 +168,11 @@ button:focus-visible {
 .cs-code .str { color:#5edcff }
 .cs-code .cmt { color:rgba(255,255,255,0.32);font-style:italic }
 .cs-code .fn  { color:#ffd35e }
-.cs-base { width:116%;margin-left:-8%;height:10px;background:linear-gradient(180deg,rgba(255,255,255,0.55),rgba(255,255,255,0.18));border-radius:0 0 9px 9px;clip-path:polygon(4% 0,96% 0,100% 100%,0% 100%);margin-top:2px }
-.cs-laptop-cap { font-size:clamp(9px,0.8vw,11px);color:rgba(255,255,255,0.4);letter-spacing:0.16em;margin-top:14px;text-align:center;line-height:1.6 }
-.cs-laptop-cta { font-size:clamp(9px,0.8vw,11px);color:rgba(94,255,138,0.55);letter-spacing:0.14em;margin-top:6px;opacity:0;transition:opacity 0.2s;text-align:center }
-.cs-laptop-wrap:hover .cs-laptop-cta { opacity:1 }
+.cs-base { width:116%;margin-left:-8%;height:10px;background:linear-gradient(180deg,#8a8a8a,#c8c8c8);border-radius:0 0 9px 9px;clip-path:polygon(4% 0,96% 0,100% 100%,0% 100%);margin-top:2px }
+.cs-laptop-cta { font-size:clamp(9px,0.8vw,11px);color:rgba(0,0,0,0.45);letter-spacing:0.14em;margin-top:16px;text-align:center;transition:color 0.2s }
+.cs-laptop-wrap:hover .cs-laptop-cta { color:#0a0a0a }
 
-.cs-footer { font-size:9px;color:rgba(255,255,255,0.5);letter-spacing:0.18em;margin-top:auto;padding-top:18px;flex-shrink:0 }
+.cs-footer { font-size:9px;color:rgba(0,0,0,0.5);letter-spacing:0.18em;margin-top:auto;padding-top:18px;flex-shrink:0 }
 
 .cs-backdrop { position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);z-index:200;display:flex;align-items:center;justify-content:center;animation:csBackdropIn 0.18s ease-out }
 .cs-modal { background:#15161a;border:0.5px solid rgba(255,255,255,0.18);border-radius:6px;width:min(600px,calc(100% - 60px));max-height:calc(100% - 80px);box-shadow:0 24px 60px rgba(0,0,0,0.6),0 0 0 0.5px rgba(94,255,138,0.08);overflow:hidden;animation:csModalIn 0.22s cubic-bezier(0.2,0.7,0.3,1);display:flex;flex-direction:column }
@@ -206,14 +205,8 @@ button:focus-visible {
 .cs-modal-kbd kbd { background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.18);padding:2px 5px;border-radius:2px;color:rgba(255,255,255,0.6) }
 
 /* ── Contact page ─────────────────────────────────────────── */
-.ct-page { background:#f5f4f2;color:#0a0a0a;min-height:100vh }
-.ct-container { position:relative;min-height:100vh;padding:28px 56px 80px;display:flex;flex-direction:column;font-family:'Helvetica Neue',Helvetica,Arial,-apple-system,BlinkMacSystemFont,sans-serif;font-weight:400;letter-spacing:-0.005em;-webkit-font-smoothing:antialiased;overflow-x:hidden }
-.ct-logo { font-size:18px;font-weight:500;letter-spacing:-0.02em;color:#0a0a0a;text-decoration:none;line-height:1;transition:opacity .25s ease;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif }
-.ct-logo:hover { opacity:.5 }
-.ct-navlink { color:#0a0a0a;text-decoration:none;transition:opacity .25s ease;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif }
-.ct-navlink:hover { opacity:.45 }
-.ct-active { position:relative;color:#0a0a0a;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif }
-.ct-active::after { content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:#0a0a0a }
+.ct-page { background:#ffffff;color:#0a0a0a;min-height:100vh }
+.ct-container { position:relative;min-height:100vh;padding:0 0 80px;display:flex;flex-direction:column;font-family:'Helvetica Neue',Helvetica,Arial,-apple-system,BlinkMacSystemFont,sans-serif;font-weight:400;letter-spacing:-0.005em;-webkit-font-smoothing:antialiased;overflow-x:hidden }
 .ct-eyebrow { font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:#9a9a9a;margin-bottom:18px }
 .ct-headline { font-size:clamp(32px,4.5vw,62px);font-weight:400;letter-spacing:-0.03em;line-height:0.95;margin-bottom:64px;text-align:center;color:#0a0a0a }
 .ct-form { width:100%;max-width:560px;display:flex;flex-direction:column;gap:36px }
@@ -235,7 +228,6 @@ button:focus-visible {
 .ct-social-icon { width:32px;height:32px;display:block }
 .ct-social-label { font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#9a9a9a }
 @media (max-width:720px) {
-  .ct-container { padding:24px 28px 80px !important }
   .ct-socials { gap:36px !important }
   .ct-submit-row { flex-direction:column !important;gap:16px !important;align-items:flex-start !important }
 }
@@ -447,7 +439,7 @@ button:focus-visible {
 
 /* Award page */
 .aw-stage {
-  background: #fafafa;
+  background: #ffffff;
   min-height: 100dvh;
   font-family: var(--font-inter, system-ui, sans-serif);
   color: #0a0a0a;
@@ -457,34 +449,9 @@ button:focus-visible {
   flex-direction: column;
 }
 
-.aw-header {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: clamp(16px, 2vh, 28px) clamp(20px, 2.5vw, 40px);
-  pointer-events: none;
-}
-.aw-header-left {
-  font-size: 18px; font-weight: 500; letter-spacing: -0.02em;
-  color: #0a0a0a; text-decoration: none;
-  font-family: var(--font-inter, Inter, system-ui, sans-serif);
-  line-height: 1; pointer-events: auto; cursor: pointer;
-}
-.aw-header-left sup { font-size: 0.32em; vertical-align: 1em; letter-spacing: 0; }
-.aw-header-left:hover { text-decoration: underline; text-underline-offset: 3px; }
-.aw-header-right {
-  font-size: clamp(10px, 1vw, 12px); letter-spacing: 0.1em;
-  color: #0a0a0a; text-decoration: none; pointer-events: auto;
-  font-family: var(--font-inter, Inter, system-ui, sans-serif); cursor: pointer;
-}
-.aw-header-right:hover { text-decoration: underline; text-underline-offset: 3px; }
-
 .aw-strip {
   flex: 1; display: flex; align-items: center; overflow: hidden;
-  margin-top: clamp(96px, 12vh, 140px);
+  touch-action: pan-y;   /* horizontal swipes drive the strip; vertical stays with the browser */
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
   mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
 }
@@ -499,7 +466,7 @@ button:focus-visible {
   flex-shrink: 0;
   perspective: 1200px;
   cursor: pointer;
-  transition: transform 0.25s ease;
+  transition: transform 0.25s ease, width 0.55s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .aw-card:hover { transform: translateY(-4px); }
 
@@ -530,12 +497,10 @@ button:focus-visible {
 }
 .aw-card-back {
   transform: rotateY(180deg);
-  overflow: hidden; padding: 10px 10px 0;
-  background: #fff;
-  position: relative;
-  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; padding: 0 0 20px;
 }
-.aw-card-back img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.aw-card-back:not(:has(.aw-card-link)) { padding: 0; }
+.aw-card-back img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .aw-card-link {
   position: absolute; bottom: 0; left: 0; right: 0;
   height: 20px;
@@ -603,7 +568,7 @@ button:focus-visible {
 
 /* Footer */
 .aw-foot {
-  display: flex; justify-content: space-between; align-items: center;
+  display: flex; justify-content: center; align-items: center;
   padding: 20px clamp(20px, 2.5vw, 40px);
   font-family: ui-monospace, monospace; font-size: 10px;
   color: rgba(0,0,0,0.5); letter-spacing: 0.18em;
@@ -642,7 +607,15 @@ button:focus-visible {
 .bp-nav {
   display: flex; justify-content: space-between; align-items: center;
   padding: clamp(18px, 2.5vh, 28px) clamp(24px, 4vw, 60px);
-  border-bottom: 0.5px solid rgba(0,0,0,0.08);
+  font-family: var(--font-inter, Inter, system-ui, sans-serif);
+  letter-spacing: normal;
+}
+.bp-nav--work { position:fixed;top:0;left:0;right:0;z-index:20;pointer-events:none }
+.bp-nav--work a { pointer-events:auto }
+/* Work pages on phones: keep "Contact ↗" visually no bigger than the snow® logo */
+@media (max-width: 720px) {
+  .bp-nav--work .bp-nav-links { font-size: 11px; letter-spacing: 0.02em }
+  .bp-nav--work .bp-nav-arrow { font-size: 0.85em }
 }
 .bp-nav-logo {
   font-size: 15px; font-weight: 500; letter-spacing: -0.02em;
@@ -650,6 +623,17 @@ button:focus-visible {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 .bp-nav-logo sup { font-size: 0.45em; vertical-align: super; font-weight: 400; }
+/* snow® goes home: underline on hover (mouse) */
+@media (hover: hover) { .bp-nav-logo:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px } }
+/* Touch: underline the nav link you press, and keep it while the next page loads */
+@media (hover: none) {
+  .bp-nav-logo:active, .bp-nav-logo.is-tapped,
+  .bp-nav-links a:active, .bp-nav-links a.is-tapped,
+  a.role-link:active, a.role-link.is-tapped {
+    text-decoration: underline !important; text-decoration-thickness: 1px; text-underline-offset: 5px;
+  }
+}
+@media (min-width: 721px) { .bp-nav-logo { font-size: 21px; } }
 .bp-nav-links { display: flex; gap: 36px; font-size: 13px; letter-spacing: 0.04em; }
 .bp-nav-links a { color: #0a0a0a; text-decoration: none; opacity: 0.5; transition: opacity 0.2s; }
 .bp-nav-links a:hover { opacity: 1; }
@@ -667,9 +651,13 @@ button:focus-visible {
   align-items: start;
 }
 @media (max-width: 700px) {
-  .bp-layout { grid-template-columns: 1fr; }
-  .bp-right { order: -1; }
-  .bp-photo { width: 100%; }
+  /* phone order: name + roles (title) → photo & info → bio text */
+  .bp-layout { display: flex; flex-direction: column; }
+  .bp-left { display: contents; }
+  .bp-hero-name  { order: 0; }
+  .bp-hero-roles { order: 1; }
+  .bp-right      { order: 2; }
+  .bp-col-text   { order: 3; }
 }
 
 /* Left column */
@@ -693,6 +681,13 @@ button:focus-visible {
 /* Right column */
 .bp-right { display: flex; flex-direction: column; gap: 24px; }
 .bp-col-label { display: flex; flex-direction: column; gap: 0; }
+/* Résumé link — same outlined mono button as the film press kit */
+.bp-resume { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; margin-top: 4px; padding: 7px 12px 7px 11px;
+             border: 0.5px solid rgba(0,0,0,0.18); color: #0a0a0a; text-decoration: none;
+             font-family: ui-monospace, monospace; font-size: 9px; letter-spacing: 0.22em; transition: border-color 0.18s, background 0.18s }
+.bp-resume:hover { border-color: rgba(0,0,0,0.5); background: rgba(0,0,0,0.03) }
+.bp-resume:active { background: rgba(0,0,0,0.06) }
+.bp-resume-arrow { font-size: 11px; color: rgba(0,0,0,0.5); line-height: 1 }
 .bp-sidebar-block { margin-bottom: 18px; }
 .bp-sidebar-key {
   font-family: ui-monospace, monospace; font-size: 9px;
@@ -722,12 +717,218 @@ button:focus-visible {
   letter-spacing: 0.1em; color: rgba(0,0,0,0.3);
   margin-top: 4px; text-align: center;
 }
+/* Phone bio: placed after the base .bp-right / .bp-photo rules so these win */
+@media (max-width: 700px) {
+  /* phone: small photo on the left, BASED / STUDY / PRIOR / TOWARD + résumé beside it */
+  .bp-right { display: grid; grid-template-columns: 44% 1fr; column-gap: 20px; row-gap: 6px;
+              align-items: start; margin-bottom: 40px; }
+  .bp-photo { width: 100%; grid-column: 1; grid-row: 1; }
+  .bp-photo-caption { grid-column: 1; grid-row: 2; font-size: 8px; letter-spacing: 0.06em; line-height: 1.5; }
+  .bp-right .bp-col-label { grid-column: 2; grid-row: 1 / span 2; }
+  .bp-right .bp-sidebar-block { margin-bottom: 12px; }
+}
 
 /* Footer */
 .bp-footer {
-  display: flex; justify-content: space-between;
+  display: flex; justify-content: center;
   padding: 20px clamp(24px, 4vw, 60px);
   font-family: ui-monospace, monospace; font-size: 10px;
   letter-spacing: 0.14em; color: rgba(0,0,0,0.3);
   border-top: 0.5px solid rgba(0,0,0,0.08);
+}
+
+/* ── Dance page (dn-) ─────────────────────────────────────── */
+/* Desktop: list, vinyl, figures pinned to viewport thirds */
+.dn-list   { position:absolute;top:50%;transform:translateY(-50%);left:calc(34vw - 120px) }
+.dn-vinyl  { position:absolute;top:50%;transform:translateY(-50%);left:calc(50vw - 150px) }
+.dn-vinyl-svg { width:300px;height:300px;display:block }
+/* dvh = the visible height, so mobile browser toolbars don't push the list under the disclaimer */
+.dn-stage { height:100vh;height:100dvh;padding:clamp(90px,11vh,130px) 0 clamp(40px,5vh,60px) 0 }
+/* The list window can be shorter than the 310px track; the track stays centred so the active item stays in the middle */
+.dn-list-window { position:relative;width:240px;height:310px;overflow:hidden }
+.dn-list-track  { position:absolute;left:0;right:0;top:calc(50% - 155px);height:310px }
+.dn-troupe { position:absolute;top:50%;transform:translateY(-50%);left:calc(66vw - 55px);width:110px;height:310px;overflow:hidden }
+.dn-disclaimer { position:fixed;bottom:clamp(16px,2.5vh,28px);left:50%;transform:translateX(-50%);z-index:20;pointer-events:none;text-align:center;font-family:var(--font-inter,Inter,system-ui,sans-serif);font-size:clamp(9px,0.75vw,11px);color:rgba(0,0,0,0.4);letter-spacing:0.04em;white-space:nowrap }
+.dn-vinyl { transition:filter 400ms ease;filter:drop-shadow(0 0 0 transparent) }
+/* Hover glow in the colour of the current work (--dn-glow is set on scroll) */
+.dn-vinyl.is-glow { filter:drop-shadow(0 0 12px var(--dn-glow)) drop-shadow(0 0 32px var(--dn-glow)) drop-shadow(0 0 64px color-mix(in srgb, var(--dn-glow) 60%, transparent)) }
+/* Song titles: underline on hover (mouse) or on the current track (touch) to show they open the video */
+/* Film + Dance lists share the Engineer list's hover: the item comes to full black and its name nudges right.
+   (Opacity is set inline per frame by the scroll code, hence !important while hovered.) */
+.dn-item-title, .fm-item-name { display:inline-block;transition:transform 0.18s }
+@media (hover: hover) {
+  .dn-item, .fm-item { transition:opacity 0.18s }
+  .dn-item:hover, .fm-item:hover { opacity:1 !important }
+  .dn-item:hover .dn-item-title, .fm-item:hover .fm-item-name { transform:translateX(2px) }
+}
+/* Hint under the vinyl; the wording depends on whether the device has a mouse */
+.dn-vinyl-hint { position:absolute;top:calc(100% + 26px);left:50%;transform:translateX(-50%);white-space:nowrap;font-family:var(--font-inter,Inter,system-ui,sans-serif);font-size:clamp(9px,0.8vw,11px);letter-spacing:0.14em;color:rgba(0,0,0,0.45);pointer-events:none }
+.dn-hint-touch { display:none }
+@media (hover: none) { .dn-hint-mouse { display:none } .dn-hint-touch { display:inline } }
+/* Touch devices (any orientation): no top-bar scroll hint — too crowded next to the logo/Contact */
+@media (hover: none) { .dn-hint { display:none } }
+.dn-video { max-width:min(60vw,960px);max-height:70vh;border-radius:4px;outline:none }
+.dn-modal-close { position:fixed;top:clamp(16px,2.5vh,28px);right:clamp(20px,2.5vw,40px);width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:transparent;border:none;color:rgba(255,255,255,0.75);font-size:20px;cursor:pointer;transition:color .2s }
+.dn-modal-close:hover { color:#fff }
+
+/* Phone: vinyl on top, list underneath, figures hidden */
+@media (max-width: 720px) {
+  /* Stack vinyl + list in the space left above the disclaimer, sized to the screen height */
+  .dn-stage  { padding:clamp(80px,11vh,100px) 0 84px 0 }
+  /* Vinyl on top; song list and (shrunk) figures side by side underneath */
+  .dn-main   { display:grid;grid-template-columns:auto auto;grid-template-rows:auto minmax(0,1fr);justify-content:center;align-items:center;column-gap:14px;row-gap:clamp(16px,3.5dvh,36px);min-height:0 !important }
+  .dn-vinyl  { position:static;transform:none;grid-column:1 / -1;grid-row:1;justify-self:center }
+  .dn-vinyl-svg { width:clamp(140px,28dvh,220px);height:clamp(140px,28dvh,220px) }
+  .dn-list   { position:static;transform:none;grid-column:1;grid-row:2;height:100%;min-height:0;max-height:334px;display:flex;flex-direction:column }
+  .dn-list-window { flex:1 1 auto;min-height:0;height:auto }
+  .dn-troupe { position:relative;top:auto;left:auto;transform:none;grid-column:2;grid-row:2;zoom:0.65 }
+  .dn-hint   { display:none }
+  .dn-disclaimer { white-space:normal;width:88vw;font-size:9px;line-height:1.5;bottom:14px }
+  .dn-video  { max-width:92vw;max-height:70vh }
+  .dn-vinyl-hint { position:static;transform:none;text-align:center;margin-top:14px;font-size:9px }
+  .dn-modal-close { top:72px;right:16px }
+}
+/* Very narrow phones: no room beside the list for the figures */
+@media (max-width: 350px) {
+  .dn-main   { grid-template-columns:auto }
+  .dn-troupe { display:none }
+}
+
+/* ── Film page layout (fm-) ───────────────────────────────── */
+/* Desktop: list on the left, poster strip in the middle, projector + beam on the right */
+/* Poster is centred on screen; the title list mirrors the projector across the centre line:
+   list centre = projector's right inset + half its width (from the left edge); ~67px = half the widest title. */
+.fm-list  { position:fixed;left:calc(clamp(60px,17vw,220px) + clamp(140px,15vw,210px) / 2 - 67px);top:0;height:100vh;overflow:hidden;width:clamp(120px,14vw,200px);z-index:20;pointer-events:none }
+.fm-strip { position:relative;z-index:10;display:flex;flex-direction:column;align-items:center }
+.film-work { width:clamp(220px,24vw,340px);height:clamp(220px,24vw,340px);margin:0 auto;display:grid;place-items:center }
+.fm-beam  { position:fixed;right:clamp(200px,32vw,430px);top:50%;transform:translateY(-50%);width:64vw;pointer-events:none;z-index:6;overflow:visible;transition:height 700ms cubic-bezier(0.22,1,0.36,1) }
+.fm-projector { position:fixed;right:clamp(60px,17vw,220px);top:50%;transform:translateY(calc(-50% + 60px));z-index:20;display:flex;flex-direction:column;align-items:center;gap:18px;width:clamp(140px,15vw,210px);pointer-events:auto;overflow:visible;transition:filter 350ms ease;cursor:default }
+.fm-projector-svg { width:100% }
+.fp-cta-touch { display:none }
+@media (hover: none) {
+  .fp-cta-mouse { display:none }
+  .fp-cta-touch { display:inline }
+  .film-work.locked .fp-cta { opacity:1 }
+}
+
+/* Phone: film titles on top, poster in the middle, small projector + caption at the bottom */
+@media (max-width: 720px) {
+  main:has(> .fm-strip) {
+    --fm-list-top: clamp(64px,9dvh,84px);
+    --fm-list-h:   clamp(96px,15dvh,124px);
+    --fm-foot-h:   clamp(150px,24dvh,200px);   /* projector + caption block */
+  }
+  /* White curtains so neighbouring posters fade out behind the title list and the projector */
+  .fm-strip::before,
+  .fm-strip::after { content:"";position:fixed;left:0;right:0;z-index:1;pointer-events:none }
+  .fm-strip::before { top:0;height:calc(var(--fm-list-top) + var(--fm-list-h) + 36px);background:linear-gradient(to bottom,#fff 0,#fff calc(100% - 36px),rgba(255,255,255,0) 100%) }
+  .fm-strip::after  { bottom:0;height:calc(var(--fm-foot-h) + 36px);background:linear-gradient(to top,#fff 0,#fff calc(100% - 36px),rgba(255,255,255,0) 100%) }
+  .fm-list  { left:50%;transform:translateX(-50%);top:var(--fm-list-top);height:var(--fm-list-h);width:220px }
+  .fm-list button { justify-content:center }
+  .fm-strip { padding-left:0;padding-right:0 }
+  .film-work { width:min(64vw,34dvh);height:min(64vw,34dvh) }
+  .fm-beam  { display:none }
+  .fm-projector { right:auto;left:50%;top:auto;bottom:clamp(14px,2.5dvh,24px);transform:translateX(-50%);width:auto;gap:8px }
+  .fm-projector-svg { width:clamp(48px,8dvh,66px) }
+  .fm-hint  { display:none }
+}
+
+/* ── Film README modal on phones ───────────────────────────── */
+@media (hover: none) {
+  .fp-pq-hint { opacity: 1 }                                  /* no hover: always show "READ ARTICLE ↗" */
+  .fp-esc-hint { display: none }                               /* no keyboard */
+  .fp-video:has(video) .fp-video-tc,
+  .fp-video:has(video) .fp-video-fmt { display: none }         /* would sit on top of the native video controls */
+}
+@media (max-width: 720px) {
+  .fp-modal-wrap { padding: 0 }
+  .fp-modal { width: 100%; height: 100dvh; max-height: 100dvh; box-shadow: none }
+  .fp-modal-head { padding: 12px 16px }
+  .fp-close { width: 40px; height: 40px; font-size: 26px; margin: -9px -9px -9px 0 }   /* bigger tap target */
+  .fp-modal-body { padding: 24px 20px 32px }
+  .fp-title { font-size: 44px }
+
+  /* Meta: one centred row per item — "GENRE  Comedy · Drama · LGBTQ+" */
+  .fp-meta { grid-template-columns: 1fr; gap: 12px }
+  .fp-meta > div { display: flex; justify-content: center; align-items: baseline; flex-wrap: wrap; gap: 4px 10px }
+  .fp-meta .fp-k { display: inline; margin: 0 }
+
+  /* Long prose reads better left-aligned on a narrow column; quotes and headings stay centred */
+  .fp-syn,
+  .fp-block-section .fp-syn { text-align: left; font-size: 15px }
+
+  /* Two quotes in a row: drop the divider + doubled border so there's a single line between them */
+  .fp-press-quote + .fp-divider { display: none }
+  .fp-press-quote + .fp-divider + .fp-press-quote { border-top: none; margin-top: 0 }
+  .fp-press-quote { padding: 24px 4px }
+
+  /* Awards: let each row flow as one line of text so the ↗ stays next to the name */
+  .fp-tier-row { display: block }
+  .fp-tier-row > span + span { margin-left: 6px }
+  .fp-tier-text, .fp-tier-award, .fp-tier-fest { font-size: 10px }
+}
+
+/* ── CS page on touch / phones ──────────────────────────────── */
+.cs-hint-touch { display:none }
+@media (hover: none) {
+  .cs-hint-mouse { display:none }
+  .cs-hint-touch { display:inline }
+  .cs-scroll-hint { display:none }      /* no wheel on touch; projects switch by tapping */
+  /* README window: bigger traffic lights, the × always visible, and a ~40px invisible tap area on close */
+  .cs-modal-close, .cs-modal-light { width:15px;height:15px }
+  .cs-modal-close::before, .cs-modal-close::after { opacity:1;width:7px }
+  /* transparent border = larger tap target around the same 15px red dot */
+  .cs-modal-close { box-sizing:content-box;border:13px solid transparent;margin:-13px;background-clip:content-box }
+}
+/* Phone: laptop on top, project list underneath */
+@media (max-width: 720px) {
+  .cs-content { padding:clamp(96px,13dvh,120px) 20px 20px }
+  .cs-row { flex-direction:column;gap:clamp(18px,3dvh,32px);justify-content:flex-start }
+  /* the laptop base is 116% of the screen width, so divide by 1.16 to keep it on screen; 28dvh caps the height on short phones */
+  .cs-laptop-wrap { order:-1;width:min(calc(100% / 1.16),calc(28dvh * 4 / 2.8)) }
+  .cs-files { width:min(100%,calc(28dvh * 4 / 2.8 * 1.16));font-size:15px }
+  /* Looping wheel: 5 rows visible, active row in the middle (positions set in JS) */
+  .cs-wheel { position:relative;height:calc(36px * 5);overflow:hidden;touch-action:none }
+  .cs-wheel .cs-item { position:absolute;left:0;right:0;top:calc(50% - 18px);height:36px;padding:0 }
+  .cs-prompt { margin-bottom:8px }
+  .cs-laptop-cta { margin-top:12px }
+  .cs-modal { width:calc(100% - 24px);max-height:calc(100dvh - 48px) }
+  .cs-modal-body { padding:20px 18px }
+  .cs-modal-name { font-size:26px }
+  .cs-modal-meta { grid-template-columns:62px 1fr }
+  /* name → role always on one row; a long role wraps inside its own column, never under the name */
+  .cs-modal-team { display:grid;grid-template-columns:auto auto 1fr;column-gap:8px;row-gap:6px;align-items:baseline }
+  .cs-modal-team-h { grid-column:1 / -1 }
+  .cs-modal-team-row { display:contents }   /* rows share the team's columns, so names/arrows/roles line up */
+  .cs-modal-team-name { min-width:0;white-space:nowrap }
+  .cs-modal-kbd { display:none }
+}
+/* Very short phones (e.g. SE with the browser toolbar showing): a bit smaller all round */
+@media (max-width: 720px) and (max-height: 600px) {
+  .cs-content { padding-top:84px }
+  .cs-row { gap:14px }
+  .cs-laptop-wrap { width:min(calc(100% / 1.16),calc(24dvh * 4 / 2.8)) }
+  .cs-wheel { height:calc(36px * 3) }
+  .cs-laptop-cta { margin-top:8px }
+}
+
+/* Award cards on phones: scale each card down as a whole (text, stars, flipped certificate) */
+@media (max-width: 720px) {
+  .aw-card  { zoom: 0.68 }
+  .aw-track { gap: 14px }
+  .aw-foot  { gap: 12px; font-size: 9px; letter-spacing: 0.14em; white-space: nowrap }
+}
+.aw-hint-touch { display: none }
+@media (hover: none) { .aw-hint-mouse { display: none } .aw-hint-touch { display: inline } }
+
+/* ── Home page on phones (< 768px): one fixed screen ───────────── */
+@media (max-width: 767px) {
+  .hero-section { min-height: 0 !important; height: 100vh; height: 100dvh }
+  /* above the smoke canvas (which is absolutely positioned and would otherwise paint over the text) */
+  .hero-m { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column;
+            padding: 28px 24px calc(32px + env(safe-area-inset-bottom)) }
+  /* wordmark comes down from the top, roles come up from the bottom — the pair sits toward the middle */
+  .hero-m-brand { margin-top: clamp(56px, 17dvh, 170px) }
+  .hero-m-roles { margin: auto clamp(28px, 12vw, 80px) clamp(80px, 30dvh, 300px) 0; padding: 0; list-style: none; align-self: flex-end; text-align: right;
+                  font-size: 19px; line-height: 1.6; letter-spacing: -0.008em; color: #F5F5F5 }
 }

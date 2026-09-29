@@ -2,6 +2,11 @@
 
 import { useEffect } from 'react';
 import { usePageNavigate } from '@/app/components/PageTransition';
+import SiteNav from '@/app/components/SiteNav';
+import { ARROW_NE } from '@/app/components/glyphs';
+
+// Google Drive share link — replacing the file in Drive updates the résumé here too
+const RESUME_URL = 'https://drive.google.com/file/d/1sortnBNmXSc74TGNR3I6I-tPq8cdE_Ec/view?usp=sharing';
 
 export default function BioPage() {
   const navigate = usePageNavigate();
@@ -14,17 +19,7 @@ export default function BioPage() {
   return (
     <div className="bp-wrap">
 
-      {/* Nav */}
-      <nav className="bp-nav">
-        <a className="bp-nav-logo" href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }}>
-          snow<sup>®</sup>
-        </a>
-        <div className="bp-nav-links">
-          <span className="bp-nav-active">Bio</span>
-          <a href="/award" onClick={(e) => { e.preventDefault(); navigate('/award'); }}>Award</a>
-          <a href="/contact" onClick={(e) => { e.preventDefault(); navigate('/contact'); }}>Contact ↗</a>
-        </div>
-      </nav>
+      <SiteNav active="bio" />
 
       <main className="bp-main">
         <div className="bp-layout">
@@ -97,6 +92,9 @@ export default function BioPage() {
                 <div className="bp-sidebar-key">TOWARD</div>
                 <div className="bp-sidebar-val">AI Creative ML Engineer</div>
               </div>
+              <a className="bp-resume" href={RESUME_URL} target="_blank" rel="noopener noreferrer">
+                RÉSUMÉ <span className="bp-resume-arrow">{ARROW_NE}</span>
+              </a>
             </div>
           </div>
 
@@ -105,7 +103,6 @@ export default function BioPage() {
 
       <footer className="bp-footer">
         <span>Rui Song · snow®</span>
-        <span>ruisong.studio@gmail.com</span>
       </footer>
 
     </div>

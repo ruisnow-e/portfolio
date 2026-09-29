@@ -1,13 +1,11 @@
 'use client';
 
 import { useEffect } from 'react';
-import { usePageNavigate } from '@/app/components/PageTransition';
+import SiteNav from '@/app/components/SiteNav';
 
 const EMAIL = 'ruisong.studio@gmail.com';
 
 export default function ContactPage() {
-  const navigate = usePageNavigate();
-
   useEffect(() => {
     document.body.classList.add('ct-page');
     return () => document.body.classList.remove('ct-page');
@@ -26,19 +24,10 @@ export default function ContactPage() {
 
   return (
     <div className="ct-container">
-      {/* Nav */}
-      <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '14px', width: '100%', zIndex: 10 }}>
-        <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); }} className="ct-logo" aria-label="Back to home">
-          snow<sup style={{ fontSize: '0.45em', verticalAlign: 'super', marginLeft: '1px', fontWeight: 400 }}>®</sup>
-        </a>
-        <div style={{ display: 'flex', gap: '48px', alignItems: 'center' }}>
-          <a href="/bio" onClick={(e) => { e.preventDefault(); navigate('/bio'); }} className="ct-navlink">Bio</a>
-          <span className="ct-active">Contact</span>
-        </div>
-      </nav>
+      <SiteNav active="contact" />
 
       {/* Main */}
-      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '80px 20px 40px', position: 'relative' }}>
+      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '80px clamp(20px, 4vw, 56px) 40px', position: 'relative' }}>
         <div className="ct-eyebrow">Get in touch</div>
 
         <h1 className="ct-headline">

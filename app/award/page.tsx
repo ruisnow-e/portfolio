@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useCallback, useState } from 'react';
-import { usePageNavigate } from '@/app/components/PageTransition';
+import SiteNav from '@/app/components/SiteNav';
+import { ARROW_NE } from '@/app/components/glyphs';
 
 type DecoType = 'laurel' | 'number' | 'quote' | 'star' | 'stage' | 'currency';
 
@@ -71,18 +72,35 @@ function Deco({ award }: { award: Award }) {
 
 const BASE_SPEED = 1.1;
 
+// Card heights per size (keep in sync with .aw-size-* in globals.css)
+const CARD_H = { S: 240, M: 290, L: 320 } as const;
+// Height of the OPEN ↗ bar under the certificate on the back face
+const LINK_H = 20;
+
 export default function AwardPage() {
-  const navigate           = usePageNavigate();
   const stripRef           = useRef<HTMLDivElement>(null);
   const trackRef           = useRef<HTMLDivElement>(null);
   const offsetRef          = useRef(0);
   const wheelVelRef        = useRef(0);
   const hoveredRef         = useRef(false);
   const mouseDownOffsetRef = useRef(0);
+  const touchDraggedRef    = useRef(false);   // a swipe just happened → the next click is not a flip
   const rafRef             = useRef<number>(0);
   const progressDotRef     = useRef<HTMLDivElement>(null);
   const [paused, setPaused]   = useState(false);
   const [flipped, setFlipped] = useState<boolean[]>(() => new Array(awards.length).fill(false));
+  // Natural width/height of each certificate, so a flipped card can match its shape
+  const [ratios, setRatios]   = useState<(number | null)[]>(() => new Array(awards.length).fill(null));
+
+  const onPosterLoad = useCallback((idx: number, img: HTMLImageElement) => {
+    const ratio = img.naturalWidth / img.naturalHeight;
+    setRatios(prev => {
+      if (prev[idx] === ratio) return prev;
+      const next = [...prev];
+      next[idx] = ratio;
+      return next;
+    });
+  }, []);
 
   useEffect(() => {
     document.body.classList.add('film-page');
@@ -127,7 +145,46 @@ export default function AwardPage() {
     return () => el.removeEventListener('wheel', onWheel);
   }, [onWheel]);
 
+  // Touch: swipe the strip sideways; finger down pauses it, release flings with a little inertia,
+  // then auto-scroll carries on. (Phones never send mouseleave, so hover-pause is mouse-only.)
+  useEffect(() => {
+    const el = stripRef.current;
+    if (!el) return;
+    let x0 = 0, lastX = 0, vel = 0;
+    const onStart = (e: TouchEvent) => {
+      x0 = lastX = e.touches[0].clientX; vel = 0;
+      touchDraggedRef.current = false;
+      hoveredRef.current = true;
+      wheelVelRef.current = 0;
+    };
+    const onMove = (e: TouchEvent) => {
+      const x = e.touches[0].clientX;
+      if (Math.abs(x - x0) > 6) touchDraggedRef.current = true;
+      const dx = x - lastX;
+      offsetRef.current -= dx;
+      vel = -dx;
+      lastX = x;
+    };
+    const onEnd = () => {
+      hoveredRef.current = false;
+      if (touchDraggedRef.current) wheelVelRef.current = Math.max(-18, Math.min(18, vel));
+    };
+    el.addEventListener('touchstart', onStart, { passive: true });
+    el.addEventListener('touchmove', onMove, { passive: true });
+    el.addEventListener('touchend', onEnd);
+    el.addEventListener('touchcancel', onEnd);
+    return () => {
+      el.removeEventListener('touchstart', onStart);
+      el.removeEventListener('touchmove', onMove);
+      el.removeEventListener('touchend', onEnd);
+      el.removeEventListener('touchcancel', onEnd);
+    };
+  }, []);
+
+  const isTouch = () => window.matchMedia('(hover: none)').matches;
+
   const handleCardClick = useCallback((idx: number) => {
+    if (touchDraggedRef.current) { touchDraggedRef.current = false; return; }
     if (Math.abs(offsetRef.current - mouseDownOffsetRef.current) > 5) return;
     setFlipped(prev => {
       const next = [...prev];
@@ -136,16 +193,23 @@ export default function AwardPage() {
     });
   }, []);
 
-  const pad = (n: number) => String(n).padStart(2, '0');
 
-  const renderCard = (a: Award, idx: number, key: string) => (
+  const renderCard = (a: Award, idx: number, key: string) => {
+    const ratio = ratios[idx];
+    const hasBack = a.poster && a.url;
+    // When flipped, the card takes the certificate's proportions so the back has no empty margins
+    const flippedWidth = flipped[idx] && ratio
+      ? Math.round((CARD_H[a.size] - (hasBack ? LINK_H : 0)) * ratio)
+      : undefined;
+    return (
     <div
       key={key}
       className={`aw-card aw-size-${a.size}${flipped[idx] ? ' is-flipped' : ''}`}
+      style={flippedWidth ? { width: flippedWidth } : undefined}
       onMouseDown={() => { mouseDownOffsetRef.current = offsetRef.current; }}
       onClick={() => handleCardClick(idx)}
-      onMouseEnter={() => { hoveredRef.current = true;  setPaused(true); }}
-      onMouseLeave={() => { hoveredRef.current = false; setPaused(false); }}
+      onMouseEnter={() => { if (isTouch()) return; hoveredRef.current = true;  setPaused(true); }}
+      onMouseLeave={() => { if (isTouch()) return; hoveredRef.current = false; setPaused(false); }}
     >
       <div className="aw-card-inner">
         {/* Front */}
@@ -160,7 +224,7 @@ export default function AwardPage() {
         <div className="aw-card-back">
           {a.poster
             /* eslint-disable-next-line @next/next/no-img-element */
-            ? <img src={a.poster} alt="" />
+            ? <img src={a.poster} alt="" onLoad={(e) => onPosterLoad(idx, e.currentTarget)} ref={(el) => { if (el?.complete && el.naturalWidth) onPosterLoad(idx, el); }} />
             : null}
           {a.url && (
             <a
@@ -170,26 +234,18 @@ export default function AwardPage() {
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
             >
-              OPEN ↗
+              OPEN {ARROW_NE}
             </a>
           )}
         </div>
       </div>
     </div>
-  );
+    );
+  };
 
   return (
     <div className={`aw-stage${paused ? ' is-paused' : ''}`}>
-      <header className="aw-header">
-        <a className="aw-header-left" href="/"
-          onClick={(e) => { e.preventDefault(); navigate('/'); }}>
-          SNOW<sup>®</sup>{' AWARD'}
-        </a>
-        <a className="aw-header-right" href="/contact"
-          onClick={(e) => { e.preventDefault(); navigate('/contact'); }}>
-          CONTACT ↗
-        </a>
-      </header>
+      <SiteNav active="award" />
 
       <div ref={stripRef} className="aw-strip">
         <div ref={trackRef} className="aw-track">
@@ -207,10 +263,12 @@ export default function AwardPage() {
       <div className="aw-foot">
         <div className="indicator">
           <span className="aw-pulse" />
-          <span className="aw-playing">AUTO-SCROLLING · SCROLL OR CLICK TO FLIP CARD</span>
+          <span className="aw-playing">
+            <span className="aw-hint-mouse">AUTO-SCROLLING · SCROLL OR CLICK TO FLIP CARD</span>
+            <span className="aw-hint-touch">SWIPE · TAP TO FLIP CARD</span>
+          </span>
           <span className="aw-paused">PAUSED · CLICK TO FLIP CARD</span>
         </div>
-        <div>{pad(awards.length)} LAURELS</div>
       </div>
     </div>
   );

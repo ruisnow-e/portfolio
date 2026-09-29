@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import TopBarCS from '@/app/components/cs/TopBarCS';
+import WorkNav from '@/app/components/WorkNav';
 import BottomBarCS from '@/app/components/cs/BottomBarCS';
 
 const PROJECTS = [
@@ -9,7 +9,6 @@ const PROJECTS = [
     name: 'SlateOne+',
     slug: 'slateone+',
     filename: 'SlateApp.swift',
-    cap: 'FILM TOOLS · PLATFORM\nSWIFT · SWIFTUI',
     meta: 'IN DEVELOPMENT · 2026',
     tag: 'Film helps me see what\'s broken. CS lets me fix it.',
     modalMeta: { STATUS: 'building · 2026', STAGE: 'spec · repo · interface design', STACK: 'swift · swiftui (planned)', TARGET: 'indie filmmakers · film students · small crews', YEAR: '2026' },
@@ -37,11 +36,37 @@ const PROJECTS = [
     ],
   },
   {
+    name: 'Stripboard',
+    slug: 'stripboard',
+    filename: 'subset_dp.py',
+    meta: '~3.5K LINES · SUMMER 2026',
+    tag: 'The shooting order an AD shuffles by hand on paper strips — solved, and proven optimal.',
+    modalMeta: { STACK: 'python · standard library only · pytest', STATUS: 'coursework · team (2) · OSS', YEAR: '2026', LOC: '~3.5k total · ~1.3k mine', ROLE: 'scheduling layer · real-film dataset' },
+    desc: 'On set, the assistant director plans the shooting order on a stripboard — one paper strip per scene, shuffled until the schedule works. Stripboard does that shuffling with algorithms.<br><br>A terrain-weighted graph and all-pairs Dijkstra turn filming locations into a true move-cost matrix (81–85% of location pairs have no direct road). Choosing the order is a minimum-cost Hamiltonian path: up to 20 locations, a Held-Karp subset DP returns a proven optimum; beyond that, a minimum spanning tree splits the map into regions — block shooting — and the DP solves exactly within and across them.<br><br>Tested on 90 real filming locations from La La Land, Forrest Gump and Tenet: 10.7%, 6.2% and 5.3% less crew-move cost than a greedy draft, and 0 disagreements with brute force across 1,160 random cases. I built the scheduling layer and the real-film dataset.',
+    team: [
+      { name: 'Rui Song',   role: 'scheduling layer · film dataset' },
+      { name: 'Guoyue Liu', role: 'geographic layer · dijkstra' },
+    ],
+    links: [
+      { label: 'github.com/ruisnow-e/stripboard', url: 'https://github.com/ruisnow-e/stripboard' },
+      { label: 'slides · ruisnow-e.github.io/stripboard', url: 'https://ruisnow-e.github.io/stripboard/presentation/' },
+    ],
+    code: [
+      ['<span class="cmt"># subset_dp.py — Held-Karp</span>', 60],
+      ['<span class="kw">for</span> mask <span class="kw">in</span> <span class="fn">range</span>(1 &lt;&lt; n):', 70],
+      ['    <span class="kw">for</span> v <span class="kw">in</span> <span class="fn">shot</span>(mask):', 65],
+      ['        <span class="kw">for</span> u <span class="kw">in</span> <span class="fn">unshot</span>(mask):', 65],
+      ['            nd = dp[mask][v] + cost[v][u]', 60],
+      ['            <span class="fn">relax</span>(mask | 1 &lt;&lt; u, u, nd)', 80],
+      ['', 100],
+      ['<span class="cmt"># 90 real locations · proven optimal</span>', 80],
+    ],
+  },
+  {
     name: 'OmniRAG',
     slug: 'omnirag',
     filename: 'RagOrchestrator.java',
-    cap: 'RAG · DOMAIN-AWARE\nJAVA · SPRING-BOOT · OPENAI',
-    meta: '~2.1K LINES · LAST EDIT 19:15',
+    meta: '~2.1K LINES · SPRING 2026',
     tag: 'A domain-aware RAG engine that knows the difference between a screenplay and a statute.',
     modalMeta: { STACK: 'java · spring boot · openai · sqlite · sse', STATUS: 'coursework · team (3) · OSS', YEAR: '2026', LOC: '~7.9k total · ~2.1k mine', ROLE: 'architecture · film adapters · frontend' },
     desc: 'A domain-aware RAG pipeline in Java 21 + Spring Boot. Documents ingest through pluggable adapters — screenplays, subtitles, storyboards, legal, general — and queries run through two-stage retrieval: cosine search narrows to top-10, GPT re-ranks to top-5, and the answer persona is chosen by majority vote over the retrieved chunks. I owned the orchestrator, the film adapter suite, and the SSE-streaming frontend.',
@@ -68,8 +93,7 @@ const PROJECTS = [
     name: 'Jive Compiler',
     slug: 'jive-compiler',
     filename: 'codegen.c',
-    cap: 'COMPILER · TOY\nC · NASM · LINUX-X64',
-    meta: '~2.5K LINES · LAST EDIT 03:11',
+    meta: '~2.5K LINES · SPRING 2026',
     tag: 'Lexer → Parser → IR → x86-64. The whole pipeline, by hand, in C.',
     modalMeta: { STACK: 'C · x86-64 NASM · stack-machine IR', STATUS: 'coursework · OSS · archived', YEAR: '2026', LOC: '~2.5k' },
     desc: 'Jive is a small typed language I made up — int, bool, str, arrays, functions, if/while. The compiler is written in C as a unity build, lowers the AST through a stack-machine IR, and emits x86-64 NASM. The demo program runs Conway\'s Game of Life on an 8×8 grid.',
@@ -89,8 +113,7 @@ const PROJECTS = [
     name: 'CyberFishTank',
     slug: 'cyberfishtank',
     filename: 'fishtank.py',
-    cap: 'AQUARIUM · ML\nPYTHON · PYGAME · TENSORFLOW',
-    meta: '~310 LINES · LAST EDIT YESTERDAY',
+    meta: '~310 LINES · FALL 2025',
     tag: 'Three engineers, three domains, one aquarium.',
     modalMeta: { STACK: 'python · pygame · tensorflow · tkinter', STATUS: 'coursework · team (3) · OSS', YEAR: '2025', LOC: '~700 total · ~310 mine', ROLE: 'pygame engine · fish behavior · animation' },
     desc: 'A three-stage pipeline built with two collaborators for CS5001 at Northeastern. Tkinter canvas → TensorFlow classifier → Pygame aquarium. I owned the engine: fish swimming, food-chasing, bubble animation, background switching.',
@@ -134,7 +157,6 @@ export default function CSPage() {
     const slugEl     = document.getElementById('cs-slug')!;
     const metaEl     = document.getElementById('cs-meta')!;
     const filenameEl = document.getElementById('cs-filename')!;
-    const capEl      = document.getElementById('cs-laptop-cap')!;
     const laptopWrap = document.getElementById('cs-laptop-wrap')!;
 
     function pad2(n: number) { return n < 10 ? '0' + n : '' + n; }
@@ -205,15 +227,32 @@ export default function CSPage() {
       nextLine();
     }
 
+    // Phone: the project list is a looping wheel (like the Dance page) — the active
+    // project sits in the middle and the rest wrap around above/below it.
+    const phoneMQ  = window.matchMedia('(max-width: 720px)');
+    const WHEEL_H  = 36;   // px per row; keep in sync with .cs-wheel in globals.css
+    function layoutWheel(pos: number, animate = true) {
+      const N = PROJECTS.length;
+      items.forEach((el, i) => {
+        if (!phoneMQ.matches) { el.style.transform = ''; el.style.opacity = ''; el.style.transition = ''; return; }
+        let rel = i - pos;
+        while (rel < -N / 2) rel += N;
+        while (rel >= N / 2) rel -= N;
+        el.style.transition = animate ? 'transform 0.28s cubic-bezier(0.2,0.8,0.3,1), opacity 0.28s, color 0.18s' : 'color 0.18s';
+        el.style.transform  = `translateY(${rel * WHEEL_H}px)`;
+        el.style.opacity    = String(Math.max(0, 1 - Math.abs(rel) * 0.38));
+      });
+    }
+
     function switchTo(idx: number, viaClick: boolean, dir: number = 0) {
       if (idx === current) return;
       current = idx; typingId++;
       const p = PROJECTS[idx];
       items.forEach((el, i) => el.classList.toggle('active', i === idx));
+      layoutWheel(idx);
       slugEl.textContent     = p.slug;
       metaEl.textContent     = p.meta;
       filenameEl.textContent = p.filename;
-      capEl.innerHTML        = p.cap.replace('\n', '<br/>');
       screenEl.classList.remove('flash', 'cs-slide-next', 'cs-slide-prev');
       void screenEl.offsetWidth;
       if (viaClick) {
@@ -272,8 +311,12 @@ export default function CSPage() {
       document.getElementById('cs-modal-close')?.addEventListener('click', closeModal);
     }
 
-    items.forEach((el, i) => el.addEventListener('click', () => switchTo(i, true)));
-    laptopWrap.addEventListener('click', () => { if (current >= 0) openModal(current); });
+    // One signal removes every listener on cleanup (React dev mode runs this effect twice;
+    // leftover click listeners from the first run would type each line twice)
+    const listeners = new AbortController();
+    const { signal } = listeners;
+    items.forEach((el, i) => el.addEventListener('click', () => switchTo(i, true), { signal }));
+    laptopWrap.addEventListener('click', () => { if (current >= 0) openModal(current); }, { signal });
 
     const onWheel = (e: WheelEvent) => {
       if (document.getElementById('cs-backdrop')) return;
@@ -287,23 +330,51 @@ export default function CSPage() {
       }
     };
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') closeModal(); };
-    window.addEventListener('wheel', onWheel, { passive: false });
-    document.addEventListener('keydown', onKey);
+    window.addEventListener('wheel', onWheel, { passive: false, signal });
+    document.addEventListener('keydown', onKey, { signal });
+
+    let touchY0: number | null = null;
+    let livePos = 0;
+    const onTouchStart = (e: TouchEvent) => {
+      if (!phoneMQ.matches || document.getElementById('cs-backdrop')) { touchY0 = null; return; }
+      touchY0 = e.touches[0].clientY;
+      livePos = current;
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      if (touchY0 === null) return;          // README open (lets its text scroll) or desktop
+      e.preventDefault();                    // keep the laptop and header still
+      const dy = e.touches[0].clientY - touchY0;
+      if (Math.abs(dy) < 6) return;          // still a tap
+      livePos = current - dy / WHEEL_H;      // swipe up → next project
+      layoutWheel(livePos, false);
+    };
+    const onTouchEnd = () => {
+      if (touchY0 === null) return;
+      touchY0 = null;
+      const N = PROJECTS.length;
+      const target = ((Math.round(livePos) % N) + N) % N;
+      if (target !== current) switchTo(target, false, livePos > current ? 1 : -1);
+      else layoutWheel(current);
+    };
+    document.addEventListener('touchstart', onTouchStart, { passive: true, signal });
+    document.addEventListener('touchmove', onTouchMove, { passive: false, signal });
+    document.addEventListener('touchend', onTouchEnd, { signal });
+    document.addEventListener('touchcancel', onTouchEnd, { signal });
+    phoneMQ.addEventListener('change', () => layoutWheel(current, false), { signal });
 
     switchTo(0, false);
 
     return () => {
       typingId++;
       hasRun.current = false;
-      window.removeEventListener('wheel', onWheel);
-      document.removeEventListener('keydown', onKey);
+      listeners.abort();
       document.getElementById('cs-backdrop')?.remove();
     };
   }, []);
 
   return (
-    <div style={{ height: '100vh', background: '#0d0e10', overflow: 'hidden' }}>
-      <TopBarCS />
+    <div style={{ height: '100vh', background: '#ffffff', overflow: 'hidden' }}>
+      <WorkNav />
       <BottomBarCS />
 
       <div className="cs-stage">
@@ -314,8 +385,10 @@ export default function CSPage() {
               <div className="cs-files">
                 <div className="cs-prompt">$ ls projects/</div>
                 <div className="cs-hint">
-                  {'// click '}<span className="k">name</span>{' to preview · click '}<span className="k">laptop</span>{' to read'}
+                  <span className="cs-hint-mouse">{'// click '}<span className="k">name</span>{' to preview · click '}<span className="k">laptop</span>{' to read'}</span>
+                  <span className="cs-hint-touch">{'// tap '}<span className="k">name</span>{' to preview · tap '}<span className="k">laptop</span>{' to read'}</span>
                 </div>
+                <div className="cs-wheel" id="cs-wheel">
                 {PROJECTS.map((p, i) => (
                   <div key={p.slug} className="cs-item" data-i={i}>
                     <span className="cs-arrow">▸</span>
@@ -323,6 +396,7 @@ export default function CSPage() {
                     <span className="cs-item-name">{p.name.toLowerCase()}</span>
                   </div>
                 ))}
+                </div>
                 <div className="cs-openline">
                   <span className="cs-openline-prompt">$</span>
                   <span className="cs-openline-text">
@@ -348,10 +422,7 @@ export default function CSPage() {
                   </div>
                   <div className="cs-base" />
                 </div>
-                <div className="cs-laptop-cap" id="cs-laptop-cap">
-                  FILM TOOLS · PLATFORM<br />SWIFT · SWIFTUI
-                </div>
-                <div className="cs-laptop-cta">↳ CLICK TO READ</div>
+                <div className="cs-laptop-cta"><span className="cs-hint-mouse">↳ CLICK TO READ</span><span className="cs-hint-touch">↳ TAP TO READ</span></div>
               </div>
           </div>
 

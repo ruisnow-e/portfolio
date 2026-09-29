@@ -2,7 +2,7 @@
 
 import { useRef, useState, useCallback, useEffect } from 'react';
 import { films } from '@/app/data/films';
-import TopBar from '@/app/components/film/TopBar';
+import WorkNav from '@/app/components/WorkNav';
 import BottomBar from '@/app/components/film/BottomBar';
 import FilmsList from '@/app/components/film/FilmsList';
 import FilmsStrip, { FilmsStripHandle } from '@/app/components/film/FilmsStrip';
@@ -59,7 +59,7 @@ export default function FilmPage() {
           scrollbarWidth: 'none',
         }}
       >
-        <TopBar />
+        <WorkNav />
         <BottomBar />
 
         <FilmsList films={films} activeIdx={lockedIdx} onSelect={handleListClick} onFracUpdate={handleFracUpdate} />
@@ -67,17 +67,7 @@ export default function FilmPage() {
 <Projector film={films[lockedIdx]} />
 
         {/* Center strip — offset left to sit between list and projector */}
-        <div
-          style={{
-            position: 'relative',
-            zIndex: 10,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            paddingLeft: 'clamp(80px, 18vw, 260px)',
-            paddingRight: 'clamp(140px, 30vw, 440px)',
-          }}
-        >
+        <div className="fm-strip">
           <FilmsStrip ref={stripRef} onLockChange={setLockedIdx} onProgress={handleProgress} onLockedClick={handleLockedClick} />
         </div>
       </main>
