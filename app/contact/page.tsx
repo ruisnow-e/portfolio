@@ -1,9 +1,14 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import SiteNav from '@/app/components/SiteNav';
 
 const EMAIL = 'ruisong.studio@gmail.com';
+// Web3Forms delivers the form to EMAIL. The access key is public by design (it can only send to the
+// address it was issued for); set it in .env.local and in Vercel → Settings → Environment Variables.
+const FORM_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+
+type Status = 'idle' | 'sending' | 'sent' | 'error';
 
 export default function ContactPage() {
   useEffect(() => {
@@ -11,15 +16,34 @@ export default function ContactPage() {
     return () => document.body.classList.remove('ct-page');
   }, []);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const [status, setStatus] = useState<Status>('idle');
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const f = e.currentTarget;
-    const name = (f.elements.namedItem('name') as HTMLInputElement).value;
-    const subject = encodeURIComponent((f.elements.namedItem('subject') as HTMLInputElement).value);
-    const body = encodeURIComponent(
-      'From: ' + name + '\n\n' + (f.elements.namedItem('message') as HTMLTextAreaElement).value
-    );
-    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+    const val = (n: string) => (f.elements.namedItem(n) as HTMLInputElement | HTMLTextAreaElement).value.trim();
+    const name = val('name'), email = val('email'), subject = val('subject'), message = val('message');
+
+    if (!FORM_KEY) { setStatus('error'); return; }
+    setStatus('sending');
+    try {
+      // Plain FormData (no JSON Content-Type) so the browser skips the CORS preflight, which Web3Forms rejects
+      const body = new FormData();
+      body.append('access_key', FORM_KEY);
+      body.append('subject', `[snow®] ${subject}`);
+      body.append('from_name', name);
+      body.append('name', name);
+      body.append('email', email);
+      body.append('message', message);
+      body.append('replyto', email);           // "Reply" in your inbox goes straight to the visitor
+      if ((f.elements.namedItem('botcheck') as HTMLInputElement).checked) body.append('botcheck', 'on');
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.success) { setStatus('sent'); f.reset(); }
+      else setStatus('error');
+    } catch {
+      setStatus('error');
+    }
   }
 
   return (
@@ -41,6 +65,11 @@ export default function ContactPage() {
           </div>
 
           <div className="ct-field">
+            <label htmlFor="email" className="ct-label">Email</label>
+            <input type="email" id="email" name="email" placeholder="So I can write back" required autoComplete="email" className="ct-input" />
+          </div>
+
+          <div className="ct-field">
             <label htmlFor="subject" className="ct-label">Subject</label>
             <input type="text" id="subject" name="subject" placeholder="What is this about?" required className="ct-input" />
           </div>
@@ -50,9 +79,18 @@ export default function ContactPage() {
             <textarea id="message" name="message" placeholder="Tell me a story..." required className="ct-input ct-textarea" />
           </div>
 
+          {/* spam trap — hidden from people, bots tick it */}
+          <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ display: 'none' }} />
+
           <div className="ct-submit-row">
-            <button type="submit" className="ct-submit">Send message →</button>
-            <span className="ct-submit-hint">Or reach out below</span>
+            <button type="submit" className="ct-submit" disabled={status === 'sending'}>
+              {status === 'sending' ? 'Sending…' : 'Send message →'}
+            </button>
+            <span className="ct-submit-hint" role="status" aria-live="polite">
+              {status === 'sent'  && <span className="ct-status-ok">Thank you — your message is on its way.</span>}
+              {status === 'error' && <>Couldn&apos;t send. Please email <a href={`mailto:${EMAIL}`} className="ct-status-link">{EMAIL}</a></>}
+              {(status === 'idle' || status === 'sending') && 'Or reach out below'}
+            </span>
           </div>
         </form>
 

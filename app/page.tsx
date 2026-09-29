@@ -11,6 +11,13 @@ export default function Home() {
   const [introDone, setIntroDone] = useState(false);
   const showOverlay = shouldPlay && !introDone;
 
+  // The white intro card now covers the screen, so drop the pre-paint white cover (layout.tsx)
+  useEffect(() => {
+    // (useShouldPlayIntro starts false before it reads sessionStorage, so only the overlay mounting clears it;
+    //  the head script only sets data-intro under the same conditions that make the overlay play)
+    if (showOverlay) document.documentElement.removeAttribute("data-intro");
+  }, [showOverlay]);
+
   useEffect(() => {
     document.body.classList.add("hide-cursor");
     return () => document.body.classList.remove("hide-cursor");

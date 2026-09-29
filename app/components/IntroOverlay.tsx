@@ -19,7 +19,7 @@ export default function IntroOverlay({
   brand = "Rui Snow Song",
   staggerMs = 140,
   letterDurationMs = 500,
-  holdMs = 350,
+  holdMs = 700,
   exitDurationMs = 1600,
   onComplete,
 }: IntroOverlayProps) {
@@ -43,19 +43,18 @@ export default function IntroOverlay({
     setStage("exiting");
     stageRef.current = "exiting";
 
-    // Wordmark fades out during the black→white phase (~900ms)
+    // Wordmark fades out first…
     wordmarkCtrl.start({
       opacity: 0,
-      transition: { duration: 0.9, ease: [0.45, 0, 0.55, 1] },
+      transition: { duration: 0.6, ease: [0.45, 0, 0.55, 1] },
     });
 
-    // Backdrop: black → white (45%) → hold white (60%) → fade to transparent (100%)
+    // …then the white card dissolves straight into the black home page (white → black, one pass)
     await backdropCtrl.start({
-      backgroundColor: ["#000000", "#ffffff", "#ffffff", "#ffffff"],
-      opacity: [1, 1, 1, 0],
+      opacity: [1, 1, 0],
       transition: {
         duration: exitDurationMs / 1000,
-        times: [0, 0.45, 0.60, 1.0],
+        times: [0, 0.3, 1.0],
         ease: [0.45, 0, 0.55, 1],
       },
     });
@@ -84,6 +83,10 @@ export default function IntroOverlay({
   }, []);
 
   let reelIdx = 0;
+  let wordIdx = 0;
+  // Middle word ("Snow") in dark grey, set apart from "Rui" and "Song" — echoes the Bio heading
+  const MIDDLE_WORD_COLOR = "#666666";
+  const isMiddleWord = (w: number) => w === 1;
 
   return (
     <>
@@ -103,9 +106,9 @@ export default function IntroOverlay({
         {brand}, portfolio loading
       </div>
 
-      {/* Backdrop — cross-fades black → white → transparent on exit */}
+      {/* Backdrop — white card; fades to transparent on exit, revealing the black home page */}
       <motion.div
-        initial={{ backgroundColor: "#000000", opacity: 1 }}
+        initial={{ backgroundColor: "#ffffff", opacity: 1 }}
         animate={backdropCtrl}
         style={{
           position: "fixed",
@@ -146,7 +149,7 @@ export default function IntroOverlay({
               "var(--font-inter, Inter, system-ui, -apple-system, sans-serif)",
             fontWeight: 400,
             fontSize: "clamp(20px, 2.2vw, 30px)",
-            color: "#E5E5E5",
+            color: "#0a0a0a",
             letterSpacing: "-0.015em",
             lineHeight: 1,
             whiteSpace: "nowrap",
@@ -154,6 +157,7 @@ export default function IntroOverlay({
         >
           {chars.map((char, charIndex) => {
             if (char === " ") {
+              wordIdx++;
               return (
                 <span
                   key={charIndex}
@@ -165,6 +169,7 @@ export default function IntroOverlay({
             return (
               <LetterReel
                 key={charIndex}
+                color={isMiddleWord(wordIdx) ? MIDDLE_WORD_COLOR : undefined}
                 char={char}
                 delayMs={100 + idx * staggerMs}
                 durationMs={letterDurationMs}

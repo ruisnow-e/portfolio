@@ -5,6 +5,10 @@ import { motion, useAnimation } from "framer-motion";
 
 const POOL = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789@#&%";
 
+// Each reel row is taller than the glyph so descenders (g, p, y) aren't clipped
+// and the previous random letter can't peek in above.
+const ROW = 1.3; // em
+
 function rndChar(): string {
   return POOL[Math.floor(Math.random() * POOL.length)];
 }
@@ -15,6 +19,8 @@ export type LetterReelProps = {
   durationMs: number;
   randomCount?: number;
   skipped?: boolean;
+  /** Overrides the inherited text colour for this letter */
+  color?: string;
   onComplete?: () => void;
 };
 
@@ -24,6 +30,7 @@ export default function LetterReel({
   durationMs,
   randomCount = 3,
   skipped = false,
+  color,
   onComplete,
 }: LetterReelProps) {
   const randoms = useRef(Array.from({ length: randomCount }, rndChar));
@@ -34,7 +41,7 @@ export default function LetterReel({
   useEffect(() => {
     if (skipped) {
       wrapCtrl.set({ opacity: 1 });
-      stripCtrl.set({ y: `-${randomCount}em` });
+      stripCtrl.set({ y: `-${randomCount * ROW}em` });
       if (stripRef.current) stripRef.current.style.willChange = "auto";
       onComplete?.();
       return;
@@ -52,8 +59,9 @@ export default function LetterReel({
       // Fade in and roll start simultaneously
       wrapCtrl.start({ opacity: 1, transition: { duration: 0.12, ease: "linear" } });
       await stripCtrl.start({
-        y: `-${randomCount}em`,
-        transition: { duration: durationMs / 1000, ease: [0.22, 1, 0.36, 1] },
+        y: `-${randomCount * ROW}em`,
+        // easeOutCubic — settles without the long, near-motionless tail
+        transition: { duration: durationMs / 1000, ease: [0.33, 1, 0.68, 1] },
       });
       if (!alive) return;
 
@@ -74,9 +82,9 @@ export default function LetterReel({
   const allChars = [...randoms.current, char];
 
   return (
-    <span style={{ display: "inline-block", position: "relative", lineHeight: 1 }}>
+    <span style={{ display: "inline-block", position: "relative", lineHeight: ROW, verticalAlign: "top", color }}>
       {/* Invisible target char reserves exact width — prevents row shifting */}
-      <span style={{ visibility: "hidden", display: "inline-block" }}>{char}</span>
+      <span style={{ visibility: "hidden", display: "inline-block", height: `${ROW}em` }}>{char}</span>
 
       {/* Rolling window — absolutely overlays the reserved space */}
       <motion.span
@@ -100,7 +108,7 @@ export default function LetterReel({
           }}
         >
           {allChars.map((c, i) => (
-            <span key={i} style={{ display: "block", height: "1em", lineHeight: 1 }}>
+            <span key={i} style={{ display: "block", height: `${ROW}em`, lineHeight: ROW }}>
               {c}
             </span>
           ))}

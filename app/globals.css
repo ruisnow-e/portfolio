@@ -220,6 +220,9 @@ button:focus-visible {
 .ct-submit { background:transparent;border:1px solid #0a0a0a;color:#0a0a0a;padding:14px 36px;font-size:12px;letter-spacing:0.25em;text-transform:uppercase;cursor:pointer;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;transition:background .3s ease,color .3s ease }
 .ct-submit:hover { background:#0a0a0a;color:#ffffff }
 .ct-submit-hint { font-size:11px;color:#9a9a9a;letter-spacing:0.08em }
+.ct-submit:disabled { opacity:.5;cursor:wait }
+.ct-status-ok { color:#0a0a0a }
+.ct-status-link { color:#0a0a0a;text-decoration:underline;text-underline-offset:3px }
 .ct-socials-wrap { width:100%;max-width:720px;display:flex;flex-direction:column;align-items:center }
 .ct-socials-rule { width:56px;height:1px;background:#0a0a0a;margin-top:80px }
 .ct-socials { margin-top:96px;display:flex;gap:64px;align-items:flex-start;justify-content:center;flex-wrap:wrap }
@@ -932,3 +935,7 @@ button:focus-visible {
   .hero-m-roles { margin: auto clamp(28px, 12vw, 80px) clamp(80px, 30dvh, 300px) 0; padding: 0; list-style: none; align-self: flex-end; text-align: right;
                   font-size: 19px; line-height: 1.6; letter-spacing: -0.008em; color: #F5F5F5 }
 }
+
+/* Before the intro card mounts (see layout.tsx): white page, home hidden — avoids a dark flash before the white card */
+html[data-intro] body { background: #ffffff }
+html[data-intro] main { visibility: hidden }
