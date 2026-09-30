@@ -11,10 +11,26 @@ const inter = Inter({
   display: "swap",
 });
 
+const DESCRIPTION =
+  "Creative AI MLE, Film Director, Choreographer. A practice at the intersection of film, choreography, and code.";
+
 export const metadata: Metadata = {
+  // Absolute base so link previews (LinkedIn, iMessage, X…) can fetch app/opengraph-image.png
+  metadataBase: new URL("https://www.snowsong.studio"),
   title: "SnowStudio",
-  description:
-    "Creative AI MLE, Film Director, Choreographer. A practice at the intersection of film, choreography, and code.",
+  description: DESCRIPTION,
+  openGraph: {
+    title: "Rui Song — snow®",
+    description: DESCRIPTION,
+    url: "/",
+    siteName: "SnowStudio",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rui Song — snow®",
+    description: DESCRIPTION,
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
