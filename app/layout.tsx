@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 import { PageTransitionProvider } from "./components/PageTransition";
 
 const inter = Inter({
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <PageTransitionProvider>
           {children}
         </PageTransitionProvider>
+        <Analytics />
       </body>
     </html>
   );
