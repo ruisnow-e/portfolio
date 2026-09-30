@@ -1016,3 +1016,20 @@ html[data-intro] main { visibility: hidden }
   0%   { opacity: 0.9; transform: scale(0.6); box-shadow: 0 0 0 0 rgba(255,255,255,0.5) }
   100% { opacity: 0;   transform: scale(3.2); box-shadow: 0 0 18px 4px rgba(255,255,255,0) }
 }
+
+/* Page enter (app/template.tsx): fade in + slight rise. Animates margin rather than transform so
+   position:fixed / sticky descendants keep the viewport as their containing block; fill-mode
+   backwards leaves no opacity/stacking context behind once it finishes. */
+.page-enter { animation: page-enter 0.6s cubic-bezier(0.33, 1, 0.68, 1) backwards }
+.page-enter--fade { animation-name: page-fade }
+@keyframes page-enter { from { opacity: 0; margin-top: 16px } to { opacity: 1; margin-top: 0 } }
+@keyframes page-fade  { from { opacity: 0 } to { opacity: 1 } }
+@media (prefers-reduced-motion: reduce) { .page-enter { animation: none } }
+/* Work pages get the same rise as the other pages, on their content only (Film: the poster column): a transform on the strip's
+   inner wrapper doesn't change the posters' offsetTop (used for centring), and the fixed curtains
+   (.fm-strip::before/::after), list and projector stay put */
+.page-enter--fade .fm-strip > div,
+.page-enter--fade .cs-content,
+.page-enter--fade .dn-main { animation: page-rise 0.6s cubic-bezier(0.33, 1, 0.68, 1) backwards }
+@keyframes page-rise { from { transform: translateY(16px) } to { transform: none } }
+@media (prefers-reduced-motion: reduce) { .page-enter--fade .fm-strip > div, .page-enter--fade .cs-content, .page-enter--fade .dn-main { animation: none } }

@@ -206,12 +206,19 @@ export default function FilmModal({ film, onClose }: FilmModalProps) {
   const lastFilm = useRef<Film | null>(null);
   if (film) lastFilm.current = film;
 
+  // Only play the closing iris after the modal has actually been open — otherwise it would
+  // fire on page load (film starts as null) and read as a circle wipe when entering /work/film
+  const wasOpen = useRef(false);
+
   useEffect(() => {
     if (film) {
+      wasOpen.current = true;
       setIrisState('opening');
       const t = setTimeout(() => setModalVisible(true), 180);
       return () => clearTimeout(t);
     } else {
+      if (!wasOpen.current) return;
+      wasOpen.current = false;
       setModalVisible(false);
       setIrisState('closing');
       const t = setTimeout(() => setIrisState('idle'), 320);
