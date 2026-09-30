@@ -3,10 +3,7 @@
 import { useEffect } from 'react';
 import { usePageNavigate } from '@/app/components/PageTransition';
 import SiteNav from '@/app/components/SiteNav';
-import { ARROW_NE } from '@/app/components/glyphs';
 
-// Google Drive share link — replacing the file in Drive updates the résumé here too
-const RESUME_URL = 'https://drive.google.com/file/d/1sortnBNmXSc74TGNR3I6I-tPq8cdE_Ec/view?usp=sharing';
 
 export default function BioPage() {
   const navigate = usePageNavigate();
@@ -92,9 +89,6 @@ export default function BioPage() {
                 <div className="bp-sidebar-key">TOWARD</div>
                 <div className="bp-sidebar-val">AI Creative ML Engineer</div>
               </div>
-              <a className="bp-resume" href={RESUME_URL} target="_blank" rel="noopener noreferrer">
-                RÉSUMÉ <span className="bp-resume-arrow">{ARROW_NE}</span>
-              </a>
             </div>
           </div>
 

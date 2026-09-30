@@ -35,6 +35,7 @@ const FilmsStrip = forwardRef<FilmsStripHandle, FilmsStripProps>(
     const snapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const isSnappingRef = useRef(false);
     const snapAnimRef = useRef<number | null>(null);
+    const lockedRef = useRef(0);   // mirrors lockedIdx for the resize handler
     const repeated = useMemo(
       () => Array.from({ length: REPEAT }).flatMap(() => films),
       []
@@ -56,6 +57,7 @@ const FilmsStrip = forwardRef<FilmsStripHandle, FilmsStripProps>(
         }
       });
       const actual = best % films.length;
+      lockedRef.current = actual;
       setLockedIdx(actual);
       onLockChange(actual);
     }, [onLockChange]);
@@ -106,24 +108,41 @@ const FilmsStrip = forwardRef<FilmsStripHandle, FilmsStripProps>(
       if (typeof window === 'undefined') return;
       history.scrollRestoration = 'manual';
 
-      const init = () => {
-        requestAnimationFrame(() => {
-          if (!stripRef.current) return;
-          const works =
-            stripRef.current.querySelectorAll<HTMLElement>('.film-work');
-          const firstCopyB = works[films.length];
-          if (!firstCopyB) return;
-          const targetY =
-            firstCopyB.offsetTop +
-            firstCopyB.offsetHeight / 2 -
-            window.innerHeight / 2;
-          baseScrollRef.current = targetY;
-          window.scrollTo({ top: targetY, behavior: 'auto' });
-          updateLocked();
-        });
+      // Centre film `idx` of the middle copy, and re-derive the loop's base scroll from the current layout
+      const centreOn = (idx: number) => {
+        if (!stripRef.current) return;
+        const works =
+          stripRef.current.querySelectorAll<HTMLElement>('.film-work');
+        const firstCopyB = works[films.length];
+        const target = works[films.length + idx];
+        if (!firstCopyB || !target) return;
+        const centreY = (el: HTMLElement) =>
+          el.offsetTop + el.offsetHeight / 2 - window.innerHeight / 2;
+        baseScrollRef.current = centreY(firstCopyB);
+        window.scrollTo({ top: centreY(target), behavior: 'auto' });
+        updateLocked();
       };
 
-      init();
+      requestAnimationFrame(() => centreOn(0));
+
+      // Phone posters are sized in dvh, so the layout shifts when the viewport height changes
+      // (iOS toolbar showing/hiding, late CSS). Re-centre: on Heirloom until the visitor starts
+      // browsing, afterwards on whichever film is locked.
+      let interacted = false;
+      const markInteracted = () => { interacted = true; };
+      window.addEventListener('touchstart', markInteracted, { passive: true, once: true });
+      window.addEventListener('wheel', markInteracted, { passive: true, once: true });
+      window.addEventListener('keydown', markInteracted, { once: true });
+      let lastH = stripRef.current?.offsetHeight ?? 0;
+      const ro = new ResizeObserver(() => {
+        const h = stripRef.current?.offsetHeight ?? 0;
+        if (h === lastH) return;
+        lastH = h;
+        if (snapAnimRef.current) { cancelAnimationFrame(snapAnimRef.current); snapAnimRef.current = null; }
+        isSnappingRef.current = false;
+        centreOn(interacted ? lockedRef.current : 0);
+      });
+      if (stripRef.current) ro.observe(stripRef.current);
 
       const onScroll = () => {
         if (!isSnappingRef.current) {
@@ -135,14 +154,19 @@ const FilmsStrip = forwardRef<FilmsStripHandle, FilmsStripProps>(
         rafRef.current = requestAnimationFrame(() => {
           rafRef.current = null;
           if (!stripRef.current) return;
-          const oneSetHeight = stripRef.current.scrollHeight / REPEAT;
+          // One copy of the list = distance between film 0 of copy A and film 0 of copy B
+          // (scrollHeight / REPEAT would also count the strip's 50vh top/bottom padding)
+          const works = stripRef.current.querySelectorAll<HTMLElement>('.film-work');
+          const oneSetHeight = works[films.length].offsetTop - works[0].offsetTop;
           const base = baseScrollRef.current;
           const sy = window.scrollY;
-          if (sy >= base + oneSetHeight) {
+          // 2px slack: phone posters are sized in dvh, so positions are fractional and
+          // iOS rounds scrollY down — without it the first frame looks like an upward wrap
+          if (sy >= base + oneSetHeight - 2) {
             window.scrollTo({ top: sy - oneSetHeight, behavior: 'auto' });
             return;
           }
-          if (sy < base) {
+          if (sy < base - 2) {
             window.scrollTo({ top: sy + oneSetHeight, behavior: 'auto' });
             return;
           }
@@ -154,6 +178,10 @@ const FilmsStrip = forwardRef<FilmsStripHandle, FilmsStripProps>(
 
       window.addEventListener('scroll', onScroll, { passive: true });
       return () => {
+        ro.disconnect();
+        window.removeEventListener('touchstart', markInteracted);
+        window.removeEventListener('wheel', markInteracted);
+        window.removeEventListener('keydown', markInteracted);
         window.removeEventListener('scroll', onScroll);
         if (rafRef.current) {
           cancelAnimationFrame(rafRef.current);

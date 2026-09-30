@@ -333,6 +333,10 @@ export default function DancePage() {
       const t    = norm - idx;
       const bg   = lerpHsl(works[idx].color, works[(idx + 1) % N].color, t);
 
+      if (idx !== activeIdxRef.current) {
+        wRefs.current[activeIdxRef.current]?.classList.remove('is-current');
+      }
+      wRefs.current[idx]?.classList.add('is-current');
       activeIdxRef.current = idx;
       if (labelRef.current)   labelRef.current.setAttribute('fill', bg);
       if (vinylRef.current)   vinylRef.current.style.setProperty('--dn-glow', bg);
@@ -460,8 +464,10 @@ export default function DancePage() {
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
-                    <span style={{ fontSize: 10, opacity: 0.6, letterSpacing: '0.05em', flexShrink: 0 }}>
-                      {p2(i + 1)}
+                    {/* Number turns into ▶ on hover (mouse) or on the current track (touch): titles open the video */}
+                    <span className="dn-num" style={{ fontSize: 10, letterSpacing: '0.05em', flexShrink: 0 }}>
+                      <span className="dn-num-n">{p2(i + 1)}</span>
+                      <span className="dn-num-play" aria-hidden="true">{'\u25B6\uFE0E'}</span>
                     </span>
                     <span className="dn-item-title" style={{ fontSize: 13, letterSpacing: '0.04em' }}>{w.title}</span>
                   </div>

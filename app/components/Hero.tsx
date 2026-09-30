@@ -3,6 +3,7 @@
 import { useState } from "react";
 import RoleLink from "./RoleLink";
 import SmokeBackground from "./SmokeBackground";
+import CreditsEgg from "./CreditsEgg";
 
 const INSET_X = "clamp(56px, 10vw, 180px)";
 const INSET_Y = "clamp(28px, 4.5vh, 56px)";
@@ -66,10 +67,11 @@ export default function Hero({
 
       {/* ── MOBILE layout (< 768px) — one fixed screen: snow® upper-left, roles lower-right, both drawn toward the middle ── */}
       <div className="md:hidden hero-m">
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontFamily: monoFont, fontSize: 15, letterSpacing: "0.08em" }}>
-          <RoleLink href="/bio" label="Bio" />
+        {/* 1fr | auto | 1fr keeps Award on the true centre line even though "Bio" and "Contact" differ in width */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", fontFamily: monoFont, fontSize: 15, letterSpacing: "0.08em" }}>
+          <span style={{ justifySelf: "start" }}><RoleLink href="/bio" label="Bio" /></span>
           <RoleLink href="/award" label="Award" />
-          <RoleLink href="/contact" label="Contact" />
+          <span style={{ justifySelf: "end" }}><RoleLink href="/contact" label="Contact" /></span>
         </div>
 
         <div className="hero-m-brand">
@@ -87,7 +89,7 @@ export default function Hero({
             }}
           >
             {brand}
-            {trademark && <sup style={supStyle}>{trademark}</sup>}
+            {trademark && <CreditsEgg mark={trademark} style={supStyle} />}
           </h1>
         </div>
 
@@ -144,7 +146,7 @@ export default function Hero({
         }}
       >
         {brand}
-        {trademark && <sup style={supStyle}>{trademark}</sup>}
+        {trademark && <CreditsEgg mark={trademark} style={supStyle} />}
       </h1>
 
       {/* Role titles — upper left */}

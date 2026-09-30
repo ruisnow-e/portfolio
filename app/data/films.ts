@@ -78,7 +78,7 @@ export const films: Film[] = [
       { text: 'Official Selection · 27th Kyoto International Student Film & Video Festival (2025)', url: 'https://www.consortium.or.jp/en/project/kisfvf/details/2024-2' },
       { text: 'Official Selection · San Francisco Another Hole in the Head Film Festival — Strictly Local II, December 8, 2024', url: 'https://holehead2024.eventive.org/films/heirloom-671997f6f12b3b004193fb7e' },
       { text: 'Official Selection · San Antonio QFest-LGBT International Film Festival — October 12, 2024', url: '/films/san-antonio-qfest-2024.pdf' },
-      { text: 'Award Winner · Best Editing — Chicago Filmmaker Awards (October 2024)',               url: 'https://cifawards.net/2024/10/23/winners-october-2024/' },
+      { text: 'Award Winner · Best Editing — Chicago Filmmaker Awards (October 2024)',               url: 'https://cifawards.net/winners-october-2024/' },
       { text: 'Award Winner · Best LGBTQ Short — San Francisco Arthouse Short Festival (July 2024)', url: 'https://sanfranciscoindieshort.com/winners-july-2024/' },
       { text: 'Award Winner · Best LGBTQ Short — Berlin Short Film Festival (July 2024)',            url: 'https://berlinshortsaward.com/winners-july-2024/' },
       { text: 'Award Winner · Best LGBTQ Short — Madrid Arthouse Film Festival (October 2024)',      url: 'https://maffestival.com/winners-october-2024/' },

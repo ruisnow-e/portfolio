@@ -455,13 +455,16 @@ button:focus-visible {
 .aw-strip {
   flex: 1; display: flex; align-items: center; overflow: hidden;
   touch-action: pan-y;   /* horizontal swipes drive the strip; vertical stays with the browser */
+  cursor: grab; user-select: none; -webkit-user-select: none;
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
   mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
 }
 
+.aw-strip.is-dragging, .aw-strip.is-dragging .aw-card { cursor: grabbing; }
+.aw-strip img { -webkit-user-drag: none; }
 .aw-track {
   display: flex; gap: 24px; width: max-content;
-  padding: 16px 0; align-items: center; will-change: transform;
+  padding: 16px 0 44px; align-items: center; will-change: transform;   /* bottom room for the VIEW ↗ caption */
 }
 
 /* Card — perspective wrapper */
@@ -500,21 +503,21 @@ button:focus-visible {
 }
 .aw-card-back {
   transform: rotateY(180deg);
-  overflow: hidden; padding: 0 0 20px;
+  overflow: hidden; padding: 0;
 }
-.aw-card-back:not(:has(.aw-card-link)) { padding: 0; }
 .aw-card-back img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* VIEW ↗ caption under a flipped card, like a gallery wall label */
+.aw-card { position: relative; }
 .aw-card-link {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  height: 20px;
-  border-top: 0.5px solid #e4e4e4;
-  display: flex; align-items: center; justify-content: center; gap: 4px;
-  font-family: var(--font-inter, Inter, system-ui, sans-serif);
-  font-size: 7px; letter-spacing: 0.13em; color: #555;
-  text-decoration: none; text-transform: uppercase; background: #fff;
-  transition: color 0.15s, background 0.15s;
+  position: absolute; top: calc(100% + 14px); left: 50%; transform: translate(-50%, -4px);
+  padding-bottom: 3px; border-bottom: 1px solid #0a0a0a;
+  font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 0.18em; white-space: nowrap;
+  color: #0a0a0a; text-decoration: none;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease, color 0.15s, border-color 0.15s;
 }
-.aw-card-link:hover { color: #0a0a0a; background: #f0f0f0; }
+.aw-card.is-flipped .aw-card-link { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); transition-delay: 0.25s, 0.25s, 0s, 0s; }
+.aw-card-link:hover { color: #b88820; border-color: #b88820; }
 
 /* Sizes */
 .aw-size-S { width: 180px; height: 240px; }
@@ -568,6 +571,53 @@ button:focus-visible {
 .aw-size-L .aw-num sup { font-size: 20px; }
 .aw-size-S .aw-num { font-size: 30px; }
 .aw-size-S .aw-num sup { font-size: 11px; }
+
+/* Latest award (pinned above the strip) */
+.aw-latest {
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(20px, 3vw, 40px);
+  padding: clamp(4px, 1.5vh, 16px) 24px clamp(8px, 2vh, 20px);
+}
+.aw-latest-photo { flex-shrink: 0; display: block; height: clamp(150px, 24vh, 230px); aspect-ratio: 3 / 4; overflow: hidden; }
+.aw-latest-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+.aw-latest-photo:hover img { transform: scale(1.03); }
+.aw-latest-text { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; max-width: 440px; }
+.aw-latest-kicker { display: flex; align-items: center; gap: 8px; font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 0.18em; color: #b88820; }
+.aw-latest-name { font-family: 'Times New Roman', Georgia, serif; font-size: clamp(24px, 2.6vw, 34px); line-height: 1.1; letter-spacing: -0.01em; margin-top: 12px; }
+.aw-latest-sub { font-family: 'Times New Roman', Georgia, serif; font-style: italic; font-size: 15px; color: rgba(0,0,0,0.55); margin-top: 8px; }
+.aw-latest-work { font-size: 12px; line-height: 1.5; color: rgba(0,0,0,0.5); margin-top: 14px; }
+.aw-latest-meta { display: flex; gap: 18px; margin-top: 14px; padding-top: 12px; border-top: 0.5px solid rgba(0,0,0,0.1);
+                  font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 0.18em; color: rgba(0,0,0,0.4); }
+.aw-latest-meta a, .aw-latest-meta button { color: #555; text-decoration: none; white-space: nowrap; transition: color 0.15s;
+                                           font: inherit; letter-spacing: inherit; padding: 0; border: 0; background: none; cursor: pointer; }
+.aw-latest-meta a:hover, .aw-latest-meta button:hover { color: #0a0a0a; }
+.aw-lightbox { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center;
+               padding: clamp(16px, 4vw, 56px); background: rgba(10,10,10,0.96); cursor: zoom-out; animation: aw-fade 0.2s ease; }
+.aw-lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+.aw-lightbox-close { position: absolute; top: 18px; right: 22px; padding: 6px; border: 0; background: none; cursor: pointer;
+                     font-family: ui-monospace, monospace; font-size: 10px; letter-spacing: 0.18em; color: rgba(255,255,255,0.7); }
+.aw-lightbox-close:hover { color: #fff; }
+@keyframes aw-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (max-width: 720px) {
+  /* Phones: stack photo over text, centred, with room to breathe */
+  .aw-latest { flex-direction: column; gap: 18px; padding: 8px 24px 4px; }
+  .aw-latest-photo { height: 160px; }
+  .aw-latest-text { align-items: center; text-align: center; }
+  .aw-latest-kicker { font-size: 9px; letter-spacing: 0.16em; }
+  .aw-latest-name { font-size: 22px; margin-top: 10px; }
+  .aw-latest-sub { font-size: 13px; margin-top: 6px; }
+  .aw-latest-work { display: none; }
+  .aw-latest-meta { justify-content: center; gap: 16px; margin-top: 12px; padding-top: 10px; font-size: 9px; letter-spacing: 0.14em; }
+}
+
+/* Short laptop screens: tighten the latest-award block so the strip + caption still fit */
+@media (min-width: 721px) and (max-height: 760px) {
+  .aw-latest { padding-top: 0; padding-bottom: 4px; }
+  .aw-latest-photo { height: clamp(130px, 21vh, 200px); }
+  .aw-latest-name { font-size: clamp(22px, 2.3vw, 30px); margin-top: 8px; }
+  .aw-latest-work { margin-top: 10px; }
+  .aw-latest-meta { margin-top: 10px; padding-top: 10px; }
+}
 
 /* Footer */
 .aw-foot {
@@ -684,13 +734,6 @@ button:focus-visible {
 /* Right column */
 .bp-right { display: flex; flex-direction: column; gap: 24px; }
 .bp-col-label { display: flex; flex-direction: column; gap: 0; }
-/* Résumé link — same outlined mono button as the film press kit */
-.bp-resume { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; margin-top: 4px; padding: 7px 12px 7px 11px;
-             border: 0.5px solid rgba(0,0,0,0.18); color: #0a0a0a; text-decoration: none;
-             font-family: ui-monospace, monospace; font-size: 9px; letter-spacing: 0.22em; transition: border-color 0.18s, background 0.18s }
-.bp-resume:hover { border-color: rgba(0,0,0,0.5); background: rgba(0,0,0,0.03) }
-.bp-resume:active { background: rgba(0,0,0,0.06) }
-.bp-resume-arrow { font-size: 11px; color: rgba(0,0,0,0.5); line-height: 1 }
 .bp-sidebar-block { margin-bottom: 18px; }
 .bp-sidebar-key {
   font-family: ui-monospace, monospace; font-size: 9px;
@@ -759,6 +802,21 @@ button:focus-visible {
 /* Film + Dance lists share the Engineer list's hover: the item comes to full black and its name nudges right.
    (Opacity is set inline per frame by the scroll code, hence !important while hovered.) */
 .dn-item-title, .fm-item-name { display:inline-block;transition:transform 0.18s }
+/* Dance list: the track number swaps to ▶ and the title underlines (hover on mouse, current track on touch) */
+.dn-num { position:relative;display:inline-block;min-width:12px }
+.dn-num-n { opacity:0.6;transition:opacity 0.18s }
+.dn-num-play { position:absolute;left:0;top:50%;transform:translateY(-50%) scale(0.6);font-size:9px;line-height:1;opacity:0;transition:opacity 0.18s,transform 0.18s }
+.dn-item-title { text-decoration:underline;text-decoration-color:transparent;text-decoration-thickness:1px;text-underline-offset:4px;transition:transform 0.18s,text-decoration-color 0.18s }
+@media (hover: hover) {
+  .dn-item:hover .dn-num-n { opacity:0 }
+  .dn-item:hover .dn-num-play { opacity:1;transform:translateY(-50%) scale(1) }
+  .dn-item:hover .dn-item-title { text-decoration-color:currentColor }
+}
+@media (hover: none) {
+  .dn-item.is-current .dn-num-n { opacity:0 }
+  .dn-item.is-current .dn-num-play { opacity:1;transform:translateY(-50%) scale(1) }
+  .dn-item.is-current .dn-item-title { text-decoration-color:currentColor }
+}
 @media (hover: hover) {
   .dn-item, .fm-item { transition:opacity 0.18s }
   .dn-item:hover, .fm-item:hover { opacity:1 !important }
@@ -917,7 +975,8 @@ button:focus-visible {
 
 /* Award cards on phones: scale each card down as a whole (text, stars, flipped certificate) */
 @media (max-width: 720px) {
-  .aw-card  { zoom: 0.68 }
+  .aw-card  { zoom: 0.56 }
+  .aw-card-link { font-size: 16px; top: calc(100% + 18px) }   /* ~9px / 10px after the 0.56 zoom */
   .aw-track { gap: 14px }
   .aw-foot  { gap: 12px; font-size: 9px; letter-spacing: 0.14em; white-space: nowrap }
 }
@@ -939,3 +998,21 @@ button:focus-visible {
 /* Before the intro card mounts (see layout.tsx): white page, home hidden — avoids a dark flash before the white card */
 html[data-intro] body { background: #ffffff }
 html[data-intro] main { visibility: hidden }
+
+/* Home: ® → /credits easter egg (see CreditsEgg.tsx) */
+.credits-egg { position: relative; display: inline-block; line-height: 1; color: inherit; text-decoration: none; cursor: pointer;
+               transition: text-shadow 0.35s ease, transform 0.35s ease; -webkit-tap-highlight-color: transparent }
+.credits-egg::before { content: ""; position: absolute; inset: -14px }   /* ~44px hit area for fingers on the small phone ® */
+.credits-egg::after { content: ""; position: absolute; left: 50%; top: 42%; width: 1.4em; height: 1.4em; margin: -0.7em 0 0 -0.7em;   /* ® sits high in its em box */
+                      border-radius: 50%; border: 1px solid currentColor; opacity: 0; transform: scale(0.6); pointer-events: none }
+@media (hover: hover) {
+  .credits-egg:hover { text-shadow: 0 0 10px rgba(255,255,255,0.9), 0 0 22px rgba(255,255,255,0.5); transform: scale(1.12) }
+  .credits-egg:hover::after { opacity: 0.45; transform: scale(1) }
+  .credits-egg::after { transition: opacity 0.35s ease, transform 0.35s ease }
+}
+.credits-egg.is-ringing { text-shadow: 0 0 12px rgba(255,255,255,1), 0 0 28px rgba(255,255,255,0.6) }
+.credits-egg.is-ringing::after { animation: credits-halo 0.55s cubic-bezier(0.2, 0.7, 0.3, 1) forwards }
+@keyframes credits-halo {
+  0%   { opacity: 0.9; transform: scale(0.6); box-shadow: 0 0 0 0 rgba(255,255,255,0.5) }
+  100% { opacity: 0;   transform: scale(3.2); box-shadow: 0 0 18px 4px rgba(255,255,255,0) }
+}
